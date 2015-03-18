@@ -1,0 +1,206 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>CSS Reset及相关思考 | leozdgao的博客</title>
+  <meta name="author" content="Leo Gao">
+  
+  <meta name="description" content="有一个专门讲CSS Reset的站点。 site
+由于各大浏览器的user agent样式（即默认样式）不同，为了尽可能避免浏览器之间样式的差异，重置了css样式，让浏览器之间可以由一个基本相同的样式基准，并在该基准的基础上进行开发。
+引入CSS Reset样式引入CSS Reset，意味着告诉浏览器将所有元素应用上reset的样式，再使用针对页面或业务的特定样式。对于页面加载而言，这不算一个最优的方式，但对于组织css代码而言是一个好方法，因为页面针对不同浏览器都在一个统一的基准上开发。
+而通常来说CSS Reset网上有许多现成的（可以去上面的链接里找），但直接引入或者直接复制黏贴不是推荐的做法，这里我直接引用：
+
+The reset styles given here are intentionally very generic. I don’t particularly recommend that you just use this in its unaltered state in your own projects. It should     be tweaked, edited, extended, and otherwise tuned to match your specific reset baseline. Fill in your preferred colors for the page, links, and so on. In other words, this is a starting point, not a self-contained black box of no-touchiness.
+
+简单地说，引入bootstrap后，即使html中没有定义任何class或者inline style，依然可以呈现出优雅的页面，即推荐大家根据自己的需求定制自己的CSS Reset，而不是直接拷贝（虽然确实省事）。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="CSS Reset及相关思考"/>
+  <meta property="og:site_name" content="leozdgao的博客"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="leozdgao的博客" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">leozdgao的博客</a></h1>
+  <h2><a href="/">司职后端的前端工程师</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">主页</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-03-17T12:55:13.000Z"><a href="/2015/03/17/Test-Post/">2015-03-17</a></time>
+      
+      
+  
+    <h1 class="title">CSS Reset及相关思考</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>有一个专门讲CSS Reset的站点。 <a href="http://www.cssreset.com/" target="_blank" rel="external">site</a></p>
+<p>由于各大浏览器的user agent样式（即默认样式）不同，为了尽可能避免浏览器之间样式的差异，重置了css样式，让浏览器之间可以由一个基本相同的样式基准，并在该基准的基础上进行开发。</p>
+<h2 id="引入CSS_Reset样式">引入CSS Reset样式</h2><p>引入CSS Reset，意味着告诉浏览器将所有元素应用上reset的样式，再使用针对页面或业务的特定样式。对于页面加载而言，这不算一个最优的方式，但对于组织css代码而言是一个好方法，因为页面针对不同浏览器都在一个统一的基准上开发。</p>
+<p>而通常来说CSS Reset网上有许多现成的（可以去上面的链接里找），但直接引入或者直接复制黏贴不是推荐的做法，这里我直接引用：</p>
+<blockquote>
+<p>The reset styles given here are intentionally very generic. I don’t particularly recommend that you just use this in its unaltered state in your own projects. It should     be tweaked, edited, extended, and otherwise tuned to match your specific reset baseline. Fill in your preferred colors for the page, links, and so on. In other words, this is a starting point, not a self-contained black box of no-touchiness.</p>
+</blockquote>
+<p>简单地说，引入bootstrap后，即使html中没有定义任何class或者inline style，依然可以呈现出优雅的页面，即推荐大家根据自己的需求定制自己的CSS Reset，而不是直接拷贝（虽然确实省事）。</p>
+<a id="more"></a>
+<h2 id="CSS设计">CSS设计</h2><p>在为一个站点写css样式时，我认为可以分为三层：全局层，模块层，页面逻辑层。</p>
+<p>全局层代表的是应用在所有页面上样式，模块层值的是应用在各个具有相同样式规则的元素上的，页面逻辑层是每个页面都不共享的一些特殊样式。而CSS Reset则可以作为全局层的一部分让所有页面具有相同的样式基准，对于模块层和页面逻辑层，举个例子：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="doctype">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span> <span class="attribute">lang</span>=<span class="value">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">style</span>&gt;</span><span class="css"></span><br><span class="line">    <span class="comment">/*全局层*/</span></span><br><span class="line">    * <span class="rules">&#123; <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0px</span></span></span>; <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0px</span></span></span>; <span class="rule">&#125;</span></span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/*模块层*/</span></span><br><span class="line">    <span class="class">.list</span> <span class="rules">&#123;</span><br><span class="line">        <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> -<span class="number">10px</span></span></span>;</span><br><span class="line">        <span class="rule"><span class="attribute">margin-right</span>:<span class="value"> -<span class="number">10px</span></span></span>;</span><br><span class="line">        <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">16px</span></span></span>;</span><br><span class="line">        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100%</span></span></span>;</span><br><span class="line">    <span class="rule">&#125;</span></span></span><br><span class="line">    <span class="class">.list</span> <span class="class">.list-item</span> <span class="rules">&#123;</span><br><span class="line">        <span class="rule"><span class="attribute">padding-left</span>:<span class="value"> <span class="number">10px</span></span></span>;</span><br><span class="line">        <span class="rule"><span class="attribute">padding-right</span>:<span class="value"> <span class="number">10px</span></span></span>;</span><br><span class="line">        <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;</span><br><span class="line">        <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#ccc</span></span></span>;</span><br><span class="line">    <span class="rule">&#125;</span></span></span><br><span class="line">    <span class="class">.list</span><span class="pseudo">:after</span>, <span class="class">.clearfix</span><span class="pseudo">:after</span> <span class="rules">&#123;</span><br><span class="line">        <span class="rule"><span class="attribute">content</span>:<span class="value"> <span class="string">""</span></span></span>;</span><br><span class="line">        <span class="rule"><span class="attribute">display</span>:<span class="value"> table</span></span>;</span><br><span class="line">        <span class="rule"><span class="attribute">clear</span>:<span class="value"> both</span></span>;</span><br><span class="line">    <span class="rule">&#125;</span></span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/*页面逻辑层*/</span></span><br><span class="line">    <span class="class">.testlist</span> <span class="rules">&#123;</span><br><span class="line">        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#3c3c3c</span></span></span>;</span><br><span class="line">    <span class="rule">&#125;</span></span></span><br><span class="line">    </span><span class="tag">&lt;/<span class="title">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"list"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"list-item testlist"</span>&gt;</span>a<span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"list-item testlist"</span>&gt;</span>a<span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"list-item testlist"</span>&gt;</span>a<span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"list-item testlist"</span>&gt;</span>a<span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"list-item testlist"</span>&gt;</span>a<span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>list模块包括了样式<code>.list</code>、<code>.list-item</code>，可应用于一些需要呈现列表的情景，而<code>testlist</code>样式仅包含应用于特定场景的特殊样式。不难发现，CSS中的注释对代码维护有着重大意义。</p>
+<h2 id="关于使用Universal_Selector(*)做CSS_Reset">关于使用Universal Selector(*)做CSS Reset</h2><p>使用全局选择器或者叫通配选择器(*)，是一种最简便的CSS Reset的方式，可能会是这样子的：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">* <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0px</span></span></span>;</span><br><span class="line"><span class="rule">&#125;</span></span></span><br></pre></td></tr></table></figure>
+<p>或许会在这个基础上再加上其他style的重设，比如<code>border: 0;</code>或者是<code>outline:0;</code>这样子。但这样子维护CSS Reset是有许多弊端的：</p>
+<ul>
+<li>没有明确的指出哪个元素是被reset的了，这个算是语义上的问题</li>
+<li>样式继承将无法作用于任何元素，因为全局选择器会匹配所用的元素，其样式权值为<code>0,0,0,1</code>，而继承样式的权值为<code>&lt;0,0,0,1</code>，这也导致了子元素的样式需要重复的逐个定义（个人认为是主要隐患）</li>
+<li>由于该选择器将匹配所有元素，可能会增加页面的加载时间（这个是有争议的观点）</li>
+<li>IE6、IE7不支持该选择器</li>
+</ul>
+<p>由于使用这种reset的方式虽然简便，但可能会带来一些隐患，使用它时需要清楚的知道里面的样式规则是否会带来丢失继承的隐患，其实<code>Tripoli CSS Reset</code>中也是有部分样式是使用这个选择器的，大家根据需求自己权衡。</p>
+<h2 id="小提示">小提示</h2><p>在写CSS Reset的时候应该要注意，比如我设置：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">a</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#333</span></span></span>;</span><br><span class="line"><span class="rule">&#125;</span></span></span><br></pre></td></tr></table></figure>
+<p>那么导致的问题是需要每次手动设置a标签的<code>:focus</code>、<code>:hover</code>等样式，因为对a标签应用该样式会覆盖所有a标签的默认样式，包括伪类（伪类也被认为是应用于a标签的样式，伪类样式权值为<code>0,0,1,0</code>）。同样的问题也会出现在像<code>outline</code>这样的样式上。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/HTML-CSS/">HTML/CSS</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/css/">css</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">留言</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2015/03/17/Test-Post/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/HTML-CSS/">HTML/CSS</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li class="categories"><a href="/tags/css/">css</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 Leo Gao
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

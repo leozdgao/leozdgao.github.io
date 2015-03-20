@@ -539,6 +539,10 @@ article footer .addthis iframe {
 .archive article .post-content {
   margin-bottom: 0;
 }
+.archive .title {
+  font-size: 18px;
+  font-weight: normal;
+}
 #sidebar {
   width: 270px;
   line-height: 1.8em;

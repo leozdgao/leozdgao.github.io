@@ -1,77 +1,53 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-  <meta charset="utf-8">
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[Leo.Gao]]></title>
+  <subtitle><![CDATA[不积跬步无以至千里]]></subtitle>
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://yoursite.com/"/>
+  <updated>2015-03-17T13:25:38.098Z</updated>
+  <id>http://yoursite.com/</id>
   
-  <title>CSS Reset及相关思考 | Leo.Gao</title>
-  <meta name="author" content="Leo Gao">
-  
-  <meta name="description" content="有一个专门讲CSS Reset的站点。 site
-由于各大浏览器的user agent样式（即默认样式）不同，为了尽可能避免浏览器之间样式的差异，重置了css样式，让浏览器之间可以由一个基本相同的样式基准，并在该基准的基础上进行开发。
-引入CSS Reset样式引入CSS Reset，意味着告诉浏览器将所有元素应用上reset的样式，再使用针对页面或业务的特定样式。对于页面加载而言，这不算一个最优的方式，但对于组织css代码而言是一个好方法，因为页面针对不同浏览器都在一个统一的基准上开发。
-而通常来说CSS Reset网上有许多现成的（可以去上面的链接里找），但直接引入或者直接复制黏贴不是推荐的做法，这里我直接引用：
-
-The reset styles given here are intentionally very generic. I don’t particularly recommend that you just use this in its unaltered state in your own projects. It should     be tweaked, edited, extended, and otherwise tuned to match your specific reset baseline. Fill in your preferred colors for the page, links, and so on. In other words, this is a starting point, not a self-contained black box of no-touchiness.
-
-简单地说，引入bootstrap后，即使html中没有定义任何class或者inline style，依然可以呈现出优雅的页面，即推荐大家根据自己的需求定制自己的CSS Reset，而不是直接拷贝（虽然确实省事）。">
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-  <meta property="og:title" content="CSS Reset及相关思考"/>
-  <meta property="og:site_name" content="Leo.Gao"/>
-
-  
-    <meta property="og:image" content="undefined"/>
-  
-
-  <link href="/favicon.png" rel="icon">
-  <link rel="alternate" href="/atom.xml" title="Leo.Gao" type="application/atom+xml">
-  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
-  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-  
-
-</head>
-
-
-<body>
-  <header id="header" class="inner"><div class="alignleft">
-  <h1><a href="/">Leo.Gao</a></h1>
-  <h2><a href="/">不积跬步无以至千里</a></h2>
-</div>
-<nav id="main-nav" class="alignright">
-  <ul>
+  <author>
+    <name><![CDATA[Leo Gao]]></name>
     
-      <li><a href="/">主页</a></li>
-    
-      <li><a href="/archives">文章列表</a></li>
-    
-      <li><a href="/about">关于作者</a></li>
-    
-      <li><a href="/atom.xml">RSS</a></li>
-    
-  </ul>
-  <div class="clearfix"></div>
-</nav>
-<div class="clearfix"></div></header>
-  <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  </author>
   
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2015-03-17T12:55:13.000Z"><a href="/2015/03/17/Test-Post/">2015-03-17</a></time>
-      
-      
+  <generator uri="http://hexo.io/">Hexo</generator>
   
-    <h1 class="title">CSS Reset及相关思考</h1>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <link href="http://yoursite.com/2015/03/17/hello-world/"/>
+    <id>http://yoursite.com/2015/03/17/hello-world/</id>
+    <published>2015-03-17T13:25:38.105Z</published>
+    <updated>2015-03-17T13:25:38.098Z</updated>
+    <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>Welcome to <a href="http://hexo.io/">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>]]>
+    
+    </summary>
+    
+  </entry>
   
-
-    </header>
-    <div class="entry">
-      
-        <p>有一个专门讲CSS Reset的站点。 <a href="http://www.cssreset.com/" target="_blank" rel="external">site</a></p>
+  <entry>
+    <title><![CDATA[CSS Reset及相关思考]]></title>
+    <link href="http://yoursite.com/2015/03/17/Test-Post/"/>
+    <id>http://yoursite.com/2015/03/17/Test-Post/</id>
+    <published>2015-03-17T12:55:13.000Z</published>
+    <updated>2015-03-17T14:55:11.792Z</updated>
+    <content type="html"><![CDATA[<p>有一个专门讲CSS Reset的站点。 <a href="http://www.cssreset.com/" target="_blank" rel="external">site</a></p>
 <p>由于各大浏览器的user agent样式（即默认样式）不同，为了尽可能避免浏览器之间样式的差异，重置了css样式，让浏览器之间可以由一个基本相同的样式基准，并在该基准的基础上进行开发。</p>
 <h2 id="引入CSS_Reset样式">引入CSS Reset样式</h2><p>引入CSS Reset，意味着告诉浏览器将所有元素应用上reset的样式，再使用针对页面或业务的特定样式。对于页面加载而言，这不算一个最优的方式，但对于组织css代码而言是一个好方法，因为页面针对不同浏览器都在一个统一的基准上开发。</p>
 <p>而通常来说CSS Reset网上有许多现成的（可以去上面的链接里找），但直接引入或者直接复制黏贴不是推荐的做法，这里我直接引用：</p>
@@ -97,120 +73,23 @@ The reset styles given here are intentionally very generic. I don’t particular
 <h2 id="小提示">小提示</h2><p>在写CSS Reset的时候应该要注意，比如我设置：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">a</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#333</span></span></span>;</span><br><span class="line"><span class="rule">&#125;</span></span></span><br></pre></td></tr></table></figure>
 <p>那么导致的问题是需要每次手动设置a标签的<code>:focus</code>、<code>:hover</code>等样式，因为对a标签应用该样式会覆盖所有a标签的默认样式，包括伪类（伪类也被认为是应用于a标签的样式，伪类样式权值为<code>0,0,1,0</code>）。同样的问题也会出现在像<code>outline</code>这样的样式上。</p>
-
-      
-    </div>
-    <footer>
-      
-        
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>有一个专门讲CSS Reset的站点。 <a href="http://www.cssreset.com/">site</a></p>
+<p>由于各大浏览器的user agent样式（即默认样式）不同，为了尽可能避免浏览器之间样式的差异，重置了css样式，让浏览器之间可以由一个基本相同的样式基准，并在该基准的基础上进行开发。</p>
+<h2 id="引入CSS_Reset样式">引入CSS Reset样式</h2><p>引入CSS Reset，意味着告诉浏览器将所有元素应用上reset的样式，再使用针对页面或业务的特定样式。对于页面加载而言，这不算一个最优的方式，但对于组织css代码而言是一个好方法，因为页面针对不同浏览器都在一个统一的基准上开发。</p>
+<p>而通常来说CSS Reset网上有许多现成的（可以去上面的链接里找），但直接引入或者直接复制黏贴不是推荐的做法，这里我直接引用：</p>
+<blockquote>
+<p>The reset styles given here are intentionally very generic. I don’t particularly recommend that you just use this in its unaltered state in your own projects. It should     be tweaked, edited, extended, and otherwise tuned to match your specific reset baseline. Fill in your preferred colors for the page, links, and so on. In other words, this is a starting point, not a self-contained black box of no-touchiness.</p>
+</blockquote>
+<p>简单地说，引入bootstrap后，即使html中没有定义任何class或者inline style，依然可以呈现出优雅的页面，即推荐大家根据自己的需求定制自己的CSS Reset，而不是直接拷贝（虽然确实省事）。</p>]]>
+    
+    </summary>
+    
+      <category term="css" scheme="http://yoursite.com/tags/css/"/>
+    
+      <category term="HTML/CSS" scheme="http://yoursite.com/categories/HTML-CSS/"/>
+    
+  </entry>
   
-  <div class="categories">
-    <a href="/categories/HTML-CSS/">HTML/CSS</a>
-  </div>
-
-        
-  
-  <div class="tags">
-    <a href="/tags/css/">css</a>
-  </div>
-
-        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-<section id="comment">
-  <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2015/03/17/Test-Post/" data-title="CSS Reset及相关思考" data-url="http://yoursite.com/2015/03/17/Test-Post/"></div>
-  <!-- 多说评论框 end -->
-  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-  <script type="text/javascript">
-  var duoshuoQuery = {short_name:"leozdgao"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0] 
-       || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-    </script>
-  <!-- 多说公共JS代码 end -->
-
-</section>
-
-</div></div>
-    <aside id="sidebar" class="alignright">
-  <div class="search">
-  <form action="//baidu.com/baidu" method="get" accept-charset="utf-8">
-    <input type="search" name="word" results="0" placeholder="搜索">
-    <input type="hidden" name="si" value="site:yoursite.com">
-    <input name=tn type=hidden value="bds">
-	<input name=cl type=hidden value="3">
-	<input name=ct type=hidden value="2097152">
-	<input name=s type=hidden value="on">
-  </form>
-</div>
-
-  
-<div class="widget tag">
-  <h3 class="title">分类</h3>
-  <ul class="entry">
-  
-    <li><a href="/categories/HTML-CSS/">HTML/CSS</a><small>1</small></li>
-  
-  </ul>
-</div>
-
-
-  
-<div class="widget tag">
-  <h3 class="title">标签</h3>
-  <ul class="entry">
-  
-    <li class="categories"><a href="/tags/css/">css</a><small>1</small></li>
-  
-  </ul>
-</div>
-
-</aside>
-    <div class="clearfix"></div>
-  </div>
-  <footer id="footer" class="inner"><div class="alignleft">
-  
-  &copy; 2015 Leo Gao
-  
-</div>
-<div class="clearfix"></div></footer>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-<script src="/js/jquery.imagesloaded.min.js"></script>
-<script src="/js/gallery.js"></script>
-
-
-
-
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-  $('.fancybox').fancybox();
-})(jQuery);
-</script>
-
-
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?e1381102438d38c83d913131ba0400b0";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
-
-</body>
-</html>
+</feed>

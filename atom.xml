@@ -3,9 +3,9 @@
   <title><![CDATA[Leo.Gao]]></title>
   <subtitle><![CDATA[不积跬步无以至千里]]></subtitle>
   <link href="/atom.xml" rel="self"/>
-  <link href="http://yoursite.com/"/>
+  <link href="http://leozdgao.github.io/"/>
   <updated>2015-03-17T13:25:38.098Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>http://leozdgao.github.io/</id>
   
   <author>
     <name><![CDATA[Leo Gao]]></name>
@@ -16,8 +16,8 @@
   
   <entry>
     <title><![CDATA[Hello World]]></title>
-    <link href="http://yoursite.com/2015/03/17/hello-world/"/>
-    <id>http://yoursite.com/2015/03/17/hello-world/</id>
+    <link href="http://leozdgao.github.io/2015/03/17/hello-world/"/>
+    <id>http://leozdgao.github.io/2015/03/17/hello-world/</id>
     <published>2015-03-17T13:25:38.105Z</published>
     <updated>2015-03-17T13:25:38.098Z</updated>
     <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
@@ -43,8 +43,8 @@
   
   <entry>
     <title><![CDATA[CSS Reset及相关思考]]></title>
-    <link href="http://yoursite.com/2015/03/17/Test-Post/"/>
-    <id>http://yoursite.com/2015/03/17/Test-Post/</id>
+    <link href="http://leozdgao.github.io/2015/03/17/Test-Post/"/>
+    <id>http://leozdgao.github.io/2015/03/17/Test-Post/</id>
     <published>2015-03-17T12:55:13.000Z</published>
     <updated>2015-03-17T14:55:11.792Z</updated>
     <content type="html"><![CDATA[<p>有一个专门讲CSS Reset的站点。 <a href="http://www.cssreset.com/" target="_blank" rel="external">site</a></p>
@@ -86,9 +86,9 @@
     
     </summary>
     
-      <category term="css" scheme="http://yoursite.com/tags/css/"/>
+      <category term="css" scheme="http://leozdgao.github.io/tags/css/"/>
     
-      <category term="HTML/CSS" scheme="http://yoursite.com/categories/HTML-CSS/"/>
+      <category term="HTML/CSS" scheme="http://leozdgao.github.io/categories/HTML-CSS/"/>
     
   </entry>
   

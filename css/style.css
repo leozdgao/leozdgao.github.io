@@ -376,6 +376,22 @@ article .entry video {
 article .entry iframe {
   border: none;
 }
+article .entry table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  min-width: 50%;
+}
+article .entry table th,
+article .entry table td {
+  margin: 0;
+  padding: 5px;
+}
+article .entry table th {
+  border-bottom: 2px solid #ccc;
+}
+article .entry table td {
+  border-top: 1px solid #eee;
+}
 article .entry .caption {
   display: block;
   margin-top: 5px;

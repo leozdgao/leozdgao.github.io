@@ -1,0 +1,234 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>利用React创建评论区（Comment Box）组件 | Leo.Gao</title>
+  <meta name="author" content="Leo Gao">
+  
+  <meta name="description" content="本文是在阅读学习了官方的React Tutorial之后的整理，实例链接。
+开始使用React首先从官方获取React.js的最新版本（v0.12.2），或者下载官方的Starter Kit，并在我们的html中引入它们：123456&amp;lt;head&amp;gt;    &amp;lt;meta charset=&quot;UTF-8&quot;&amp;gt;    &amp;lt;title&amp;gt;React Test Page&amp;lt;/title&amp;gt;    &amp;lt;script src=&quot;../build/react.js&quot;&amp;gt;&amp;lt;/script&amp;gt;    &amp;lt;script src=&quot;../build/JSXTransformer.js&quot;&amp;gt;&amp;lt;/script&amp;gt;&amp;lt;/head&amp;gt;
+JSX语法我们可以在React组件的代码中发现xml标签似乎直接写进了javascript里：
+1234React.render(    &amp;lt;CommentBox /&amp;gt;,    document.getElementById(&#39;content&#39;));
+这种写法被称作JSX，是React的一个可选功能，将xml标签直接写在javascript中看上去比调用javascript方法要更加直观些。要正常使用这个功能，需要在你的页面中引入JSXTransformer.js文件，或者使用npm安装react-tools，将包含JSX语法的源文件编译成常规的javascript文件，比较推荐的是后者，因为使用后者让页面可以直接使用编译后的javascript文件而不需要在加载页面时进行JSX编译。
+JSX中的类HTML标签并不是真正的HTML元素，也不是一段HTML字符串，而是实例化了的React组件，关于JSX语法的更多内容，可以看这篇文章。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="利用React创建评论区（Comment Box）组件"/>
+  <meta property="og:site_name" content="Leo.Gao"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+  <meta name="baidu-site-verification" content="KFPqVnQyRU" />
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Leo.Gao" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Leo.Gao</a></h1>
+  <h2><a href="/">不积跬步无以至千里</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">主页</a></li>
+    
+      <li><a href="/archives">文章列表</a></li>
+    
+      <li><a href="/about">关于作者</a></li>
+    
+      <li><a href="/atom.xml">RSS</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-02-19T03:20:49.000Z"><a href="/2015/02/19/利用React创建评论区（Comment-Box）组件/">2015-02-19</a></time>
+      
+      
+  
+    <h1 class="title">利用React创建评论区（Comment Box）组件</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>本文是在阅读学习了官方的<a href="http://facebook.github.io/react/docs/tutorial.html" target="_blank" rel="external">React Tutorial</a>之后的整理，实例<a href="http://7sbm5t.com1.z0.glb.clouddn.com/react0_ex.html" target="_blank" rel="external">链接</a>。</p>
+<h2 id="开始使用React">开始使用React</h2><p>首先从官方获取React.js的最新版本（<a href="http://facebook.github.io/react/downloads.html" target="_blank" rel="external">v0.12.2</a>），或者下载官方的<a href="http://facebook.github.io/react/downloads/react-0.12.2.zip" target="_blank" rel="external">Starter Kit</a>，并在我们的html中引入它们：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">title</span>&gt;</span>React Test Page<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"../build/react.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"../build/JSXTransformer.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="JSX语法">JSX语法</h2><p>我们可以在React组件的代码中发现xml标签似乎直接写进了javascript里：</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">React.render(</span><br><span class="line">    &lt;CommentBox /&gt;,</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">'content'</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>这种写法被称作JSX，是React的一个可选功能，将xml标签直接写在javascript中看上去比调用javascript方法要更加直观些。要正常使用这个功能，需要在你的页面中引入<code>JSXTransformer.js</code>文件，或者使用<code>npm</code>安装<code>react-tools</code>，将包含JSX语法的源文件编译成常规的javascript文件，比较推荐的是后者，因为使用后者让页面可以直接使用编译后的javascript文件而不需要在加载页面时进行JSX编译。</p>
+<p>JSX中的类HTML标签并不是真正的HTML元素，也不是一段HTML字符串，而是实例化了的React组件，关于JSX语法的更多内容，可以看这篇文章。</p>
+<a id="more"></a>
+<h2 id="创建组件">创建组件</h2><p>React可以为我们创建模块化、可组合的组件，对于我们需要做的评论区，我们的组件结构如下：<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby"> <span class="constant">CommentBox</span></span><br><span class="line"></span>    -<span class="ruby"> <span class="constant">CommentList</span></span><br><span class="line"></span>        -<span class="ruby"><span class="constant">Comment</span></span><br><span class="line"></span>    -<span class="ruby"> <span class="constant">CommentForm</span></span></span><br></pre></td></tr></table></figure></p>
+<p>通过<code>React.createClass()</code>可以一个React元素，我们可以像这样定义我们的CommentBox，并通过<code>React.render()</code>方法可以让我们在指定的容器中将React元素渲染为一个DOM组件：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"content"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/jsx"</span>&gt;</span><span class="javascript"></span><br><span class="line">        <span class="keyword">var</span> CommentBox = React.createClass(&#123;</span><br><span class="line">            render: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> (</span><br><span class="line">                    <span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">className</span>=<span class="value">"contentBox"</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="title">h1</span>&gt;</span>Comments<span class="tag">&lt;/<span class="title">h1</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="title">CommentList</span> /&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="title">CommentForm</span> /&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">                );</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"> </span><br><span class="line">        React.render(</span><br><span class="line">            <span class="tag">&lt;<span class="title">CommentBox</span> /&gt;</span>,</span><br><span class="line">            document.getElementById('content')</span><br><span class="line">        );</span><br><span class="line">    </span></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>从这个例子也可以看出一个组件可以包含子组件，组件之间是可以组合的（Composing），并呈现一个树形结构，也可以说render方法中的的CommentBox代表的是组件树的根元素。那么接下来我们来创建CommentList和CommentForm这两个子组件。</p>
+<p>首先是CommentList组件，这个组件是用来呈现评论列表的，根据开始我们设计的组件结构树，这个组件应该是包含许多Comment子组件的，那么，假设我们已经获取到评论数据了：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var comments = [</span><br><span class="line">    &#123;<span class="string">author:</span> <span class="string">"Pete Hunt"</span>, <span class="string">text:</span> <span class="string">"This is one comment"</span>&#125;,</span><br><span class="line">    &#123;<span class="string">author:</span> <span class="string">"Jordan Walke"</span>, <span class="string">text:</span> <span class="string">"This is *another* comment"</span>&#125;</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+<p>我们需要把数据传递给CommentList组件才能让它去呈现，那么如何传递呢？我们可以通过<code>this.props</code>来访问组件标签上的属性，比如我们在CommentBox组件的代码中做如下修改：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">CommentList</span> <span class="attribute">data</span>=<span class="value">comments</span>  /&gt;</span></span><br></pre></td></tr></table></figure>
+<p>于是在CommentList组件中，我们可以通过访问<code>this.props.data</code>来获取到我们的评论数据。</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> CommentList = React.createClass(&#123;</span><br><span class="line">    render: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> commentNodes = <span class="keyword">this</span>.props.data.map(<span class="function"><span class="keyword">function</span><span class="params">(comment)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> (</span><br><span class="line">                &lt;Comment author=&#123;comment.author&#125;&gt;</span><br><span class="line">                    &#123;comment.text&#125;</span><br><span class="line">                &lt;/Comment&gt;</span><br><span class="line">            );</span><br><span class="line">        &#125;);</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;div className=<span class="string">"commentList"</span>&gt;</span><br><span class="line">                &#123;commentNodes&#125;       </span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>接下来写Comment组件，这个组件用于呈现单个评论，我们希望它可以支持markdown语法，于是我们引入<a href="https://github.com/showdownjs/showdown" target="_blank" rel="external">showdown</a>这个库，在HTML中引入它之后，我们可以调用它让我们的评论支持Markdown语法。在这里我们需要<code>this.props.children</code>这个属性，它返回了该组件标签里的所有子元素。</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> converter = <span class="keyword">new</span> Showdown.converter();</span><br><span class="line"><span class="keyword">var</span> Comment = React.createClass(&#123;</span><br><span class="line">    render: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;div className=<span class="string">"comment"</span>&gt;</span><br><span class="line">                &lt;h2 className=<span class="string">"commentAuthor"</span>&gt;</span><br><span class="line">                    &#123;<span class="keyword">this</span>.props.author&#125;</span><br><span class="line">                &lt;/h2&gt;</span><br><span class="line">                &#123;converter.makeHtml(<span class="keyword">this</span>.props.children.toString())&#125;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>我们看一下现在的效果：<br><img src="http://7sbm5t.com1.z0.glb.clouddn.com/react0_pic0.png" alt="效果"></p>
+<p>我们发现经过解析后html标签被直接呈现了上去，因为React默认是有XSS保护的，所有对呈现的内容进行了转义，但在现在的场景中，我们并不需要它的转义（如果取消React默认的XSS保护，那么就需要仰仗于我们引入的库具有XSS保护或者我们手动处理），这时我们可以这样：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> converter = <span class="keyword">new</span> Showdown.converter();</span><br><span class="line"><span class="keyword">var</span> Comment = React.createClass(&#123;</span><br><span class="line">    render: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 通过this.props.children访问元素的子元素</span></span><br><span class="line">        <span class="keyword">var</span> rawHtml = converter.makeHtml(<span class="keyword">this</span>.props.children.toString());</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            <span class="comment">// 通过this.props访问元素的属性</span></span><br><span class="line">            <span class="comment">// 不转义，直接插入纯HTML</span></span><br><span class="line">            &lt;div className=<span class="string">"comment"</span>&gt;</span><br><span class="line">                &lt;h2 className=<span class="string">"commentAuthor"</span>&gt;&#123;<span class="keyword">this</span>.props.author&#125;&lt;/h2&gt;</span><br><span class="line">                &lt;span dangerouslySetInnerHTML=&#123;&#123;__html: rawHtml&#125;&#125; /&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>好了，接下来我们的CommentList算是完成了，我们需要加上CommentForm组件让我们可以提交评论：</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="type">CommentForm</span> = <span class="type">React</span>.createClass(&#123;</span><br><span class="line">    handleSubmit: function(e) &#123;</span><br><span class="line"> </span><br><span class="line">        e.preventDefault();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> author = this.refs.author.getDOMNode().value.trim();</span><br><span class="line">        <span class="keyword">var</span> text = this.refs.text.getDOMNode().value.trim();</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">if</span>(!text || !author) <span class="keyword">return</span>;</span><br><span class="line"> </span><br><span class="line">        // <span class="type">TODO</span> 修改commentList</span><br><span class="line"> </span><br><span class="line">        // 获取原生<span class="type">DOM</span>元素</span><br><span class="line">        this.refs.author.getDOMNode().value = '';</span><br><span class="line">        this.refs.text.getDOMNode().value = '';</span><br><span class="line">    &#125;,</span><br><span class="line">    render: function() &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            // 为元素添加submit事件处理程序</span><br><span class="line">            // 用<span class="keyword">ref</span>为子组件命名，并可以在this.refs中引用</span><br><span class="line">            &lt;form className=<span class="string">"commentForm"</span> onSubmit=&#123;this.handleSubmit&#125;&gt;</span><br><span class="line">                &lt;input <span class="keyword">type</span>=<span class="string">"text"</span> placeholder=<span class="string">"Your name"</span> <span class="keyword">ref</span>=<span class="string">"author"</span>/&gt;</span><br><span class="line">                &lt;input <span class="keyword">type</span>=<span class="string">"text"</span> placeholder=<span class="string">"Say something..."</span> <span class="keyword">ref</span>=<span class="string">"text"</span>/&gt;</span><br><span class="line">                &lt;input <span class="keyword">type</span>=<span class="string">"submit"</span> value=<span class="string">"Post"</span>/&gt;</span><br><span class="line">            &lt;/form&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>从以上的代码中我们可以发现，我们可以为我们的组件添加事件处理程序，比如在这里我们需要利用form的submit事件，于是直接在标签上添加<code>onSubmit</code>的属性即可。需要注意的是，事件属性需要满足驼峰命名规则，也就是说如果是要添加click事件，那就要添加<code>onClick</code>，以此类推。还有一点就是我们需要获取两个文本框中的内容，这里使用的方法是在<code>input</code>标签上添加<code>ref</code>属性，这样就可以认为这个<code>input</code>是它的一个子组件，然后就可以通过访问<code>this.refs</code>来访问到这个子组件了，通过调用<code>getDOMNode</code>方法可以获取原生的DOM对象进行相应的操作。</p>
+<p>我们发现到现在为止，我们的页面是静态的，但我们希望可以在成功提交了评论后可以立刻在评论列表中看到自己的评论，并可以每隔一段时间获取最新的评论，也就是说我们希望我们的CommentBox可以动态地改变状态。</p>
+<p>首先我们先让CommentBox组件可以通过AJAX请求（在这里我用setTimeout来模拟获取数据的延迟），从服务器端获取评论数据同时更新CommentList。React组件有一个私有的<code>this.state</code>属性用于保存组件可变状态的数据，但一开始我们需要的是一个初始的状态，初始状态可以通过设置组件的<code>getInitialState</code>方法，它的返回值即为状态初始值。这个时候我们不是从标签的属性上直接获取数据了，需要通过访问<code>this.state</code>来获取（这个<code>state</code>属性如果直接用javascript访问会返回<code>undefined</code>，但可以在JSX中可以像<code>this.state.data</code>这样使用）：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> CommentBox = React.createClass(&#123;</span><br><span class="line">  getInitialState: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;data: []&#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  render: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div className=<span class="string">"commentBox"</span>&gt;</span><br><span class="line">        &lt;h1&gt;Comments&lt;/h1&gt;</span><br><span class="line">        &lt;CommentList data=&#123;<span class="keyword">this</span>.state.data&#125; /&gt;</span><br><span class="line">        &lt;CommentForm /&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>接下来我们需要获取评论数据，我们可以在组件的<code>componentDidMount</code>方法中实现，这个方法会在组件呈现在页面上之后会被立刻调用一次，我们就在这个方法中获取到数据后更新下组件的状态，要更新组件的状态需要调用组件的<code>this.setState</code>方法，于是我们就这样写：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> CommentBox = React.createClass(&#123;</span><br><span class="line">    <span class="comment">// 在组件的生命周期中仅执行一次，用于设置初始状态</span></span><br><span class="line">    getInitialState: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;data: []&#125;;</span><br><span class="line">    &#125;,</span><br><span class="line">    loadCommentsFromServer : <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">var</span> self = <span class="keyword">this</span>;</span><br><span class="line">        setTimeout(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="comment">// 动态更新state</span></span><br><span class="line">            self.setState(&#123;data: comments&#125;);</span><br><span class="line">        &#125;, <span class="number">2000</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 当组件render完成后自动被调用</span></span><br><span class="line">    componentDidMount: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">this</span>.loadCommentsFromServer();</span><br><span class="line">        setInterval(<span class="keyword">this</span>.loadCommentsFromServer, <span class="keyword">this</span>.props.pollInterval);</span><br><span class="line">    &#125;,</span><br><span class="line">    render: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;div className=<span class="string">"commentBox"</span>&gt;</span><br><span class="line">                &lt;h1&gt;Comments&lt;/h1&gt;</span><br><span class="line">                &lt;CommentList data=&#123;<span class="keyword">this</span>.state.data&#125; /&gt;</span><br><span class="line">                &lt;CommentForm /&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>现在我们已经可以更新评论列表里的数据了，那么同样的我们在CommentForm中成功提交的评论也要可以在CommentList中呈现出来，在这里需要注意的是我们现在设置的初始状态是CommentBox这个组件的，修改状态也是修改的CommentBox的状态，那么如果要在CommentForm中改变CommentBox的状态，就需要在CommentBox组件中通过标签属性的方式传递一个方法给子组件CommentForm，让CommentForm组件中的<code>handleSubmit</code>可以调用这个方法（也就是上面TODO的位置），于是我们的代码就是这样的：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> CommentBox = React.createClass(&#123;</span><br><span class="line">    <span class="comment">// 在组件的生命周期中仅执行一次，用于设置初始状态</span></span><br><span class="line">    getInitialState: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;data: []&#125;;</span><br><span class="line">    &#125;,</span><br><span class="line">    onCommentSubmit: <span class="function"><span class="keyword">function</span><span class="params">(comment)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 模拟提交数据</span></span><br><span class="line">        comments.push(comment);</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">var</span> self = <span class="keyword">this</span>;</span><br><span class="line">        setTimeout(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="comment">// 动态更新state</span></span><br><span class="line">            self.setState(&#123;data: comments&#125;);</span><br><span class="line">        &#125;, <span class="number">500</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    loadCommentsFromServer : <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">var</span> self = <span class="keyword">this</span>;</span><br><span class="line">        setTimeout(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="comment">// 动态更新state</span></span><br><span class="line">            self.setState(&#123;data: data&#125;);</span><br><span class="line"> </span><br><span class="line">        &#125;, <span class="number">2000</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 当组件render完成后自动被调用</span></span><br><span class="line">    componentDidMount: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">this</span>.loadCommentsFromServer();</span><br><span class="line">        setInterval(<span class="keyword">this</span>.loadCommentsFromServer, <span class="keyword">this</span>.props.pollInterval);</span><br><span class="line">    &#125;,</span><br><span class="line">    render: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            <span class="comment">// 并非是真正的DOM元素，是React的div组件，默认具有XSS保护</span></span><br><span class="line">            &lt;div className=<span class="string">"commentBox"</span>&gt;</span><br><span class="line">                &lt;h1&gt;Comments&lt;/h1&gt;</span><br><span class="line">                &lt;CommentList data=&#123;<span class="keyword">this</span>.state.data&#125; /&gt;</span><br><span class="line">                &lt;CommentForm onCommentSubmit=&#123;<span class="keyword">this</span>.onCommentSubmit&#125; /&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> CommentForm = React.createClass(&#123;</span><br><span class="line">    handleSubmit: <span class="function"><span class="keyword">function</span><span class="params">(e)</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">        e.preventDefault();</span><br><span class="line">        <span class="comment">// e.returnValue = false;</span></span><br><span class="line">        <span class="keyword">var</span> author = <span class="keyword">this</span>.refs.author.getDOMNode().value.trim();</span><br><span class="line">        <span class="keyword">var</span> text = <span class="keyword">this</span>.refs.text.getDOMNode().value.trim();</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">if</span>(!text || !author) <span class="keyword">return</span>;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">this</span>.props.onCommentSubmit(&#123;author: author, text: text&#125;);</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 获取原生DOM元素</span></span><br><span class="line">        <span class="keyword">this</span>.refs.author.getDOMNode().value = <span class="string">''</span>;</span><br><span class="line">        <span class="keyword">this</span>.refs.text.getDOMNode().value = <span class="string">''</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    render: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            <span class="comment">// 为元素添加submit事件处理程序</span></span><br><span class="line">            <span class="comment">// 用ref为子组件命名，并可以在this.refs中引用</span></span><br><span class="line">            &lt;form className=<span class="string">"commentForm"</span> onSubmit=&#123;<span class="keyword">this</span>.handleSubmit&#125;&gt;</span><br><span class="line">                &lt;input type=<span class="string">"text"</span> placeholder=<span class="string">"Your name"</span> ref=<span class="string">"author"</span>/&gt;</span><br><span class="line">                &lt;input type=<span class="string">"text"</span> placeholder=<span class="string">"Say something..."</span> ref=<span class="string">"text"</span>/&gt;</span><br><span class="line">                &lt;input type=<span class="string">"submit"</span> value=<span class="string">"Post"</span>/&gt;</span><br><span class="line">            &lt;/form&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>到此为止，我们的CommentBox组件就大功告成了，实例<a href="http://7sbm5t.com1.z0.glb.clouddn.com/react0_ex.html" target="_blank" rel="external">链接</a>。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/jslibs/">JS类库探索</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/react-js/">react.js</a>
+  </div>
+
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+  
+<section id="comment">
+  <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="2015/02/19/利用React创建评论区（Comment-Box）组件/" data-title="利用React创建评论区（Comment Box）组件" data-url="http://leozdgao.github.io/2015/02/19/利用React创建评论区（Comment-Box）组件/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"leozdgao"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0] 
+       || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+  <!-- 多说公共JS代码 end -->
+
+</section>
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//baidu.com/baidu" method="get" accept-charset="utf-8">
+    <input type="search" name="word" results="0" placeholder="搜索">
+    <input type="hidden" name="si" value="site:leozdgao.github.io">
+    <input name=tn type=hidden value="bds">
+	<input name=cl type=hidden value="3">
+	<input name=ct type=hidden value="2097152">
+	<input name=s type=hidden value="on">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/HTML-CSS/">HTML/CSS</a><small>1</small></li>
+  
+    <li><a href="/categories/jslibs/">JS类库探索</a><small>2</small></li>
+  
+    <li><a href="/categories/os/">操作系统基础</a><small>1</small></li>
+  
+    <li><a href="/categories/net/">计算机网络基础</a><small>6</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li class="categories"><a href="/tags/css/">css</a><small>1</small></li>
+  
+    <li class="categories"><a href="/tags/git/">git</a><small>1</small></li>
+  
+    <li class="categories"><a href="/tags/linux/">linux</a><small>1</small></li>
+  
+    <li class="categories"><a href="/tags/react-js/">react.js</a><small>2</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 Leo Gao
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e1381102438d38c83d913131ba0400b0";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Git Flow简介 | Leo.Gao</title>
+  <meta name="author" content="Leo Gao">
+  
+  <meta name="description" content="摘抄自：原文，译文">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Git Flow简介"/>
+  <meta property="og:site_name" content="Leo.Gao"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+  <meta name="baidu-site-verification" content="KFPqVnQyRU" />
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Leo.Gao" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Leo.Gao</a></h1>
+  <h2><a href="/">不积跬步无以至千里</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">主页</a></li>
+    
+      <li><a href="/archives">文章列表</a></li>
+    
+      <li><a href="/about">关于作者</a></li>
+    
+      <li><a href="/atom.xml">RSS</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-02-28T03:13:19.000Z"><a href="/2015/02/28/Git-Flow简介/">2015-02-28</a></time>
+      
+      
+  
+    <h1 class="title">Git Flow简介</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>摘抄自：<a href="http://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="external">原文</a>，<a href="http://www.juvenxu.com/2010/11/28/a-successful-git-branching-model/" target="_blank" rel="external">译文</a></p>
+<p><img src="http://7sbm5t.com1.z0.glb.clouddn.com/gitflow_0.png" alt="git flow"></p>
+<a id="more"></a>
+<h4 id="主要分支">主要分支</h4><ul>
+<li>develop：反映了开发过程中最新的提交变更。</li>
+<li>master：当develop分支的源码达到一个稳定的状态时，develop上的变更都应该以某种方式合并回master分支，每一个commit对应一个版本，并使用发布版本号打上标签。</li>
+</ul>
+<h4 id="特性分支">特性分支</h4><p>可能的分支来源：develop<br>必须合并回：develop<br>分支命名约定：任何除master，develop，release-*，或hotfix-*以外的名称</p>
+<p>特性分支用来开发下个版本的新特性，最终会被合并回develop分支，往往只存在于开发者的仓库中，而不会出现在origin。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="blockquote">&gt; git checkout develop</span></span><br><span class="line">Switch to branch ‘develop’</span><br><span class="line"><span class="blockquote">&gt; git merge -no-ff myfeature</span></span><br><span class="line">Updating ea1b82a..05e9557</span><br><span class="line">(Summary of changes)</span><br><span class="line"><span class="blockquote">&gt; git branch -d myfeature</span></span><br><span class="line">Deleted branch myfeature (was 05e9557).</span><br><span class="line"><span class="blockquote">&gt; git push origin develop</span></span><br></pre></td></tr></table></figure>
+<h4 id="发布分支">发布分支</h4><p>可能的分支来源：develop<br>必须合并回：develop和master<br>分支命名约定：release-*</p>
+<p>发布分支为准备新的产品版本发布做支持，它允许你在最后时刻检查所有的细节。在分布分支创建的时候，对应的版本发布才获得一个版本号。</p>
+<p><strong>创建一个发布分支</strong></p>
+<p>发布分支从develop分支创建，develop分支的状态已经是准备好“下一版本”发布了。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; git checkout -<span class="tag">b</span> releases-<span class="number">1.2</span> develop</span><br><span class="line">Switched to <span class="tag">a</span> new branch “release-<span class="number">1.2</span>”</span><br><span class="line">&gt; ./bump-version<span class="class">.sh</span> <span class="number">1.2</span></span><br><span class="line">Files modified successfully. version bumped to <span class="number">1.2</span>.</span><br><span class="line">&gt; git commit -<span class="tag">a</span> -m “Bumped version number to <span class="number">1.2</span>”</span><br><span class="line">[release-<span class="number">1.2</span> <span class="number">74</span>d9424] Bumped version number to <span class="number">1.2</span></span><br><span class="line"><span class="number">1</span> files changed. <span class="number">1</span> <span class="function"><span class="title">insertions</span><span class="params">(+)</span></span>. <span class="number">1</span> <span class="function"><span class="title">deletions</span><span class="params">(-)</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>结束一个发布分支</strong></p>
+<p>当发布分支达到一个可以正式发布的状态时，将发布分支合并到master，接着master分支上的commit必须被打上标签（tag）。</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; git checkout master</span><br><span class="line">Switched <span class="built_in">to</span> branch ‘master’</span><br><span class="line">&gt; git <span class="built_in">merge</span> –no-ff release-<span class="number">1.2</span></span><br><span class="line">Merge made <span class="keyword">by</span> recursive.</span><br><span class="line">(Summary <span class="operator">of</span> changes)</span><br><span class="line">&gt; git tag -<span class="operator">a</span> <span class="number">1.2</span></span><br></pre></td></tr></table></figure>
+<p>为了能保留发布分支上的变更，我们还需要将分支合并回develop。</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; git checkout develop</span><br><span class="line">Switched <span class="built_in">to</span> branch ‘develop’</span><br><span class="line">&gt; git <span class="built_in">merge</span> –no-ff release-<span class="number">1.2</span></span><br><span class="line">Merge made <span class="keyword">by</span> recursive.</span><br><span class="line">(Summary <span class="operator">of</span> changes)</span><br></pre></td></tr></table></figure>
+<p>现在工作才算真正完成了，最后一步是删除发布分支。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">&gt;</span> git branch <span class="keyword">-</span>d <span class="keyword">release</span><span class="keyword">-</span><span class="number">1</span><span class="typename">.2</span></span><br><span class="line">Deleted branch <span class="keyword">release</span><span class="keyword">-</span><span class="number">1</span><span class="typename">.2</span> (was ff452fe).</span><br></pre></td></tr></table></figure>
+<h4 id="热补丁分支">热补丁分支</h4><p>可能的分支来源：master<br>必须合并回：develop和master<br>分支命名约定：hotfix-*</p>
+<p>当产品版本发现未预期的问题时，需要着手处理，这时就需要热补丁分支。</p>
+<p><strong>创建一个热补丁分支</strong></p>
+<p>热补丁分支从master分支创建。不要忘记在创建热补丁分支后设定一个新的版本号。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; git checkout -<span class="tag">b</span> hotfix-<span class="number">1.2</span>.<span class="number">1</span> master</span><br><span class="line">Switched to <span class="tag">a</span> new branch “hotfix-<span class="number">1.2</span>.<span class="number">1</span>″</span><br><span class="line">&gt; ./bump-version<span class="class">.sh</span> <span class="number">1.2</span>.<span class="number">1</span></span><br><span class="line">Files modified successfully, version bumped to <span class="number">1.2</span>.<span class="number">1</span>.</span><br><span class="line">&gt; git commit -<span class="tag">a</span> -m “Bumped version number to <span class="number">1.2</span>.<span class="number">1</span>″</span><br><span class="line">[hotfix-<span class="number">1.2</span>.<span class="number">1</span> <span class="number">41</span>e61bb] Bumped version number to <span class="number">1.2</span>.<span class="number">1</span></span><br><span class="line"><span class="number">1</span> files changed, <span class="number">1</span> <span class="function"><span class="title">insertions</span><span class="params">(+)</span></span>, <span class="number">1</span> <span class="function"><span class="title">deletions</span><span class="params">(-)</span></span></span><br></pre></td></tr></table></figure>
+<p>修复bug并提交。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; git commit -m “Fixed severe production problem”</span><br><span class="line">[hotfix-<span class="number">1.2</span>.<span class="number">1</span> abbe5d6] Fixed severe production problem</span><br><span class="line"><span class="number">5</span> files changed, <span class="number">32</span> <span class="function"><span class="title">insertions</span><span class="params">(+)</span></span>, <span class="number">17</span> <span class="function"><span class="title">deletions</span><span class="params">(-)</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>结束一个热补丁分支</strong></p>
+<p>修复完成后，热补丁分支需要合并回master并打上标签，同时也需要被合并回develop。</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; git checkout develop</span><br><span class="line">Switched <span class="built_in">to</span> branch ‘develop’</span><br><span class="line">&gt; git <span class="built_in">merge</span> –no-ff hotfix-<span class="number">1.2</span><span class="number">.1</span></span><br><span class="line">Merge made <span class="keyword">by</span> recursive.</span><br><span class="line">(Summary <span class="operator">of</span> changes)</span><br></pre></td></tr></table></figure>
+<p><em>注：如果这个时候有发布分支存在，热补丁分支的变更则应该合并至发布分支，而不是develop。</em></p>
+<p>最后删除临时的热补丁分支：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; git branch <span class="operator">-d</span> hotfix-<span class="number">1.2</span>.<span class="number">1</span></span><br><span class="line">Deleted branch hotfix-<span class="number">1.2</span>.<span class="number">1</span> (was abbe5d6).</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/git/">git</a>
+  </div>
+
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+  
+<section id="comment">
+  <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="2015/02/28/Git-Flow简介/" data-title="Git Flow简介" data-url="http://leozdgao.github.io/2015/02/28/Git-Flow简介/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"leozdgao"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0] 
+       || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+  <!-- 多说公共JS代码 end -->
+
+</section>
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//baidu.com/baidu" method="get" accept-charset="utf-8">
+    <input type="search" name="word" results="0" placeholder="搜索">
+    <input type="hidden" name="si" value="site:leozdgao.github.io">
+    <input name=tn type=hidden value="bds">
+	<input name=cl type=hidden value="3">
+	<input name=ct type=hidden value="2097152">
+	<input name=s type=hidden value="on">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/HTML-CSS/">HTML/CSS</a><small>1</small></li>
+  
+    <li><a href="/categories/jslibs/">JS类库探索</a><small>2</small></li>
+  
+    <li><a href="/categories/os/">操作系统基础</a><small>1</small></li>
+  
+    <li><a href="/categories/net/">计算机网络基础</a><small>6</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li class="categories"><a href="/tags/css/">css</a><small>1</small></li>
+  
+    <li class="categories"><a href="/tags/git/">git</a><small>1</small></li>
+  
+    <li class="categories"><a href="/tags/linux/">linux</a><small>1</small></li>
+  
+    <li class="categories"><a href="/tags/react-js/">react.js</a><small>2</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 Leo Gao
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e1381102438d38c83d913131ba0400b0";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</body>
+</html>

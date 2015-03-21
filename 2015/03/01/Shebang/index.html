@@ -3,18 +3,16 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hello World | Leo.Gao</title>
+  <title>Shebang | Leo.Gao</title>
   <meta name="author" content="Leo Gao">
   
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick StartCreate a new post1$ hexo new &quot;My New Post&quot;
-More info: Writing
-Run server1$ hexo server">
+  <meta name="description" content="wiki链接
+在计算机科学中，Shebang（也称为Hashbang）是一个由井号和叹号构成的字符序列（#!），其出现在文本文件的第一行的前两个字符。 在文件中存在Shebang的情况下，类Unix操作系统的程序载入器会分析Shebang后的内容，将这些内容作为解释器指令，并调用该指令，并将载有Sh">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Hello World"/>
+  <meta property="og:title" content="Shebang"/>
   <meta property="og:site_name" content="Leo.Gao"/>
 
   
@@ -57,33 +55,40 @@ Run server1$ hexo server">
     <header>
       
         <div class="icon"></div>
-        <time datetime="2015-03-17T13:25:38.105Z"><a href="/2015/03/17/hello-world/">2015-03-17</a></time>
+        <time datetime="2015-03-01T03:25:35.000Z"><a href="/2015/03/01/Shebang/">2015-03-01</a></time>
       
       
   
-    <h1 class="title">Hello World</h1>
+    <h1 class="title">Shebang</h1>
   
 
     </header>
     <div class="entry">
       
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <p><a href="http://zh.wikipedia.org/wiki/Shebang" target="_blank" rel="external">wiki</a>链接</p>
+<p>在计算机科学中，Shebang（也称为Hashbang）是一个由井号和叹号构成的字符序列（<strong>#!</strong>），其出现在文本文件的第一行的前两个字符。 在文件中存在Shebang的情况下，类Unix操作系统的程序载入器会分析Shebang后的内容，将这些内容作为解释器指令，并调用该指令，并将载有Shebang的文件路径作为该解释器的参数。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/sh</span></span><br></pre></td></tr></table></figure>
+<p>开头的文件在执行时会实际调用/bin/sh程序（通常是Bourne shell或兼容的shell，例如bash、dash等）来执行。</p>
+<h2 id="语法">语法</h2><p>Shebang这一语法特性由<code>#!</code>开头，即井号和叹号。 在开头字符之后，可以有一个或数个空白字符，后接解释器的绝对路径，用于调用解释器。Shebang行也可以包含需要传递到解释器的特定选项。然而，选项传递的方式随实现的不同而不同。</p>
+<p>使用<code>#!/usr/bin/env</code>脚本解释器名称是一种常见的在不同平台上都能正确找到解释器的办法。</p>
+<p><strong>Node global bin</strong>：<code>#!/usr/bin/env node</code></p>
 
       
     </div>
     <footer>
       
         
+  
+  <div class="categories">
+    <a href="/categories/os/">操作系统基础</a>
+  </div>
+
         
+  
+  <div class="tags">
+    <a href="/tags/linux/">linux</a>
+  </div>
+
         <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
 <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
       
@@ -96,7 +101,7 @@ Run server1$ hexo server">
   
 <section id="comment">
   <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2015/03/17/hello-world/" data-title="Hello World" data-url="http://leozdgao.github.io/2015/03/17/hello-world/"></div>
+    <div class="ds-thread" data-thread-key="2015/03/01/Shebang/" data-title="Shebang" data-url="http://leozdgao.github.io/2015/03/01/Shebang/"></div>
   <!-- 多说评论框 end -->
   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
   <script type="text/javascript">
@@ -135,6 +140,12 @@ Run server1$ hexo server">
   
     <li><a href="/categories/HTML-CSS/">HTML/CSS</a><small>1</small></li>
   
+    <li><a href="/categories/jslibs/">JS类库探索</a><small>2</small></li>
+  
+    <li><a href="/categories/os/">操作系统基础</a><small>1</small></li>
+  
+    <li><a href="/categories/net/">计算机网络基础</a><small>6</small></li>
+  
   </ul>
 </div>
 
@@ -145,6 +156,12 @@ Run server1$ hexo server">
   <ul class="entry">
   
     <li class="categories"><a href="/tags/css/">css</a><small>1</small></li>
+  
+    <li class="categories"><a href="/tags/git/">git</a><small>1</small></li>
+  
+    <li class="categories"><a href="/tags/linux/">linux</a><small>1</small></li>
+  
+    <li class="categories"><a href="/tags/react-js/">react.js</a><small>2</small></li>
   
   </ul>
 </div>

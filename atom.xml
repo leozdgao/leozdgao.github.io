@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不积跬步无以至千里]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://leozdgao.github.io/"/>
-  <updated>2015-03-23T14:22:37.469Z</updated>
+  <updated>2015-03-23T14:24:21.836Z</updated>
   <id>http://leozdgao.github.io/</id>
   
   <author>
@@ -19,9 +19,9 @@
     <link href="http://leozdgao.github.io/2015/03/23/ECMAScript-6%E6%96%B0%E5%A2%9E%E5%8A%9F%E8%83%BD%E2%80%94%E2%80%94%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC/"/>
     <id>http://leozdgao.github.io/2015/03/23/ECMAScript-6新增功能——块级作用域与解构赋值/</id>
     <published>2015-03-23T14:15:44.000Z</published>
-    <updated>2015-03-23T14:22:37.469Z</updated>
+    <updated>2015-03-23T14:24:21.836Z</updated>
     <content type="html"><![CDATA[<p>根据<a href="http://es6.ruanyifeng.com/" target="_blank" rel="external">ECMAScript 6入门</a>学习了ES6的一些新特性，在io.js v1.61版本进行代码测试，部分代码需要打开了<code>--harmony</code>，<code>--use_strict</code>等flag。</p>
-<p>本文将有如下内容</p>
+<p>这个系列将将会有如下内容</p>
 <ul>
 <li>let , const以及块级作用域</li>
 <li>变量的解构赋值</li>
@@ -31,6 +31,7 @@
 <li>Promise对象</li>
 <li>Class和Module</li>
 </ul>
+<a id="more"></a>
 <h2 id="let_,_const以及块级作用域">let , const以及块级作用域</h2><p><em>注：以下代码需要io.js —harmony —use_strict</em></p>
 <p>使用let声明的变量仅在所处的代码块中有效，即该变量处于块级作用域。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="keyword">let</span> a = <span class="number">6</span>;</span><br><span class="line">    <span class="keyword">var</span> b = <span class="number">6</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a);  <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(b);  <span class="comment">// 6</span></span><br></pre></td></tr></table></figure>
@@ -68,7 +69,18 @@
 <p>一些技巧<br><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 获取键名</span><br><span class="line"><span class="keyword">for</span> (let [key] of map) &#123;</span><br><span class="line">  // <span class="keyword">...</span></span><br><span class="line">&#125; </span><br><span class="line">// 获取键值</span><br><span class="line"><span class="keyword">for</span> (let [,value] of map) &#123;</span><br><span class="line">  // <span class="keyword">...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>根据<a href="http://es6.ruanyifeng.com/" target="_blank" rel="external">ECMAScript 6入门</a>学习了ES6的一些新特性，在io.js v1.61版本进行代码测试，部分代码需要打开了<code>]]>
+    <![CDATA[<p>根据<a href="http://es6.ruanyifeng.com/">ECMAScript 6入门</a>学习了ES6的一些新特性，在io.js v1.61版本进行代码测试，部分代码需要打开了<code>--harmony</code>，<code>--use_strict</code>等flag。</p>
+<p>这个系列将将会有如下内容</p>
+<ul>
+<li>let , const以及块级作用域</li>
+<li>变量的解构赋值</li>
+<li>新增的方法</li>
+<li>Set和Map数据结构</li>
+<li>Generator函数</li>
+<li>Promise对象</li>
+<li>Class和Module</li>
+</ul>]]>
+    
     </summary>
     
       <category term="ES6" scheme="http://leozdgao.github.io/tags/ES6/"/>

@@ -7,13 +7,15 @@
   <meta name="author" content="Leo Gao">
   
   <meta name="description" content="根据ECMAScript 6入门学习了ES6的一些新特性，在io.js v1.61版本进行代码测试，部分代码需要打开了--harmony，--use_strict等flag。
-本文将有如下内容
+这个系列将将会有如下内容
 
 let , const以及块级作用域
 变量的解构赋值
 新增的方法
 Set和Map数据结构
-Generat">
+Generator函数
+Promise对象
+Class和Module">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -72,7 +74,7 @@ Generat">
     <div class="entry">
       
         <p>根据<a href="http://es6.ruanyifeng.com/" target="_blank" rel="external">ECMAScript 6入门</a>学习了ES6的一些新特性，在io.js v1.61版本进行代码测试，部分代码需要打开了<code>--harmony</code>，<code>--use_strict</code>等flag。</p>
-<p>本文将有如下内容</p>
+<p>这个系列将将会有如下内容</p>
 <ul>
 <li>let , const以及块级作用域</li>
 <li>变量的解构赋值</li>
@@ -82,6 +84,7 @@ Generat">
 <li>Promise对象</li>
 <li>Class和Module</li>
 </ul>
+<a id="more"></a>
 <h2 id="let_,_const以及块级作用域">let , const以及块级作用域</h2><p><em>注：以下代码需要io.js —harmony —use_strict</em></p>
 <p>使用let声明的变量仅在所处的代码块中有效，即该变量处于块级作用域。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="keyword">let</span> a = <span class="number">6</span>;</span><br><span class="line">    <span class="keyword">var</span> b = <span class="number">6</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a);  <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(b);  <span class="comment">// 6</span></span><br></pre></td></tr></table></figure>

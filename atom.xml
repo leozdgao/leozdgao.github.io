@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不积跬步无以至千里]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://leozdgao.github.io/"/>
-  <updated>2015-03-23T14:16:52.389Z</updated>
+  <updated>2015-03-23T14:22:37.469Z</updated>
   <id>http://leozdgao.github.io/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://leozdgao.github.io/2015/03/23/ECMAScript-6%E6%96%B0%E5%A2%9E%E5%8A%9F%E8%83%BD%E2%80%94%E2%80%94%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC/"/>
     <id>http://leozdgao.github.io/2015/03/23/ECMAScript-6新增功能——块级作用域与解构赋值/</id>
     <published>2015-03-23T14:15:44.000Z</published>
-    <updated>2015-03-23T14:16:52.389Z</updated>
+    <updated>2015-03-23T14:22:37.469Z</updated>
     <content type="html"><![CDATA[<p>根据<a href="http://es6.ruanyifeng.com/" target="_blank" rel="external">ECMAScript 6入门</a>学习了ES6的一些新特性，在io.js v1.61版本进行代码测试，部分代码需要打开了<code>--harmony</code>，<code>--use_strict</code>等flag。</p>
 <p>本文将有如下内容</p>
 <ul>
@@ -71,7 +71,9 @@
     <![CDATA[<p>根据<a href="http://es6.ruanyifeng.com/" target="_blank" rel="external">ECMAScript 6入门</a>学习了ES6的一些新特性，在io.js v1.61版本进行代码测试，部分代码需要打开了<code>]]>
     </summary>
     
-      <category term="javascript, ES6" scheme="http://leozdgao.github.io/tags/javascript-ES6/"/>
+      <category term="ES6" scheme="http://leozdgao.github.io/tags/ES6/"/>
+    
+      <category term="javascript" scheme="http://leozdgao.github.io/tags/javascript/"/>
     
       <category term="Javascript基础" scheme="http://leozdgao.github.io/categories/jsbasic/"/>
     
@@ -82,7 +84,7 @@
     <link href="http://leozdgao.github.io/2015/03/21/Javascript%E8%AF%AD%E8%A8%80%E7%B2%BE%E7%B2%B9%E7%AC%94%E8%AE%B0%E6%95%B4%E7%90%86/"/>
     <id>http://leozdgao.github.io/2015/03/21/Javascript语言精粹笔记整理/</id>
     <published>2015-03-21T11:36:13.000Z</published>
-    <updated>2015-03-23T14:14:17.304Z</updated>
+    <updated>2015-03-23T14:20:21.588Z</updated>
     <content type="html"><![CDATA[<p>这两天读了一下《Javascript语言精粹》一书，没有想象中的惊艳，不过在薄薄的100多页中浓缩了许多Javascript的编程技巧，值得细细品味。于是做了该笔记，算是对Javascript知识体系的一个回顾和整理，但并没有把书中的代码直接copy&amp;paste，而是对技巧的罗列，其中对继承那部分，有一些自己的理解。</p>
 <a id="more"></a>
 <h2 id="一些零星的技巧和知识点">一些零星的技巧和知识点</h2><p>Javascript的简单数据类型（原始类型 Primitive）包括Number、String、Boolean、null、undefined，其他所有值都是对象。</p>

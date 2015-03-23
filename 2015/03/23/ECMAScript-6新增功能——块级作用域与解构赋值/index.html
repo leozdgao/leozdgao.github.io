@@ -3,13 +3,22 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Leo.Gao</title>
+  <title>ECMAScript 6新增功能——块级作用域与解构赋值 | Leo.Gao</title>
   <meta name="author" content="Leo Gao">
+  
+  <meta name="description" content="根据ECMAScript 6入门学习了ES6的一些新特性，在io.js v1.61版本进行代码测试，部分代码需要打开了--harmony，--use_strict等flag。
+本文将有如下内容
+
+let , const以及块级作用域
+变量的解构赋值
+新增的方法
+Set和Map数据结构
+Generat">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="ECMAScript 6新增功能——块级作用域与解构赋值"/>
   <meta property="og:site_name" content="Leo.Gao"/>
 
   
@@ -46,8 +55,7 @@
 </nav>
 <div class="clearfix"></div></header>
   <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper">
-  <article class="post">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
   
   <div class="post-content">
     <header>
@@ -57,7 +65,7 @@
       
       
   
-    <h1 class="title"><a href="/2015/03/23/ECMAScript-6新增功能——块级作用域与解构赋值/">ECMAScript 6新增功能——块级作用域与解构赋值</a></h1>
+    <h1 class="title">ECMAScript 6新增功能——块级作用域与解构赋值</h1>
   
 
     </header>
@@ -115,7 +123,19 @@
     <footer>
       
         
+  
+  <div class="categories">
+    <a href="/categories/jsbasic/">Javascript基础</a>
+  </div>
+
         
+  
+  <div class="tags">
+    <a href="/tags/javascript-ES6/">javascript, ES6</a>
+  </div>
+
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
       
       <div class="clearfix"></div>
     </footer>
@@ -124,395 +144,28 @@
 
 
   
+<section id="comment">
+  <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="2015/03/23/ECMAScript-6新增功能——块级作用域与解构赋值/" data-title="ECMAScript 6新增功能——块级作用域与解构赋值" data-url="http://leozdgao.github.io/2015/03/23/ECMAScript-6新增功能——块级作用域与解构赋值/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"leozdgao"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0] 
+       || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+  <!-- 多说公共JS代码 end -->
+
+</section>
 
 
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2015-03-21T11:36:13.000Z"><a href="/2015/03/21/Javascript语言精粹笔记整理/">2015-03-21</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2015/03/21/Javascript语言精粹笔记整理/">Javascript语言精粹笔记整理</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>这两天读了一下《Javascript语言精粹》一书，没有想象中的惊艳，不过在薄薄的100多页中浓缩了许多Javascript的编程技巧，值得细细品味。于是做了该笔记，算是对Javascript知识体系的一个回顾和整理，但并没有把书中的代码直接copy&amp;paste，而是对技巧的罗列，其中对继承那部分，有一些自己的理解。</p>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2015/03/21/Javascript语言精粹笔记整理/#more" class="more-link">更多</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-  
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2015-03-17T12:55:13.000Z"><a href="/2015/03/17/CSS-Reset及相关思考/">2015-03-17</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2015/03/17/CSS-Reset及相关思考/">CSS Reset及相关思考</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>有一个专门讲CSS Reset的站点。 <a href="http://www.cssreset.com/">site</a></p>
-<p>由于各大浏览器的user agent样式（即默认样式）不同，为了尽可能避免浏览器之间样式的差异，重置了css样式，让浏览器之间可以由一个基本相同的样式基准，并在该基准的基础上进行开发。</p>
-<h2 id="引入CSS_Reset样式">引入CSS Reset样式</h2><p>引入CSS Reset，意味着告诉浏览器将所有元素应用上reset的样式，再使用针对页面或业务的特定样式。对于页面加载而言，这不算一个最优的方式，但对于组织css代码而言是一个好方法，因为页面针对不同浏览器都在一个统一的基准上开发。</p>
-<p>而通常来说CSS Reset网上有许多现成的（可以去上面的链接里找），但直接引入或者直接复制黏贴不是推荐的做法，这里我直接引用：</p>
-<blockquote>
-<p>The reset styles given here are intentionally very generic. I don’t particularly recommend that you just use this in its unaltered state in your own projects. It should     be tweaked, edited, extended, and otherwise tuned to match your specific reset baseline. Fill in your preferred colors for the page, links, and so on. In other words, this is a starting point, not a self-contained black box of no-touchiness.</p>
-</blockquote>
-<p>简单地说，引入bootstrap后，即使html中没有定义任何class或者inline style，依然可以呈现出优雅的页面，即推荐大家根据自己的需求定制自己的CSS Reset，而不是直接拷贝（虽然确实省事）。</p>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2015/03/17/CSS-Reset及相关思考/#more" class="more-link">更多</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-  
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2015-03-01T03:25:35.000Z"><a href="/2015/03/01/Shebang/">2015-03-01</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2015/03/01/Shebang/">Shebang</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p><a href="http://zh.wikipedia.org/wiki/Shebang" target="_blank" rel="external">wiki</a>链接</p>
-<p>在计算机科学中，Shebang（也称为Hashbang）是一个由井号和叹号构成的字符序列（<strong>#!</strong>），其出现在文本文件的第一行的前两个字符。 在文件中存在Shebang的情况下，类Unix操作系统的程序载入器会分析Shebang后的内容，将这些内容作为解释器指令，并调用该指令，并将载有Shebang的文件路径作为该解释器的参数。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/sh</span></span><br></pre></td></tr></table></figure>
-<p>开头的文件在执行时会实际调用/bin/sh程序（通常是Bourne shell或兼容的shell，例如bash、dash等）来执行。</p>
-<h2 id="语法">语法</h2><p>Shebang这一语法特性由<code>#!</code>开头，即井号和叹号。 在开头字符之后，可以有一个或数个空白字符，后接解释器的绝对路径，用于调用解释器。Shebang行也可以包含需要传递到解释器的特定选项。然而，选项传递的方式随实现的不同而不同。</p>
-<p>使用<code>#!/usr/bin/env</code>脚本解释器名称是一种常见的在不同平台上都能正确找到解释器的办法。</p>
-<p><strong>Node global bin</strong>：<code>#!/usr/bin/env node</code></p>
-
-      
-    </div>
-    <footer>
-      
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-  
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2015-02-28T03:13:19.000Z"><a href="/2015/02/28/Git-Flow简介/">2015-02-28</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2015/02/28/Git-Flow简介/">Git Flow简介</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>摘抄自：<a href="http://nvie.com/posts/a-successful-git-branching-model/">原文</a>，<a href="http://www.juvenxu.com/2010/11/28/a-successful-git-branching-model/">译文</a></p>
-<p><img src="http://7sbm5t.com1.z0.glb.clouddn.com/gitflow_0.png" alt="git flow"></p>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2015/02/28/Git-Flow简介/#more" class="more-link">更多</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-  
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2015-02-21T03:17:00.000Z"><a href="/2015/02/21/React-JSX语法说明/">2015-02-21</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2015/02/21/React-JSX语法说明/">React JSX语法说明</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <h2 id="什么是JSX？">什么是JSX？</h2><p>在用React写组件的时候，通常会用到JSX语法，粗看上去，像是在Javascript代码里直接写起了XML标签，实质上这只是一个<strong>语法糖</strong>，每一个XML标签都会被JSX转换工具转换成纯Javascript代码，当然你想直接使用纯Javascript代码写也是可以的，只是利用JSX，组件的结构和组件之间的关系看上去更加清晰。</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var MyComponent = React.createClass(&#123;/*<span class="keyword">...</span>*/&#125;);</span><br><span class="line">var myElement = &lt;MyComponent someProperty=&#123;true&#125; /&gt;;</span><br><span class="line">React.render(myElement, document.body);</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2015/02/21/React-JSX语法说明/#more" class="more-link">更多</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-  
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2015-02-20T03:29:39.000Z"><a href="/2015/02/20/IP协议相关技术/">2015-02-20</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2015/02/20/IP协议相关技术/">IP协议相关技术</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <h2 id="DNS（Domain_Name_System）">DNS（Domain Name System）</h2><p>直接使用IP地址有诸多不便，而DNS系统是一个可以有效管理主机名和IP地址之间对应关系的系统。</p>
-<p><strong>域名</strong>是指为了识别主机名称和组织机构名称的一种具有分层的名称。<strong>域名服务器</strong>是指管理域名的主机和相应的软件，它可以管理所在分层的域的相关信息。根部所设置的DNS叫做根域名服务器，根域名服务器中注册着根以下第一层域名服务器的IP地址，类似地，在根域名服务器的下一层域名服务器中注册了再往下一层域名服务器的IP地址。</p>
-<p>DNS查询：为了调查IP地址，向本机注册的域名服务器进行查询处理，接收请求的域名服务器首先会先在自己的数据库进行查找，如果查到结果，就返回对应的IP地址，如果没有，则域名服务器再向上一层域名服务器进行查询，直到查询到指定的域名服务器并由这个域名服务器返回想要的数据。解析器和域名服务器将最新了解到的信息暂时保存在缓存里以减少每次查询时的性能消耗。</p>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2015/02/20/IP协议相关技术/#more" class="more-link">更多</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-  
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2015-02-20T03:28:37.000Z"><a href="/2015/02/20/TCP与UDP/">2015-02-20</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2015/02/20/TCP与UDP/">TCP与UDP</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <h2 id="传输层定义">传输层定义</h2><p>传输层使用<strong>端口号</strong>这样一种识别码来识别在传输层上一层的应用层中所要进行处理的具体程序。</p>
-<p>在TCP/IP中能够实现传输层功能的、具有代表性的协议：</p>
-<ul>
-<li>TCP：面向连接的、可靠的流协议，用于在传输层有必要实现可靠传输的情况。</li>
-<li>UDP：不具有可靠性的数据报歇息，细微的处理会交给上层的应用去完成，主要用于那些对高速传输和实时性有较高要求的通信或广播通信。</li>
-</ul>
-<h2 id="端口号">端口号</h2><p>TCP/IP或UDP/IP通信中通常采用5个信息来识别一个通信。它们是“源IP地址”、“目标IP地址”、“协议号”、“源端口地址”、“目标端口地址”。</p>
-<p>确定端口的两种方法：</p>
-<ol>
-<li>静态方法<br>每个应用程序都有其指定的端口号。应用程序应该避免使用0到1023的知名端口号。</li>
-<li>时序分配法<br>客户端应用程序可以不用自己设置端口号，操作系统可以为每个应用程序分配互不冲突的端口号，动态分配的端口号取值范围在49152到65535之间。</li>
-</ol>
-<p>数据到达IP层后，会先检查IP首部中的协议号，再传给相应协议的模块。即使是同一个端口号，由于传输协议是各自独立地进行处理，因此相互之间不受影响。此外，那些知名端口号与传输层协议并无关系，只要端口一致，都将分配同一种程序进行处理。</p>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2015/02/20/TCP与UDP/#more" class="more-link">更多</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-  
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2015-02-19T03:20:49.000Z"><a href="/2015/02/19/利用React创建评论区（Comment-Box）组件/">2015-02-19</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2015/02/19/利用React创建评论区（Comment-Box）组件/">利用React创建评论区（Comment Box）组件</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>本文是在阅读学习了官方的<a href="http://facebook.github.io/react/docs/tutorial.html">React Tutorial</a>之后的整理，实例<a href="http://7sbm5t.com1.z0.glb.clouddn.com/react0_ex.html">链接</a>。</p>
-<h2 id="开始使用React">开始使用React</h2><p>首先从官方获取React.js的最新版本（<a href="http://facebook.github.io/react/downloads.html">v0.12.2</a>），或者下载官方的<a href="http://facebook.github.io/react/downloads/react-0.12.2.zip">Starter Kit</a>，并在我们的html中引入它们：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">title</span>&gt;</span>React Test Page<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"../build/react.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"../build/JSXTransformer.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="JSX语法">JSX语法</h2><p>我们可以在React组件的代码中发现xml标签似乎直接写进了javascript里：</p>
-<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">React.render(</span><br><span class="line">    &lt;CommentBox /&gt;,</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">'content'</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-<p>这种写法被称作JSX，是React的一个可选功能，将xml标签直接写在javascript中看上去比调用javascript方法要更加直观些。要正常使用这个功能，需要在你的页面中引入<code>JSXTransformer.js</code>文件，或者使用<code>npm</code>安装<code>react-tools</code>，将包含JSX语法的源文件编译成常规的javascript文件，比较推荐的是后者，因为使用后者让页面可以直接使用编译后的javascript文件而不需要在加载页面时进行JSX编译。</p>
-<p>JSX中的类HTML标签并不是真正的HTML元素，也不是一段HTML字符串，而是实例化了的React组件，关于JSX语法的更多内容，可以看这篇文章。</p>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2015/02/19/利用React创建评论区（Comment-Box）组件/#more" class="more-link">更多</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-  
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2015-02-17T03:31:08.000Z"><a href="/2015/02/17/IP协议/">2015-02-17</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2015/02/17/IP协议/">IP协议</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <h2 id="IP网际协议">IP网际协议</h2><p>IP（IPv4，IPv6） 相应于OSI参考模型中的第三场——网络层。<br>网络层可以跨越不同的数据链路，即使是在不同的数据链路上也能实现两端节点之间的数据包传输。</p>
-<p><strong>主机</strong>是指配置有IP地址，但是不进行路由控制的设备。<br><strong>路由器</strong>是指既配有IP地址又具有路由控制能力的设备。<br><strong>节点</strong>是主机和路由器的统称。</p>
-<h2 id="IP基础知识">IP基础知识</h2><p>IP地址用于在连接到网络中的所有主机中识别出进行通信的目标地址。</p>
-<p><strong>路由控制</strong>是指将分组发送到最终目标地址的功能。IP路由也叫做多跳路由，是指路由器或主机在转发IP数据包时只指定下一个路由器或主机，而不是将到最终目标地址为止的所有通路全都指定出来。当某个IP包到达路由器时，路由器首先查找其目标地址，从而再决定下一步应该将这个包发往哪个路由器，然后将包发送过去。<strong>路由控制表</strong>记录IP数据在下一步应该发给哪个路由器。</p>
-<p>不同的数据链路具有不同的<strong>最大传输单位</strong>（MTU：Maximum Transmission Unit）。如果数据包大于数据链路的MTU，IP将进行分片处理（IP Fragmentation），将较大的IP包分成多个较小的IP包。分片的包到了对端目标地址以后会再被组合起来传给上一层。</p>
-<p>IP面向无连接，在发包之前，不需要建立对端目标地址之间的连接。</p>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2015/02/17/IP协议/#more" class="more-link">更多</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-  
-
-
-
-
-<nav id="pagination">
-  
-  
-    <a href="/page/2/" class="alignright next">下一页</a>
-  
-  <div class="clearfix"></div>
-</nav></div></div>
+</div></div>
     <aside id="sidebar" class="alignright">
   <div class="search">
   <form action="//baidu.com/baidu" method="get" accept-charset="utf-8">

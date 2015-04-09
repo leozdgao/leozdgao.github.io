@@ -3,17 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>关于作者 | Leo.Gao</title>
+  <title>FormData对象 | Leo.Gao</title>
   <meta name="author" content="Leo Gao">
   
-  <meta name="description" content="14年电子信息工程专业毕业，毕业后做了.net程序员，热爱Web前端技术，无任何不良嗜好。 ^.^
-之前一直把一些知识零碎地整理在为知笔记上，现在开始整理一些发成博文，之后也会继续不断积累。目前主要的关注点在node.js、angular.js还有HTML5相关的移动端开发，欢迎大家一起学习交流。
-">
+  <meta name="description" content="兼容性：IE10+
+FormData对象可以利用一些键值对来模拟表单控件的值，并在XMLHttpRequest 2.0中使用send方法来异步提交表单、上传文件。
+创建FormData
+通过new关键字调用构造器，构造器接受一个可选参数（HTMLFormElement），根据现有表单得到FormDa">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="关于作者"/>
+  <meta property="og:title" content="FormData对象"/>
   <meta property="og:site_name" content="Leo.Gao"/>
 
   
@@ -50,30 +51,48 @@
 </nav>
 <div class="clearfix"></div></header>
   <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper"><article class="page">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
   
   <div class="post-content">
     <header>
       
+        <div class="icon"></div>
+        <time datetime="2015-04-09T15:18:05.000Z"><a href="/2015/04/09/FormData对象/">2015-04-09</a></time>
+      
       
   
-    <h1 class="title">关于作者</h1>
+    <h1 class="title">FormData对象</h1>
   
 
     </header>
     <div class="entry">
       
-        <p>14年电子信息工程专业毕业，毕业后做了.net程序员，热爱Web前端技术，无任何不良嗜好。 ^.^</p>
-<p>之前一直把一些知识零碎地整理在为知笔记上，现在开始整理一些发成博文，之后也会继续不断积累。目前主要的关注点在node.js、angular.js还有HTML5相关的移动端开发，欢迎大家一起学习交流。</p>
-<p>恶补计算机基础知识和算法，由于现在司职后端的关系，为了让自己可以有更多前端方面的经验，正在着手写一个前端UI库，基于jQuery，之后可能会换成Zepto，做成移动为先的UI库，不过慢慢来吧，哈哈。</p>
-<p>QQ: 969884694<br>Email: gzdleo0816@hotmail.com</p>
+        <p>兼容性：IE10+</p>
+<p>FormData对象可以利用一些键值对来模拟表单控件的值，并在<code>XMLHttpRequest 2.0</code>中使用send方法来异步提交表单、上传文件。</p>
+<p><strong>创建FormData</strong></p>
+<p>通过<code>new</code>关键字调用构造器，构造器接受一个可选参数（HTMLFormElement），根据现有表单得到FormData：</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="reserved">var</span> fData = <span class="keyword">new</span> FormData();</span><br><span class="line"></span><br><span class="line"><span class="reserved">var</span> form = <span class="built_in">document</span>.getElementById(<span class="string">'my-form'</span>);</span><br><span class="line"><span class="reserved">var</span> oData = <span class="keyword">new</span> FormData(form);</span><br></pre></td></tr></table></figure>
+<p><strong>为FormData添加数据</strong></p>
+<p>FormData数据仅暴露出一个方法<code>append</code>，用于往FormData中追加数据，第一个参数为字符串，代表key，第二个参数为字符串、File对象或Blob对象，其他类型都会被转换为字符串。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fData.<span class="built_in">append</span>(<span class="string">'key1'</span>, <span class="string">'value1'</span>);</span><br><span class="line">fData.<span class="built_in">append</span>(<span class="string">'key2'</span>, <span class="string">'value2'</span>);</span><br><span class="line">xhr.send(fData);</span><br></pre></td></tr></table></figure>
+<p>当FormData中有File时，XMLHttpRequest的请求头中的<code>Content-Type</code>被自动设置为<code>multipart/form-data</code>。</p>
 
       
     </div>
     <footer>
       
         
+  
+  <div class="categories">
+    <a href="/categories/jsbasic/">Javascript基础</a>
+  </div>
+
         
+  
+  <div class="tags">
+    <a href="/tags/javascript/">javascript</a>
+  </div>
+
         <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
 <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
       
@@ -81,6 +100,28 @@
     </footer>
   </div>
 </article>
+
+
+  
+<section id="comment">
+  <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="2015/04/09/FormData对象/" data-title="FormData对象" data-url="http://leozdgao.github.io/2015/04/09/FormData对象/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"leozdgao"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0] 
+       || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+  <!-- 多说公共JS代码 end -->
+
+</section>
 
 
 </div></div>

@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不积跬步无以至千里]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://leozdgao.github.io/"/>
-  <updated>2015-03-24T12:40:07.643Z</updated>
+  <updated>2015-04-09T15:18:52.621Z</updated>
   <id>http://leozdgao.github.io/</id>
   
   <author>
@@ -13,6 +13,65 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[FormData对象]]></title>
+    <link href="http://leozdgao.github.io/2015/04/09/FormData%E5%AF%B9%E8%B1%A1/"/>
+    <id>http://leozdgao.github.io/2015/04/09/FormData对象/</id>
+    <published>2015-04-09T15:18:05.000Z</published>
+    <updated>2015-04-09T15:18:52.621Z</updated>
+    <content type="html"><![CDATA[<p>兼容性：IE10+</p>
+<p>FormData对象可以利用一些键值对来模拟表单控件的值，并在<code>XMLHttpRequest 2.0</code>中使用send方法来异步提交表单、上传文件。</p>
+<p><strong>创建FormData</strong></p>
+<p>通过<code>new</code>关键字调用构造器，构造器接受一个可选参数（HTMLFormElement），根据现有表单得到FormData：</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="reserved">var</span> fData = <span class="keyword">new</span> FormData();</span><br><span class="line"></span><br><span class="line"><span class="reserved">var</span> form = <span class="built_in">document</span>.getElementById(<span class="string">'my-form'</span>);</span><br><span class="line"><span class="reserved">var</span> oData = <span class="keyword">new</span> FormData(form);</span><br></pre></td></tr></table></figure>
+<p><strong>为FormData添加数据</strong></p>
+<p>FormData数据仅暴露出一个方法<code>append</code>，用于往FormData中追加数据，第一个参数为字符串，代表key，第二个参数为字符串、File对象或Blob对象，其他类型都会被转换为字符串。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fData.<span class="built_in">append</span>(<span class="string">'key1'</span>, <span class="string">'value1'</span>);</span><br><span class="line">fData.<span class="built_in">append</span>(<span class="string">'key2'</span>, <span class="string">'value2'</span>);</span><br><span class="line">xhr.send(fData);</span><br></pre></td></tr></table></figure>
+<p>当FormData中有File时，XMLHttpRequest的请求头中的<code>Content-Type</code>被自动设置为<code>multipart/form-data</code>。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>兼容性：IE10+</p>
+<p>FormData对象可以利用一些键值对来模拟表单控件的值，并在<code>XMLHttpRequest 2.0</code>中使用send方法来异步提交表单、上传文件。</p>
+<p><strong>创建FormData</strong><]]>
+    </summary>
+    
+      <category term="javascript" scheme="http://leozdgao.github.io/tags/javascript/"/>
+    
+      <category term="Javascript基础" scheme="http://leozdgao.github.io/categories/jsbasic/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[创建并触发自定义事件、模拟事件]]></title>
+    <link href="http://leozdgao.github.io/2015/04/09/%E5%88%9B%E5%BB%BA%E5%B9%B6%E8%A7%A6%E5%8F%91%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BA%8B%E4%BB%B6%E3%80%81%E6%A8%A1%E6%8B%9F%E4%BA%8B%E4%BB%B6/"/>
+    <id>http://leozdgao.github.io/2015/04/09/创建并触发自定义事件、模拟事件/</id>
+    <published>2015-04-09T14:49:17.000Z</published>
+    <updated>2015-04-09T14:50:37.883Z</updated>
+    <content type="html"><![CDATA[<p>本文介绍了创建了使用原生JavaScript API创建事件对象并模拟触发事件的方法。</p>
+<p><br></p>
+<h2 id="创建自定义事件对象">创建自定义事件对象</h2><p>可以通过<code>Event</code>构造器来创建一个事件对象：</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="keyword">event</span> = <span class="keyword">new</span> <span class="keyword">Event</span>(<span class="string">'build'</span>);</span><br></pre></td></tr></table></figure>
+<p>在IE中，虽然有Event这个构造器，但是直接用<code>new</code>来构造会抛出异常，可以使用一个更老的方法，调用<code>document.createEvent</code>来创建一个事件对象并使用<code>e.initEvent</code>来初始化这个事件对象：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="keyword">event</span> = document.createEvent(<span class="string">'Event'</span>);</span><br><span class="line"><span class="keyword">event</span>.initEvent(<span class="string">'build'</span>, <span class="keyword">true</span>, <span class="keyword">true</span>);</span><br></pre></td></tr></table></figure>
+<p>第二个参数代表<em>bubbles</em>，表示事件是否可冒泡。第三个参数代表<em>cancelable</em>，表示事件是否可被取消（preventDefault）。</p>
+<h2 id="触发事件">触发事件</h2><p>在事件目标对象（通常是一个HTMLElement）上调用<code>dispatchEvent</code>来触发某个事件，触发的事件由传递的事件对象决定， 比如触发上面自定义好的build事件：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="keyword">event</span> = document.createEvent(<span class="string">'Event'</span>);</span><br><span class="line"><span class="keyword">event</span>.initEvent(<span class="string">'build'</span>, <span class="keyword">true</span>, <span class="keyword">true</span>);</span><br><span class="line"><span class="keyword">var</span> box = document.getElementById(<span class="string">'box'</span>);</span><br><span class="line">box.dispatchEvent(<span class="keyword">event</span>);</span><br></pre></td></tr></table></figure>
+<p>也可以通过这个办法来模拟事件的触发，比如模拟<code>mouseenter</code>事件：</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="reserved">var</span> event = <span class="built_in">document</span>.createEvent(<span class="string">'MouseEvent'</span>);</span><br><span class="line">e.initEvent(<span class="string">'mouseenter'</span>, <span class="literal">true</span>, <span class="literal">true</span>);</span><br><span class="line"><span class="reserved">var</span> box = <span class="built_in">document</span>.getElementById(<span class="string">'box'</span>);</span><br><span class="line">box.dispatchEvent(event);</span><br></pre></td></tr></table></figure>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>本文介绍了创建了使用原生JavaScript API创建事件对象并模拟触发事件的方法。</p>
+<p><br></p>
+<h2 id="创建自定义事件对象">创建自定义事件对象</h2><p>可以通过<code>Event</code>构造器来创建一个事件对象：</p>
+<]]>
+    </summary>
+    
+      <category term="javascript" scheme="http://leozdgao.github.io/tags/javascript/"/>
+    
+      <category term="Javascript基础" scheme="http://leozdgao.github.io/categories/jsbasic/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[ECMAScript 6新增功能——块级作用域与解构赋值]]></title>
@@ -329,259 +388,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[IP协议相关技术]]></title>
-    <link href="http://leozdgao.github.io/2015/02/20/IP%E5%8D%8F%E8%AE%AE%E7%9B%B8%E5%85%B3%E6%8A%80%E6%9C%AF/"/>
-    <id>http://leozdgao.github.io/2015/02/20/IP协议相关技术/</id>
-    <published>2015-02-20T03:29:39.000Z</published>
-    <updated>2015-03-21T03:35:45.721Z</updated>
-    <content type="html"><![CDATA[<h2 id="DNS（Domain_Name_System）">DNS（Domain Name System）</h2><p>直接使用IP地址有诸多不便，而DNS系统是一个可以有效管理主机名和IP地址之间对应关系的系统。</p>
-<p><strong>域名</strong>是指为了识别主机名称和组织机构名称的一种具有分层的名称。<strong>域名服务器</strong>是指管理域名的主机和相应的软件，它可以管理所在分层的域的相关信息。根部所设置的DNS叫做根域名服务器，根域名服务器中注册着根以下第一层域名服务器的IP地址，类似地，在根域名服务器的下一层域名服务器中注册了再往下一层域名服务器的IP地址。</p>
-<p>DNS查询：为了调查IP地址，向本机注册的域名服务器进行查询处理，接收请求的域名服务器首先会先在自己的数据库进行查找，如果查到结果，就返回对应的IP地址，如果没有，则域名服务器再向上一层域名服务器进行查询，直到查询到指定的域名服务器并由这个域名服务器返回想要的数据。解析器和域名服务器将最新了解到的信息暂时保存在缓存里以减少每次查询时的性能消耗。</p>
-<a id="more"></a>
-<p>DNS不仅仅管理主机名和IP地址的映射关系，还有众多其他信息：</p>
-<table>
-<thead>
-<tr>
-<th>类型</th>
-<th>编号</th>
-<th>内容</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>A</td>
-<td>1</td>
-<td>主机名的IP地址（IPv4）</td>
-</tr>
-<tr>
-<td>NS</td>
-<td>2</td>
-<td>域名服务器</td>
-</tr>
-<tr>
-<td>CNAME</td>
-<td>5</td>
-<td>主机别名对应的规范名称</td>
-</tr>
-<tr>
-<td>SOA</td>
-<td>6</td>
-<td>区域内权威记录起始标志</td>
-</tr>
-<tr>
-<td>WKS</td>
-<td>11</td>
-<td>已知的服务</td>
-</tr>
-<tr>
-<td>PTR</td>
-<td>12</td>
-<td>IP地址反向解析</td>
-</tr>
-<tr>
-<td>HINFO</td>
-<td>13</td>
-<td>主机相关的追加信息</td>
-</tr>
-<tr>
-<td>MINFO</td>
-<td>14</td>
-<td>邮箱与邮件组信息</td>
-</tr>
-<tr>
-<td>MX</td>
-<td>15</td>
-<td>邮件交换</td>
-</tr>
-<tr>
-<td>TXT</td>
-<td>16</td>
-<td>文本</td>
-</tr>
-<tr>
-<td>SIG</td>
-<td>24</td>
-<td>安全证书</td>
-</tr>
-<tr>
-<td>KEY</td>
-<td>25</td>
-<td>密钥</td>
-</tr>
-<tr>
-<td>GPOS</td>
-<td>27</td>
-<td>地理位置</td>
-</tr>
-<tr>
-<td>AAAA</td>
-<td>28</td>
-<td>主机的IPv6地址</td>
-</tr>
-<tr>
-<td>NXT</td>
-<td>30</td>
-<td>下一代域名</td>
-</tr>
-<tr>
-<td>SRV</td>
-<td>33</td>
-<td>服务器选择</td>
-</tr>
-<tr>
-<td>*</td>
-<td>255</td>
-<td>所有缓存记录</td>
-</tr>
-</tbody>
-</table>
-<h2 id="ARP（Address_Resolution_Protocol）">ARP（Address Resolution Protocol）</h2><p>ARP是一种解决地址问题的协议，以目标IP地址为线索，用来定位下一个应该接受数据分包的网络设备对应的MAC地址。如果目标主机不在同一个链路上，则通过ARP查找下一跳路由器的MAC地址。</p>
-<p>ARP工作机制：起初要通过广播发送一个ARP请求包，这个包包含了想要了解其MAC地址的IP地址。如果ARP请求包中的目标IP地址与自己的IP地址一致，那么这个节点就将自己的MAC地址塞入ARP响应包返回给主机。第一次通过ARP请求获取到的MAC地址作为IP对MAC的映射关系记忆到一个ARP缓存表中，反之，接收ARP请求的那个主机又可以从这个ARP请求包获取发送端主机的IP地址及其MAC地址并记入缓存，以提高效率。</p>
-<p>RARP（Reverse Address Resolution Protocol）是将ARP反过来，根据MAC地址定位IP地址的一种协议。为此需要架设一台RARP服务器，在这个服务器上注册设备的MAC地址及其IP地址。然后再将这个设备接入到网络时，会发送RARP请求，RARP服务器接收到后，返回相应的注册信息。</p>
-<p>ARP只适用于IPv4，不能用于IPv6，IPv6中可以用ICMPv6替代ARP发送邻居探索消息。</p>
-<h2 id="ICMP">ICMP</h2><p>ICMP的主要功能包括确认IP包是否成功送达目标地址，通知在发送过程当中IP包被废弃的具体原因，改善网络设置等。在IP通信中如果某个IP包因为某种原因未能达到目标地址，那么这个具体的原因将由ICMP负责通知，ICMP的通知消息会使用IP进行发送。</p>
-<p>ICMP消息类型：</p>
-<table>
-<thead>
-<tr>
-<th>类型（十进制数）</th>
-<th>内容</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>回送应答</td>
-</tr>
-<tr>
-<td>3</td>
-<td>目标不可达</td>
-</tr>
-<tr>
-<td>4</td>
-<td>原点抑制</td>
-</tr>
-<tr>
-<td>5</td>
-<td>重定向或改变路由</td>
-</tr>
-<tr>
-<td>8</td>
-<td>回送请求</td>
-</tr>
-<tr>
-<td>9</td>
-<td>路由器公告</td>
-</tr>
-<tr>
-<td>10</td>
-<td>路由器请求</td>
-</tr>
-<tr>
-<td>11</td>
-<td>超时</td>
-</tr>
-<tr>
-<td>17</td>
-<td>地址子网请求</td>
-</tr>
-<tr>
-<td>18</td>
-<td>地址子网应答</td>
-</tr>
-</tbody>
-</table>
-<p><strong>ICMPv6</strong>：在IPv6中，ICMP的作用被扩大，IP地址定位MAC地址的协议从ARP转为ICMP的邻居探索消息。这种邻居探索消息融合了IPv4的ARP、ICMP重定向以及ICMP路由器选择消息等功能于一体。邻居请求消息利用IPv6的多播地址，查询IPv6的地址与MAC地址的对应关系，并由邻居宣告消息得知MAC地址。</p>
-<h2 id="DHCP（Dynamic_Host_Configuration_Protocol）">DHCP（Dynamic Host Configuration Protocol）</h2><p>DHCP用于自动设置IP地址、统一管理IP地址分配。使用DHCP之前，首先要架设一台DHCP服务器（通常该网段的路由器充当了DHCP服务器）。然后将DHCP要分配的IP地址、子网掩码、路由控制信息以及DNS服务器地址等设置到服务器上。</p>
-<p>DHCP工作机制：首先DHCP客户端发送DHCP发现包要求设置IP地址和子网掩码，接下来DHCP服务器发送DHCP提供包通知其可以使用的网络设置，然后客户端发送DHCP请求包通知想要使用之前返回的网络设置，最后服务器发送DHCP提供包通知允许其设置。</p>
-<p>为了检查所要分配的IP地址以及分配了的IP地址是否可用，需要具备以下功能：</p>
-<ul>
-<li>DHCP服务器：在分配IP底之前发送ICMP回送请求包，确认没有返回应答。</li>
-<li>DHCP客户端：针对从DHCP那里获得的IP地址发送ARP请求包，确认没有返回应答。</li>
-</ul>
-<p><strong>DHCP中继代理</strong>对不同网段的IP地址分配也可以由一个DHCP服务器统一进行管理和运维。</p>
-<h2 id="NAT（Network_Address_Translator）">NAT（Network Address Translator）</h2><p>用于在本地网络中使用私有地址，在连接互联网时转而使用全局IP地址的技术。除了转换IP地址外，还出现了可以转换TCP、UDP端口号的<strong>NAPT</strong>技术。</p>
-<p>NAT工作机制：利用NAT，途中的NAT路由器将发送源地址转换为全局IP地址再发送数据，反之，当包从发过来时，目标地址先被转换成私有IP地址以后再被转发。</p>
-<h2 id="IP隧道">IP隧道</h2><p>在网络层的首部后面继续追加网络层首部的通信方式叫做IP隧道。</p>
-<p><strong>Mobile IP</strong>在主机所连接的子网IP发生变化时，主机IP地址仍保持不变，即使在IP地址发生变化的环境下，通信也能够继续。Mobile IP中的移动主机，在移动之前按照以往的模式进行通信，而移动之后则通过外部代理发送转发数据包向归属代理通知自己的地址。通信对端主机在目标主机移动后，发送ARP消息，并接收以移动主机为目标地址的数据包，归属代理采用IP隧道转发给移动主机，外部代理将IP头删除还原为原始数据包。</p>
-<h2 id="其他IP相关技术">其他IP相关技术</h2><ul>
-<li><p>IP多播相关技术<br>IGMP（MLD）用于多播过程中确认接收端，主要有两大作用：</p>
-<ol>
-<li>向路由器表明想要接收多播消息并通知想接收多播的地址。</li>
-<li>向交换集线器通知想要接收多播的地址。</li>
-</ol>
-</li>
-<li><p>IP任播<br>IP任播是指为那些提供同一种服务的服务器配置同一个IP地址，并与最近的服务器进行通信的一种方法，适用于IPv4和IPv6。</p>
-</li>
-</ul>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h2 id="DNS（Domain_Name_System）">DNS（Domain Name System）</h2><p>直接使用IP地址有诸多不便，而DNS系统是一个可以有效管理主机名和IP地址之间对应关系的系统。</p>
-<p><strong>域名</strong>是指为了识别主机名称和组织机构名称的一种具有分层的名称。<strong>域名服务器</strong>是指管理域名的主机和相应的软件，它可以管理所在分层的域的相关信息。根部所设置的DNS叫做根域名服务器，根域名服务器中注册着根以下第一层域名服务器的IP地址，类似地，在根域名服务器的下一层域名服务器中注册了再往下一层域名服务器的IP地址。</p>
-<p>DNS查询：为了调查IP地址，向本机注册的域名服务器进行查询处理，接收请求的域名服务器首先会先在自己的数据库进行查找，如果查到结果，就返回对应的IP地址，如果没有，则域名服务器再向上一层域名服务器进行查询，直到查询到指定的域名服务器并由这个域名服务器返回想要的数据。解析器和域名服务器将最新了解到的信息暂时保存在缓存里以减少每次查询时的性能消耗。</p>]]>
-    
-    </summary>
-    
-      <category term="计算机网络基础" scheme="http://leozdgao.github.io/categories/net/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[TCP与UDP]]></title>
-    <link href="http://leozdgao.github.io/2015/02/20/TCP%E4%B8%8EUDP/"/>
-    <id>http://leozdgao.github.io/2015/02/20/TCP与UDP/</id>
-    <published>2015-02-20T03:28:37.000Z</published>
-    <updated>2015-03-21T03:36:09.594Z</updated>
-    <content type="html"><![CDATA[<h2 id="传输层定义">传输层定义</h2><p>传输层使用<strong>端口号</strong>这样一种识别码来识别在传输层上一层的应用层中所要进行处理的具体程序。</p>
-<p>在TCP/IP中能够实现传输层功能的、具有代表性的协议：</p>
-<ul>
-<li>TCP：面向连接的、可靠的流协议，用于在传输层有必要实现可靠传输的情况。</li>
-<li>UDP：不具有可靠性的数据报歇息，细微的处理会交给上层的应用去完成，主要用于那些对高速传输和实时性有较高要求的通信或广播通信。</li>
-</ul>
-<h2 id="端口号">端口号</h2><p>TCP/IP或UDP/IP通信中通常采用5个信息来识别一个通信。它们是“源IP地址”、“目标IP地址”、“协议号”、“源端口地址”、“目标端口地址”。</p>
-<p>确定端口的两种方法：</p>
-<ol>
-<li>静态方法<br>每个应用程序都有其指定的端口号。应用程序应该避免使用0到1023的知名端口号。</li>
-<li>时序分配法<br>客户端应用程序可以不用自己设置端口号，操作系统可以为每个应用程序分配互不冲突的端口号，动态分配的端口号取值范围在49152到65535之间。</li>
-</ol>
-<p>数据到达IP层后，会先检查IP首部中的协议号，再传给相应协议的模块。即使是同一个端口号，由于传输协议是各自独立地进行处理，因此相互之间不受影响。此外，那些知名端口号与传输层协议并无关系，只要端口一致，都将分配同一种程序进行处理。</p>
-<a id="more"></a>
-<h2 id="UDP">UDP</h2><p>User Datagram Protocol，不提供复杂的控制机制，利用IP提供面向无连接的通信服务。常用于：</p>
-<ul>
-<li>包总量较少的通信（DNS、SNMP等）</li>
-<li>视频、音频等多媒体通信（即使通信）</li>
-<li>限定于LAN等特定网络中的应用通信</li>
-<li>广播通信（广播、多播）</li>
-</ul>
-<h2 id="TCP">TCP</h2><p>TCP充分地实现了数据传输时各种控制功能，并作为一种面向有连接的协议，只有在确认通信对端存在时才会发送数据，在IP这种无连接的网络上也能够实现高可靠性的通信。</p>
-<p><strong>通过序列号与确认应答提高可靠性</strong>：<br>在TCP中，当发送端的数据到达接收主机时，接收端主机会返回一个已收到消息的通知，这个消息叫做<strong>确认应答</strong>（ACK）。TCP通过肯定的确认应答（ACK）实现可靠的数据传输，当发送端将数据发出之后会等待对端的确认应答。如果有确认应答，说明数据已经成功到达对端，反之，则数据丢失的可能性很大。当然，也可能是数据对方已经收到，只是返回的确认应答在途中丢失，这种情况也会导致发送端因没有收到确认应答，而认为数据没有到达目的地，从而进行重新发送。<br>确认应答处理、重发控制以及重复控制等功能都可以通过<strong>序列号</strong>实现。序列号按顺序给发送数据的每个字节标上号码，接收端查询数据TCP首部中的序列号和数据长度，将自己下一步应该接受的序号作为确认应答返送回去。</p>
-<p><strong>连接管理</strong>：</p>
-<p>在数据通信之前，通过TCP首部发送一个SYN包作为建立连接的请求等待确认应答，如果对端发来确认应答，则认为可以进行数据通信，然后再向对端发送一个ACK包完成连接。在建立连接的过程中，要确定发送数据包的单位，最大消息长度（MSS）。TCP在传送大量数据时，是以MSS的大小将数据进行分割发送，MSS在三次握手时在两端主机之间被计算得出。</p>
-<p><strong>利用窗口控制提高速度</strong></p>
-<p>窗口大小就是指无需等待确认应答而可以继续发送数据的最大值，在收到确认应答的情况下，将窗口滑动到确认应答中的序列号位置，就可以顺序地将多个段同时发送提高通信性能，这种机制被称为<strong>滑动窗口控制</strong>，如果某个报文丢失的情况下，发送端主机如果连续3次收到同一个确认应答，就会将其所对应的数据进行重发。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h2 id="传输层定义">传输层定义</h2><p>传输层使用<strong>端口号</strong>这样一种识别码来识别在传输层上一层的应用层中所要进行处理的具体程序。</p>
-<p>在TCP/IP中能够实现传输层功能的、具有代表性的协议：</p>
-<ul>
-<li>TCP：面向连接的、可靠的流协议，用于在传输层有必要实现可靠传输的情况。</li>
-<li>UDP：不具有可靠性的数据报歇息，细微的处理会交给上层的应用去完成，主要用于那些对高速传输和实时性有较高要求的通信或广播通信。</li>
-</ul>
-<h2 id="端口号">端口号</h2><p>TCP/IP或UDP/IP通信中通常采用5个信息来识别一个通信。它们是“源IP地址”、“目标IP地址”、“协议号”、“源端口地址”、“目标端口地址”。</p>
-<p>确定端口的两种方法：</p>
-<ol>
-<li>静态方法<br>每个应用程序都有其指定的端口号。应用程序应该避免使用0到1023的知名端口号。</li>
-<li>时序分配法<br>客户端应用程序可以不用自己设置端口号，操作系统可以为每个应用程序分配互不冲突的端口号，动态分配的端口号取值范围在49152到65535之间。</li>
-</ol>
-<p>数据到达IP层后，会先检查IP首部中的协议号，再传给相应协议的模块。即使是同一个端口号，由于传输协议是各自独立地进行处理，因此相互之间不受影响。此外，那些知名端口号与传输层协议并无关系，只要端口一致，都将分配同一种程序进行处理。</p>]]>
-    
-    </summary>
-    
-      <category term="计算机网络基础" scheme="http://leozdgao.github.io/categories/net/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[利用React创建评论区（Comment Box）组件]]></title>
     <link href="http://leozdgao.github.io/2015/02/19/%E5%88%A9%E7%94%A8React%E5%88%9B%E5%BB%BA%E8%AF%84%E8%AE%BA%E5%8C%BA%EF%BC%88Comment-Box%EF%BC%89%E7%BB%84%E4%BB%B6/"/>
     <id>http://leozdgao.github.io/2015/02/19/利用React创建评论区（Comment-Box）组件/</id>
@@ -633,481 +439,6 @@
       <category term="react.js" scheme="http://leozdgao.github.io/tags/react-js/"/>
     
       <category term="JS类库探索" scheme="http://leozdgao.github.io/categories/jslibs/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[IP协议]]></title>
-    <link href="http://leozdgao.github.io/2015/02/17/IP%E5%8D%8F%E8%AE%AE/"/>
-    <id>http://leozdgao.github.io/2015/02/17/IP协议/</id>
-    <published>2015-02-17T03:31:08.000Z</published>
-    <updated>2015-03-21T03:35:59.065Z</updated>
-    <content type="html"><![CDATA[<h2 id="IP网际协议">IP网际协议</h2><p>IP（IPv4，IPv6） 相应于OSI参考模型中的第三场——网络层。<br>网络层可以跨越不同的数据链路，即使是在不同的数据链路上也能实现两端节点之间的数据包传输。</p>
-<p><strong>主机</strong>是指配置有IP地址，但是不进行路由控制的设备。<br><strong>路由器</strong>是指既配有IP地址又具有路由控制能力的设备。<br><strong>节点</strong>是主机和路由器的统称。</p>
-<h2 id="IP基础知识">IP基础知识</h2><p>IP地址用于在连接到网络中的所有主机中识别出进行通信的目标地址。</p>
-<p><strong>路由控制</strong>是指将分组发送到最终目标地址的功能。IP路由也叫做多跳路由，是指路由器或主机在转发IP数据包时只指定下一个路由器或主机，而不是将到最终目标地址为止的所有通路全都指定出来。当某个IP包到达路由器时，路由器首先查找其目标地址，从而再决定下一步应该将这个包发往哪个路由器，然后将包发送过去。<strong>路由控制表</strong>记录IP数据在下一步应该发给哪个路由器。</p>
-<p>不同的数据链路具有不同的<strong>最大传输单位</strong>（MTU：Maximum Transmission Unit）。如果数据包大于数据链路的MTU，IP将进行分片处理（IP Fragmentation），将较大的IP包分成多个较小的IP包。分片的包到了对端目标地址以后会再被组合起来传给上一层。</p>
-<p>IP面向无连接，在发包之前，不需要建立对端目标地址之间的连接。</p>
-<a id="more"></a>
-<h2 id="IP地址基础知识">IP地址基础知识</h2><p>IP地址（IPv4地址）由32位正整数来表示，最多可以允许43亿台计算机连接到网络，每一台主机上的每一块网卡（NIC）都得设置IP地址。</p>
-<p>IP地址由<strong>网络标识</strong>和<strong>主机标识</strong>两部分组成，IP包被转发到途中某个路由器时，正是利用目标IP地址的网络标识进行路由。最初二者以分类进行区别，现在基本以<strong>子网掩码</strong>区分。</p>
-<p>IP地址的分类：</p>
-<ul>
-<li>A类地址：首位以“0”开头的地址，从第1位到第8位是它的网络标识。</li>
-<li>B类地址：前两位为“10”的地址，从第1位到第16位是它的网络标识。</li>
-<li>C类地址：前三位为“110”的地址，从第1位到第24位是它的网络标识。</li>
-<li>D类地址：前四位为“1110”的地址，从第1位到第32位是它的网络标识，没有主机标识，常被用于多播。</li>
-</ul>
-<p>要用比特位标识主机地址时，不可以全部为0或全部为1。全部为0只有在表示对应的网络地址或IP地址不可货值的情况下才使用。全部为1的主机地址通常作为广播地址。</p>
-<p>现在一个IP地址的网络标识和主机标识已不再受限于该地址的类别，而是由一个<strong>子网掩码</strong>的识别码通过子网网络地址细分出更小粒度的网络。引入子网后，一个IP地址有两种识别码，一是IP地址本身，另一个是表示网络部的子网掩码，它对应网络标识部分的位全部为“1”，对应IP地址主机标识的部分则全部为“0”。</p>
-<p>CIDR（无类型域间选路）：采用任意长度分割IP地址的网络标识和主机标识，网络内部采用固定长度的子网掩码机制。<br>VLSM（可变长子网掩码）：可以随机修改组织内各个部门的子网掩码长度的机制。</p>
-<p>私有网络IP地址：</p>
-<ol>
-<li>10/8（A类）</li>
-<li>172.16/16（B类）</li>
-<li>192.168/16（C类）</li>
-</ol>
-<p>配有私有IP的地址主机连网时，则通过NAT进行通信。</p>
-<p>在世界范围内，全局IP由ICANN（互联网名称与数字地址分配机构 ）进行管理。</p>
-<h2 id="路由控制">路由控制</h2><p>在数据发送过程中保存指明路由器或主机信息的是<strong>路由控制表</strong>。路由控制表记录者网络地址与下一步应该发送至路由器的地址。</p>
-<p>默认路由：0.0.0.0/0（default）指路由表中任何一个地址都能与之匹配的记录。<br>主机路由：“IP地址/32” Host Route<br>环回地址：127.0.0.1（localhost）同一台计算机上的程序之间惊醒网络通信时所用，数据包不会流向网络。</p>
-<h2 id="IP分割处理与再构成处理">IP分割处理与再构成处理</h2><p>任何一台主句都有必要对IP分片进行相应的处理。经过分片之后IP数据包重组只能由目标主机进行。</p>
-<p><strong>路径MTU发现</strong>是指从发送端主机到接收端主机之间不需要分片时最大MTU的大小，即路径中存在的所有数据链路中最小的MTU。<br>工作原理：首先在发送端主机发送IP数据报时将其首部的分片禁止标志位设置为1，随后通过一个ICMP的不可达消息将数据链路上MTU的值给发送主机，发送主机根据这个MTU对数据报进行分片处理，如此反复，知道数据包被发送到目标主机为止没有再收到任何ICMP，就认为最后一次ICMP所统治的MTU即使一个合适的MTU值。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h2 id="IP网际协议">IP网际协议</h2><p>IP（IPv4，IPv6） 相应于OSI参考模型中的第三场——网络层。<br>网络层可以跨越不同的数据链路，即使是在不同的数据链路上也能实现两端节点之间的数据包传输。</p>
-<p><strong>主机</strong>是指配置有IP地址，但是不进行路由控制的设备。<br><strong>路由器</strong>是指既配有IP地址又具有路由控制能力的设备。<br><strong>节点</strong>是主机和路由器的统称。</p>
-<h2 id="IP基础知识">IP基础知识</h2><p>IP地址用于在连接到网络中的所有主机中识别出进行通信的目标地址。</p>
-<p><strong>路由控制</strong>是指将分组发送到最终目标地址的功能。IP路由也叫做多跳路由，是指路由器或主机在转发IP数据包时只指定下一个路由器或主机，而不是将到最终目标地址为止的所有通路全都指定出来。当某个IP包到达路由器时，路由器首先查找其目标地址，从而再决定下一步应该将这个包发往哪个路由器，然后将包发送过去。<strong>路由控制表</strong>记录IP数据在下一步应该发给哪个路由器。</p>
-<p>不同的数据链路具有不同的<strong>最大传输单位</strong>（MTU：Maximum Transmission Unit）。如果数据包大于数据链路的MTU，IP将进行分片处理（IP Fragmentation），将较大的IP包分成多个较小的IP包。分片的包到了对端目标地址以后会再被组合起来传给上一层。</p>
-<p>IP面向无连接，在发包之前，不需要建立对端目标地址之间的连接。</p>]]>
-    
-    </summary>
-    
-      <category term="计算机网络基础" scheme="http://leozdgao.github.io/categories/net/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[数据链路]]></title>
-    <link href="http://leozdgao.github.io/2015/02/16/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF/"/>
-    <id>http://leozdgao.github.io/2015/02/16/数据链路/</id>
-    <published>2015-02-16T03:32:04.000Z</published>
-    <updated>2015-03-21T03:35:27.236Z</updated>
-    <content type="html"><![CDATA[<h2 id="数据链路的作用">数据链路的作用</h2><p>数据链路层的协议定义了通过通信媒介互连的设备之间传输的规范。</p>
-<h2 id="数据链路相关技术">数据链路相关技术</h2><ol>
-<li><p>MAC地址<br>MAC地址用于识别数据链路中互连的节点。MAC地址长48比特，在使用网卡（NIC）的情况下，MAC地址一般会被烧入到ROM中。MAC地址中3~24位表示厂商识别码，25~48位是厂商内部为识别每个网卡而用。因此可以保证全世界不会用相同MAC地址的网卡。</p>
-</li>
-<li><p>共享介质型网络<br>多个设备共享一个通信介质的一种网络。</p>
-<ul>
-<li>争用方式（CSMA）</li>
-<li>令牌传递方式</li>
-</ul>
-</li>
-<li><p>非共享介质网络<br>不共享介质，对介质采用专用的一种传输控制方式。在这种方式下，网络中的每个站直连交换机，由交换机负责转发数据帧。该方式可以根据交换机的高级特性构建虚拟局域网（VLAN）、进行流量控制等。但一旦交换机发生故障，与之相连的所有计算机之间都将无法通信。</p>
-</li>
-</ol>
-<a id="more"></a>
-<ol>
-<li><p>MAC地址转发<br>以太网交换机就是持有多个端口的网桥。它们根据数据链路层中每个帧的目标MAC地址，决定从哪个网络接口发送数据。这时所参考的、用以记录发送接口的表就叫<strong>转发表</strong>。数据链路层的每个通过点在接到包时，会从中将源MAC地址以及曾经接收该地址发送的数据包的接口作为对应关系记录到转发表中。（自学过程）</p>
-<ul>
-<li>存储转发</li>
-<li>直通转发</li>
-</ul>
-</li>
-<li><p>环路检测技术</p>
-<ul>
-<li>生成树方式</li>
-<li>源路由法</li>
-</ul>
-</li>
-<li><p>VLAN 虚拟局域网<br>交换机按照其端口区分了多个网段，从而区分了广播数据传播的范围、减少了网络负载并提高了网络的安全性。</p>
-</li>
-</ol>
-<h2 id="以太网（Ethernet）">以太网（Ethernet）</h2><p>在以太网普及之初，一般采用多台终端使用同一根同轴电缆的共享介质型连接方式。现在一般采用终端与交换机之间独占电缆的方式实现以太网通信。</p>
-<p><strong>以太网帧格式</strong>：以太网前端有一个叫做前导码的部分，由0、1数字交替组合而成，表示一个以太网帧的开始。前导码末尾是一个叫做SFD的域，值是“11”。前导码与SFD合起来占8个字节。以太网本体的前端是以太网的首部，它总共占14个字节。分别是6个字节的目标MAC地址、6个字节的源MAC地址以及2个字节的上层协议类型。紧随帧头后面的是数据。一个数据帧最大数据范围是46~1500个字节。帧尾是一个叫做FCS（Frame Check Sequence）的4个字节。</p>
-<p>数据链路层分为两层：</p>
-<ul>
-<li>介质访问控制层 MAC（Media Access Control）</li>
-<li>逻辑链路控制层 LLC（Logical Link Control）</li>
-</ul>
-<h2 id="无线通信">无线通信</h2><p>无线通信通常使用电磁波、红外线、激光等方式传播数据。</p>
-<p>IEEE802.11定义了无线LAN协议中无历程与数据链路层的一部分（MAC层）</p>
-<h2 id="PPP">PPP</h2><p>点对点，1对1连接计算机的协议。</p>
-<p>PPP的主要功能中包括两个协议：</p>
-<ul>
-<li>LCP（Link Control Protocol）：负责建立和断开连接、设置最大接收单元、设置验证协议（PAP、CHAP）以及设置是否进行通信质量的监控。</li>
-<li>NCP（Network Control Protocol）：依赖上层协议，如果上层为IP协议，NCP也叫做IPCP，负责IP地址设置以及是否进行TCP/IP首部压缩等设置。</li>
-</ul>
-<p>PPP连接时通常需要进行用户名密码的验证，并且对通信两端进行双方向的验证：</p>
-<ul>
-<li>PAP（Password Authentication Protocol）：通过两次握手进行用户名和密码验证，密码以明文方式传输。</li>
-<li>CHAP（Challenge Handshake Authentication Protocol）：使用一次性密码（OTP），连接后还进行定期的密码交换，用来校验对端是否中途被替换。</li>
-</ul>
-<p>PPP帧格式：在每个帧的前后加上8位字节的标志码“01111110”以区分帧。两个标志码中不允许连续6个以上的“1”，当连续出现5个“1”时后面必须插入一个0，接收端如果收到连续5个“1”并且后面跟着的是0，就必须删除。</p>
-<p>PPPoE（PPP over Ethernet）： 在以太网上提供PPP功能。单纯的以太网没有建立和断开连接的处理，采用PPPoE管理以太网连接，就可以利用PPP的验证等功能使各家ISP有效地管理终端用户的使用。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h2 id="数据链路的作用">数据链路的作用</h2><p>数据链路层的协议定义了通过通信媒介互连的设备之间传输的规范。</p>
-<h2 id="数据链路相关技术">数据链路相关技术</h2><ol>
-<li><p>MAC地址<br>MAC地址用于识别数据链路中互连的节点。MAC地址长48比特，在使用网卡（NIC）的情况下，MAC地址一般会被烧入到ROM中。MAC地址中3~24位表示厂商识别码，25~48位是厂商内部为识别每个网卡而用。因此可以保证全世界不会用相同MAC地址的网卡。</p>
-</li>
-<li><p>共享介质型网络<br>多个设备共享一个通信介质的一种网络。</p>
-<ul>
-<li>争用方式（CSMA）</li>
-<li>令牌传递方式</li>
-</ul>
-</li>
-<li><p>非共享介质网络<br>不共享介质，对介质采用专用的一种传输控制方式。在这种方式下，网络中的每个站直连交换机，由交换机负责转发数据帧。该方式可以根据交换机的高级特性构建虚拟局域网（VLAN）、进行流量控制等。但一旦交换机发生故障，与之相连的所有计算机之间都将无法通信。</p>
-</li>
-</ol>]]>
-    
-    </summary>
-    
-      <category term="计算机网络基础" scheme="http://leozdgao.github.io/categories/net/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[TCP/IP基础知识]]></title>
-    <link href="http://leozdgao.github.io/2015/02/15/TCP-IP%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
-    <id>http://leozdgao.github.io/2015/02/15/TCP-IP基础知识/</id>
-    <published>2015-02-15T03:32:50.000Z</published>
-    <updated>2015-03-21T03:36:15.710Z</updated>
-    <content type="html"><![CDATA[<h2 id="TCP/IP的诞生">TCP/IP的诞生</h2><table>
-<thead>
-<tr>
-<th>年份</th>
-<th>事件</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>20世纪60年代后半叶</td>
-<td>应DoD要求，美国开始进行通信技术相关的研发。</td>
-</tr>
-<tr>
-<td>1969年</td>
-<td>ARPANET诞生。开发分组交换技术。</td>
-</tr>
-<tr>
-<td>1972年</td>
-<td>ARPANET取得初步成功。扩展到50个节点。</td>
-</tr>
-<tr>
-<td>1975年</td>
-<td>TCP/IP诞生。</td>
-</tr>
-<tr>
-<td>1982年</td>
-<td>TCP/IP规范出炉。UNIX是最早开始实现TCP/IP的协议。</td>
-</tr>
-<tr>
-<td>1983年</td>
-<td>ARPANET决定正式启用TCP/IP为通信协议。</td>
-</tr>
-<tr>
-<td>1989年左右</td>
-<td>局域网上的TCP/IP应用迅速扩大。</td>
-</tr>
-<tr>
-<td>1990年左右</td>
-<td>不论是局域网还是广域网，都开始倾向于使用TCP/IP。</td>
-</tr>
-<tr>
-<td>1995年左右</td>
-<td>互联网开始商用，互联网服务供应商的数量剧增。</td>
-</tr>
-<tr>
-<td>1996年</td>
-<td>IPv6规范出炉，载入RFC。（后于1998年修订）</td>
-</tr>
-</tbody>
-</table>
-<p><strong>ISP</strong>互联网接入服务提供商 Internet Service Provider</p>
-<a id="more"></a>
-<h2 id="TCP/IP的标准化">TCP/IP的标准化</h2><p>TCP/IP协议是指利用IP进行通信时所必须摇动的协议群的统称。</p>
-<p>TCP/IP协议由IETF讨论制定，并被列入RFC文档。对某个协议的扩展或修改都将废除老的RFC，重新发行一个新的RFC文档。</p>
-<p>TCP/IP的标准化流程：</p>
-<ul>
-<li>互联网草案阶段</li>
-<li>记入RFC进入提议标准阶段</li>
-<li>草案标准阶段</li>
-<li>正式成为标准</li>
-</ul>
-<h2 id="互联网基础知识">互联网基础知识</h2><p><strong>互联网</strong>是指由ARPANET发展而来、互连全世界的计算机网络。TCP/IP原本就是为使用互联网而制定的协议族。因此，互联网的协议就是TCP/IP，TCP/IP就是互联网的协议。</p>
-<p><strong>NOC</strong> 网络操作中心 Network Operation Center</p>
-<p><strong>IX</strong> 网络交换中心 Internet Exchange</p>
-<p>互联网就是众多异构的网络通过IX互连的一个巨型网络。</p>
-<h2 id="TCP/IP协议分层模型">TCP/IP协议分层模型</h2><ol>
-<li><p>硬件（物理层）<br>负责数据传输的硬件，没有既定的标准</p>
-</li>
-<li><p>网络接口层（数据链路层）<br>利用以太网中的数据链路层进行通信，可以把它当作让NIC（网卡）起作用的“驱动程序”</p>
-</li>
-<li><p>互联网层（网络层）<br>使用IP协议，基于IP地址转发分包数据。IP、ICMP、ARP。</p>
-</li>
-<li><p>传输层<br>主要功能是让应用程序之间实现通信。TCP、UDP。</p>
-</li>
-<li><p>应用层（会话层以上的分层）<br>WWW（Web浏览器上网 HTTP）、Email（电子邮件 SMTP）、FTP（文件传输）、TELNET与SSH（远程登录）、SNMP（网络管理）</p>
-</li>
-</ol>
-<h2 id="TCP/IP分层模型通信实例">TCP/IP分层模型通信实例</h2><p>每个分层中，都会对所发送的数据附加一个首部，在这个首部中包含了该层必要的信息。在下一层的角度看，从上一分层收到的包全部都被认为是本层的数据。</p>
-<p>首先应用程序中会进行编码处理，随后建立TCP连接，利用这个TCP连接发送数据。TCP提供将应用层发来的数据顺利发送至对端的可靠传输，TCP首部中包括源端口号和目标端口号、序号以及校验和。IP将TCP传来的TCP首部和TCP数据合起来做自己的数据。IP首部中包含接收端IP地址以及发送端IP地址，还有用来判断其后面是TCP还是UDP的信息。从IP传来的IP包，以太网驱动给这数据附上以太网首部，包含接收端MAC地址、发送端MAC地址以及标志以太网类型的以太网数据的协议。</p>
-<p>每个包首部中之后会包含两个信息：一个是<strong>发送端和接收端地址</strong>，另一个是<strong>上一次的协议类型</strong>。经过每个协议分层时，都必须有识别包发送端和接收端的信息，以太网会用MAC地址，IP会用IP地址，而TCP/UDP则会用端口号作为识别两端主机的地址。</p>
-<p>主机接受到以太网包以后，首先从以太网首部找到MAC地址半段是否为发送给自己的包，如果不是则丢弃数据。之后判断上层协议类型，交给相应的子程序处理，比如处理IP的子程序。IP模块检查目标IP地址是否与自己的IP地址匹配，之后交由TCP或UDP子程序处理，如果是路由器，需要借助路由控制表再转发数据。在TCP模块中，首先会计算校验和，判断数据是否被破坏，然后检查是否按照序号接受数据，最后检查端口号，确定具体应用程序。数据就收完毕后，就手段则发送一个“确认回执”给发送端。如果这个回执信息未能送达发送端，那么发送端会认为接收端没有收到数据而一直反复发送。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h2 id="TCP/IP的诞生">TCP/IP的诞生</h2><table>
-<thead>
-<tr>
-<th>年份</th>
-<th>事件</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>20世纪60年代后半叶</td>
-<td>应DoD要求，美国开始进行通信技术相关的研发。</td>
-</tr>
-<tr>
-<td>1969年</td>
-<td>ARPANET诞生。开发分组交换技术。</td>
-</tr>
-<tr>
-<td>1972年</td>
-<td>ARPANET取得初步成功。扩展到50个节点。</td>
-</tr>
-<tr>
-<td>1975年</td>
-<td>TCP/IP诞生。</td>
-</tr>
-<tr>
-<td>1982年</td>
-<td>TCP/IP规范出炉。UNIX是最早开始实现TCP/IP的协议。</td>
-</tr>
-<tr>
-<td>1983年</td>
-<td>ARPANET决定正式启用TCP/IP为通信协议。</td>
-</tr>
-<tr>
-<td>1989年左右</td>
-<td>局域网上的TCP/IP应用迅速扩大。</td>
-</tr>
-<tr>
-<td>1990年左右</td>
-<td>不论是局域网还是广域网，都开始倾向于使用TCP/IP。</td>
-</tr>
-<tr>
-<td>1995年左右</td>
-<td>互联网开始商用，互联网服务供应商的数量剧增。</td>
-</tr>
-<tr>
-<td>1996年</td>
-<td>IPv6规范出炉，载入RFC。（后于1998年修订）</td>
-</tr>
-</tbody>
-</table>
-<p><strong>ISP</strong>互联网接入服务提供商 Internet Service Provider</p>]]>
-    
-    </summary>
-    
-      <category term="计算机网络基础" scheme="http://leozdgao.github.io/categories/net/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[网络基础知识]]></title>
-    <link href="http://leozdgao.github.io/2015/02/14/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
-    <id>http://leozdgao.github.io/2015/02/14/网络基础知识/</id>
-    <published>2015-02-14T03:33:45.000Z</published>
-    <updated>2015-03-21T03:35:16.983Z</updated>
-    <content type="html"><![CDATA[<h2 id="计算机与网络发展的7个阶段">计算机与网络发展的7个阶段</h2><table>
-<thead>
-<tr>
-<th>年代</th>
-<th>内容</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>20世纪50年代</td>
-<td>批处理时代</td>
-</tr>
-<tr>
-<td>20世纪60年代</td>
-<td>分时系统时代</td>
-</tr>
-<tr>
-<td>20世纪70年代</td>
-<td>计算机间通信时代</td>
-</tr>
-<tr>
-<td>20世纪80年代</td>
-<td>计算机网络时代</td>
-</tr>
-<tr>
-<td>20世纪90年代</td>
-<td>互联网普及时代</td>
-</tr>
-<tr>
-<td>2000年</td>
-<td>以互联网为中心的时代</td>
-</tr>
-<tr>
-<td>2010年</td>
-<td>无论何时何地一切皆TCP/IP的网络时代</td>
-</tr>
-</tbody>
-</table>
-<a id="more"></a>
-<h2 id="协议">协议</h2><p><strong>协议</strong>就是计算机与计算机之间通过网络实现通信时实现达成的一种“约定”。</p>
-<p><strong>ISO</strong>：国际标准化组织 International Organization for Standards</p>
-<p><strong>OSI</strong>：开放式通信系统互联参考模型 Open Systems Interconnection</p>
-<p>OSI参考模型</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>分层名称</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>7</td>
-<td>应用层</td>
-<td>针对特定应用的协议</td>
-</tr>
-<tr>
-<td>6</td>
-<td>表示层</td>
-<td>设备固有数据格式和网络标准数据格式的转换</td>
-</tr>
-<tr>
-<td>5</td>
-<td>会话层</td>
-<td>通信管理。负责建立和断开通信连接</td>
-</tr>
-<tr>
-<td>4</td>
-<td>传输层</td>
-<td>管理两个节点之间的数据传输。负责可靠传输</td>
-</tr>
-<tr>
-<td>3</td>
-<td>网络层</td>
-<td>地址管理与路由选择</td>
-</tr>
-<tr>
-<td>2</td>
-<td>数据链路层</td>
-<td>互连设备之间传送和识别数据帧</td>
-</tr>
-<tr>
-<td>1</td>
-<td>物理层</td>
-<td>以”0“、”1“代表电压的高低、灯光的闪灭。界定连接器和网线的规格</td>
-</tr>
-</tbody>
-</table>
-<h2 id="传输方式分类">传输方式分类</h2><ul>
-<li>面向有连接 TCP</li>
-<li>面向无连接 UDP、IP       </li>
-</ul>
-<p><strong>电路交换</strong>，计算机通过电路建立连接后，计算机之间的通信会独占整个线路。</p>
-<p><strong>分组交换</strong>是指将大数据分割为一个个叫做包（Packet）的较小单位进行传输的方法。计算机通信会在每一个分组中附加上源主机地址和目标主机地址送给通信线路，这些发送端地址、接收端地址以及分组序号写入的部分称为<strong>报文首部</strong>。</p>
-<p>在分组交换中，由分组交换机（<strong> 路由器</strong>）连接通信线路。路由器接收到数据后会按照顺序缓存到相应的队列当中，再以先进先出的顺序将它们逐一发送出去。</p>
-<p>根据接收端数量分类</p>
-<ul>
-<li>单播（Unicast）</li>
-<li>广播（Broadcast）</li>
-<li>多播（Multicast）</li>
-<li>任播（Anycast）</li>
-</ul>
-<h2 id="地址">地址</h2><p>TCP/IP通信中使用MAC地址、IP地址、端口号</p>
-<ul>
-<li>唯一性</li>
-<li>层次性</li>
-</ul>
-<p>MAC地址和IP地址在标识一个通信主体时虽然都具有唯一性，但是它们中只有IP地址具有层次性</p>
-<h2 id="网络的构成要素">网络的构成要素</h2><table>
-<thead>
-<tr>
-<th>设备</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>网卡（网络适配器）</td>
-<td>使计算机连网的设备（Network Interface）</td>
-</tr>
-<tr>
-<td>中继器（Repeater）</td>
-<td>从物理层上延长网络的设备</td>
-</tr>
-<tr>
-<td>网桥（Bridge）/2层交换机</td>
-<td>从数据链路层上延长网络的设备</td>
-</tr>
-<tr>
-<td>路由器（Router） /3层交换机</td>
-<td>通过网络层转发分组数据的设备</td>
-</tr>
-<tr>
-<td>4~7层交换机</td>
-<td>处理传输层以上各层网络传输的设备</td>
-</tr>
-<tr>
-<td>网关（Gateway）</td>
-<td>转换协议的设备</td>
-</tr>
-</tbody>
-</table>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h2 id="计算机与网络发展的7个阶段">计算机与网络发展的7个阶段</h2><table>
-<thead>
-<tr>
-<th>年代</th>
-<th>内容</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>20世纪50年代</td>
-<td>批处理时代</td>
-</tr>
-<tr>
-<td>20世纪60年代</td>
-<td>分时系统时代</td>
-</tr>
-<tr>
-<td>20世纪70年代</td>
-<td>计算机间通信时代</td>
-</tr>
-<tr>
-<td>20世纪80年代</td>
-<td>计算机网络时代</td>
-</tr>
-<tr>
-<td>20世纪90年代</td>
-<td>互联网普及时代</td>
-</tr>
-<tr>
-<td>2000年</td>
-<td>以互联网为中心的时代</td>
-</tr>
-<tr>
-<td>2010年</td>
-<td>无论何时何地一切皆TCP/IP的网络时代</td>
-</tr>
-</tbody>
-</table>]]>
-    
-    </summary>
-    
-      <category term="计算机网络基础" scheme="http://leozdgao.github.io/categories/net/"/>
     
   </entry>
   

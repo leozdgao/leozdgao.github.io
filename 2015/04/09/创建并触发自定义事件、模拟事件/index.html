@@ -3,49 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>网络基础知识 | Leo.Gao</title>
+  <title>创建并触发自定义事件、模拟事件 | Leo.Gao</title>
   <meta name="author" content="Leo Gao">
   
-  <meta name="description" content="计算机与网络发展的7个阶段
+  <meta name="description" content="本文介绍了创建了使用原生JavaScript API创建事件对象并模拟触发事件的方法。
 
-
-年代
-内容
-
-
-
-
-20世纪50年代
-批处理时代
-
-
-20世纪60年代
-分时系统时代
-
-
-20世纪70年代
-计算机间通信时代
-
-
-20世纪80年代
-计算机网络时代
-
-
-20世纪90年代
-互联网普及时代
-
-
-2000年
-以互联网为中心的时代
-
-
-2010年
-无论何时何地一切皆TCP/IP的网络时代">
+创建自定义事件对象可以通过Event构造器来创建一个事件对象：
+1var event = new Event(&#39;build&#39;);
+在IE中，虽然有Event这个构造器，但是直接用new来构造会抛出异常，可以使用">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="网络基础知识"/>
+  <meta property="og:title" content="创建并触发自定义事件、模拟事件"/>
   <meta property="og:site_name" content="Leo.Gao"/>
 
   
@@ -88,159 +58,27 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2015-02-14T03:33:45.000Z"><a href="/2015/02/14/网络基础知识/">2015-02-14</a></time>
+        <time datetime="2015-04-09T14:49:17.000Z"><a href="/2015/04/09/创建并触发自定义事件、模拟事件/">2015-04-09</a></time>
       
       
   
-    <h1 class="title">网络基础知识</h1>
+    <h1 class="title">创建并触发自定义事件、模拟事件</h1>
   
 
     </header>
     <div class="entry">
       
-        <h2 id="计算机与网络发展的7个阶段">计算机与网络发展的7个阶段</h2><table>
-<thead>
-<tr>
-<th>年代</th>
-<th>内容</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>20世纪50年代</td>
-<td>批处理时代</td>
-</tr>
-<tr>
-<td>20世纪60年代</td>
-<td>分时系统时代</td>
-</tr>
-<tr>
-<td>20世纪70年代</td>
-<td>计算机间通信时代</td>
-</tr>
-<tr>
-<td>20世纪80年代</td>
-<td>计算机网络时代</td>
-</tr>
-<tr>
-<td>20世纪90年代</td>
-<td>互联网普及时代</td>
-</tr>
-<tr>
-<td>2000年</td>
-<td>以互联网为中心的时代</td>
-</tr>
-<tr>
-<td>2010年</td>
-<td>无论何时何地一切皆TCP/IP的网络时代</td>
-</tr>
-</tbody>
-</table>
-<a id="more"></a>
-<h2 id="协议">协议</h2><p><strong>协议</strong>就是计算机与计算机之间通过网络实现通信时实现达成的一种“约定”。</p>
-<p><strong>ISO</strong>：国际标准化组织 International Organization for Standards</p>
-<p><strong>OSI</strong>：开放式通信系统互联参考模型 Open Systems Interconnection</p>
-<p>OSI参考模型</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>分层名称</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>7</td>
-<td>应用层</td>
-<td>针对特定应用的协议</td>
-</tr>
-<tr>
-<td>6</td>
-<td>表示层</td>
-<td>设备固有数据格式和网络标准数据格式的转换</td>
-</tr>
-<tr>
-<td>5</td>
-<td>会话层</td>
-<td>通信管理。负责建立和断开通信连接</td>
-</tr>
-<tr>
-<td>4</td>
-<td>传输层</td>
-<td>管理两个节点之间的数据传输。负责可靠传输</td>
-</tr>
-<tr>
-<td>3</td>
-<td>网络层</td>
-<td>地址管理与路由选择</td>
-</tr>
-<tr>
-<td>2</td>
-<td>数据链路层</td>
-<td>互连设备之间传送和识别数据帧</td>
-</tr>
-<tr>
-<td>1</td>
-<td>物理层</td>
-<td>以”0“、”1“代表电压的高低、灯光的闪灭。界定连接器和网线的规格</td>
-</tr>
-</tbody>
-</table>
-<h2 id="传输方式分类">传输方式分类</h2><ul>
-<li>面向有连接 TCP</li>
-<li>面向无连接 UDP、IP       </li>
-</ul>
-<p><strong>电路交换</strong>，计算机通过电路建立连接后，计算机之间的通信会独占整个线路。</p>
-<p><strong>分组交换</strong>是指将大数据分割为一个个叫做包（Packet）的较小单位进行传输的方法。计算机通信会在每一个分组中附加上源主机地址和目标主机地址送给通信线路，这些发送端地址、接收端地址以及分组序号写入的部分称为<strong>报文首部</strong>。</p>
-<p>在分组交换中，由分组交换机（<strong> 路由器</strong>）连接通信线路。路由器接收到数据后会按照顺序缓存到相应的队列当中，再以先进先出的顺序将它们逐一发送出去。</p>
-<p>根据接收端数量分类</p>
-<ul>
-<li>单播（Unicast）</li>
-<li>广播（Broadcast）</li>
-<li>多播（Multicast）</li>
-<li>任播（Anycast）</li>
-</ul>
-<h2 id="地址">地址</h2><p>TCP/IP通信中使用MAC地址、IP地址、端口号</p>
-<ul>
-<li>唯一性</li>
-<li>层次性</li>
-</ul>
-<p>MAC地址和IP地址在标识一个通信主体时虽然都具有唯一性，但是它们中只有IP地址具有层次性</p>
-<h2 id="网络的构成要素">网络的构成要素</h2><table>
-<thead>
-<tr>
-<th>设备</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>网卡（网络适配器）</td>
-<td>使计算机连网的设备（Network Interface）</td>
-</tr>
-<tr>
-<td>中继器（Repeater）</td>
-<td>从物理层上延长网络的设备</td>
-</tr>
-<tr>
-<td>网桥（Bridge）/2层交换机</td>
-<td>从数据链路层上延长网络的设备</td>
-</tr>
-<tr>
-<td>路由器（Router） /3层交换机</td>
-<td>通过网络层转发分组数据的设备</td>
-</tr>
-<tr>
-<td>4~7层交换机</td>
-<td>处理传输层以上各层网络传输的设备</td>
-</tr>
-<tr>
-<td>网关（Gateway）</td>
-<td>转换协议的设备</td>
-</tr>
-</tbody>
-</table>
+        <p>本文介绍了创建了使用原生JavaScript API创建事件对象并模拟触发事件的方法。</p>
+<p><br></p>
+<h2 id="创建自定义事件对象">创建自定义事件对象</h2><p>可以通过<code>Event</code>构造器来创建一个事件对象：</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="keyword">event</span> = <span class="keyword">new</span> <span class="keyword">Event</span>(<span class="string">'build'</span>);</span><br></pre></td></tr></table></figure>
+<p>在IE中，虽然有Event这个构造器，但是直接用<code>new</code>来构造会抛出异常，可以使用一个更老的方法，调用<code>document.createEvent</code>来创建一个事件对象并使用<code>e.initEvent</code>来初始化这个事件对象：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="keyword">event</span> = document.createEvent(<span class="string">'Event'</span>);</span><br><span class="line"><span class="keyword">event</span>.initEvent(<span class="string">'build'</span>, <span class="keyword">true</span>, <span class="keyword">true</span>);</span><br></pre></td></tr></table></figure>
+<p>第二个参数代表<em>bubbles</em>，表示事件是否可冒泡。第三个参数代表<em>cancelable</em>，表示事件是否可被取消（preventDefault）。</p>
+<h2 id="触发事件">触发事件</h2><p>在事件目标对象（通常是一个HTMLElement）上调用<code>dispatchEvent</code>来触发某个事件，触发的事件由传递的事件对象决定， 比如触发上面自定义好的build事件：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="keyword">event</span> = document.createEvent(<span class="string">'Event'</span>);</span><br><span class="line"><span class="keyword">event</span>.initEvent(<span class="string">'build'</span>, <span class="keyword">true</span>, <span class="keyword">true</span>);</span><br><span class="line"><span class="keyword">var</span> box = document.getElementById(<span class="string">'box'</span>);</span><br><span class="line">box.dispatchEvent(<span class="keyword">event</span>);</span><br></pre></td></tr></table></figure>
+<p>也可以通过这个办法来模拟事件的触发，比如模拟<code>mouseenter</code>事件：</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="reserved">var</span> event = <span class="built_in">document</span>.createEvent(<span class="string">'MouseEvent'</span>);</span><br><span class="line">e.initEvent(<span class="string">'mouseenter'</span>, <span class="literal">true</span>, <span class="literal">true</span>);</span><br><span class="line"><span class="reserved">var</span> box = <span class="built_in">document</span>.getElementById(<span class="string">'box'</span>);</span><br><span class="line">box.dispatchEvent(event);</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -249,10 +87,15 @@
         
   
   <div class="categories">
-    <a href="/categories/net/">计算机网络基础</a>
+    <a href="/categories/jsbasic/">Javascript基础</a>
   </div>
 
         
+  
+  <div class="tags">
+    <a href="/tags/javascript/">javascript</a>
+  </div>
+
         <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
 <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
       
@@ -265,7 +108,7 @@
   
 <section id="comment">
   <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2015/02/14/网络基础知识/" data-title="网络基础知识" data-url="http://leozdgao.github.io/2015/02/14/网络基础知识/"></div>
+    <div class="ds-thread" data-thread-key="2015/04/09/创建并触发自定义事件、模拟事件/" data-title="创建并触发自定义事件、模拟事件" data-url="http://leozdgao.github.io/2015/04/09/创建并触发自定义事件、模拟事件/"></div>
   <!-- 多说评论框 end -->
   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
   <script type="text/javascript">
@@ -306,11 +149,9 @@
   
     <li><a href="/categories/jslibs/">JS类库探索</a><small>2</small></li>
   
-    <li><a href="/categories/jsbasic/">Javascript基础</a><small>2</small></li>
+    <li><a href="/categories/jsbasic/">Javascript基础</a><small>4</small></li>
   
     <li><a href="/categories/os/">操作系统基础</a><small>1</small></li>
-  
-    <li><a href="/categories/net/">计算机网络基础</a><small>6</small></li>
   
   </ul>
 </div>
@@ -327,7 +168,7 @@
   
     <li class="categories"><a href="/tags/git/">git</a><small>1</small></li>
   
-    <li class="categories"><a href="/tags/javascript/">javascript</a><small>2</small></li>
+    <li class="categories"><a href="/tags/javascript/">javascript</a><small>4</small></li>
   
     <li class="categories"><a href="/tags/linux/">linux</a><small>1</small></li>
   

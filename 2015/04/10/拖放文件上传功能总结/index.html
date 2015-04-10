@@ -1,0 +1,321 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>拖放文件上传功能总结 | Leo.Gao</title>
+  <meta name="author" content="Leo Gao">
+  
+  <meta name="description" content="学习了下HTML5的拖放API，并做了一个拖放文件上传的Demo，server端使用了node.js，github地址
+拖放API在HTML5中，可以让DOM中的某个元素具有可拖放的属性，或者可以将浏览器外的文件拖放到浏览器中，并利用File API做一些后续的处理。先介绍下HTML5的拖放API。
+要让DOM中的元素可拖放，需要设置该元素的draggable属性，并赋值为true，就像这样：
+1&amp;lt;div class=&quot;demo&quot; draggable=&quot;true&quot;&amp;gt;&amp;lt;/div&amp;gt;
+然后介绍下拖放相关的事件，这是我们主要用来实现拖放逻辑的东西。
+
+
+
+事件
+产生事件的对象
+描述
+
+
+
+
+dragstart
+被拖放的元素
+开始拖放操作
+
+
+drag
+被拖放的元素
+在拖放的过程中
+
+
+dragend
+被拖放的元素
+拖放操作结束
+
+
+dragenter
+拖放过程中鼠标经过的元素
+被拖放的元素进入该元素
+
+
+dragover
+拖放过程中鼠标经过的元素
+被拖放的元素在该元素中移动
+
+
+dragleave
+拖放过程中鼠标经过的元素
+被拖放的元素离开该元素
+
+
+drop
+拖放的目标元素
+拖放元素被放到了该元素上
+
+
+
+拖放操作说到底是一种数据交换的操作，即将被拖放元素上的数据传递到拖放目标上去，那么我就需要dataTransfer对象来做这个数据传递的工作。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="拖放文件上传功能总结"/>
+  <meta property="og:site_name" content="Leo.Gao"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+  <meta name="baidu-site-verification" content="KFPqVnQyRU" />
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Leo.Gao" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Leo.Gao</a></h1>
+  <h2><a href="/">不积跬步无以至千里</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">主页</a></li>
+    
+      <li><a href="/archives">文章列表</a></li>
+    
+      <li><a href="/about">关于作者</a></li>
+    
+      <li><a href="/atom.xml">RSS</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-04-10T14:46:13.000Z"><a href="/2015/04/10/拖放文件上传功能总结/">2015-04-10</a></time>
+      
+      
+  
+    <h1 class="title">拖放文件上传功能总结</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>学习了下HTML5的拖放API，并做了一个拖放文件上传的Demo，server端使用了node.js，<a href="https://github.com/leozdgao/dndUpload" target="_blank" rel="external">github地址</a></p>
+<h2 id="拖放API">拖放API</h2><p>在HTML5中，可以让DOM中的某个元素具有可拖放的属性，或者可以将浏览器外的文件拖放到浏览器中，并利用File API做一些后续的处理。先介绍下HTML5的拖放API。</p>
+<p>要让DOM中的元素可拖放，需要设置该元素的<code>draggable</code>属性，并赋值为true，就像这样：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"demo"</span> draggable=<span class="string">"true"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>然后介绍下拖放相关的事件，这是我们主要用来实现拖放逻辑的东西。</p>
+<table>
+<thead>
+<tr>
+<th>事件</th>
+<th>产生事件的对象</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dragstart</td>
+<td>被拖放的元素</td>
+<td>开始拖放操作</td>
+</tr>
+<tr>
+<td>drag</td>
+<td>被拖放的元素</td>
+<td>在拖放的过程中</td>
+</tr>
+<tr>
+<td>dragend</td>
+<td>被拖放的元素</td>
+<td>拖放操作结束</td>
+</tr>
+<tr>
+<td>dragenter</td>
+<td>拖放过程中鼠标经过的元素</td>
+<td>被拖放的元素进入该元素</td>
+</tr>
+<tr>
+<td>dragover</td>
+<td>拖放过程中鼠标经过的元素</td>
+<td>被拖放的元素在该元素中移动</td>
+</tr>
+<tr>
+<td>dragleave</td>
+<td>拖放过程中鼠标经过的元素</td>
+<td>被拖放的元素离开该元素</td>
+</tr>
+<tr>
+<td>drop</td>
+<td>拖放的目标元素</td>
+<td>拖放元素被放到了该元素上</td>
+</tr>
+</tbody>
+</table>
+<p>拖放操作说到底是一种数据交换的操作，即将被拖放元素上的数据传递到拖放目标上去，那么我就需要<code>dataTransfer</code>对象来做这个数据传递的工作。</p>
+<a id="more"></a>
+<p>首先我们需要设置被拖放元素需要传递的数据，这是我们要利用<code>dragstart</code>事件：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> source = <span class="built_in">document</span>.getElementById(<span class="string">'source'</span>);</span><br><span class="line"><span class="keyword">var</span> dest = <span class="built_in">document</span>.getElementById(<span class="string">'dest'</span>);</span><br><span class="line"></span><br><span class="line">source.addEventListener(<span class="string">'dragstart'</span>, <span class="function"><span class="keyword">function</span><span class="params">(e)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> dt = e.dataTransfer;</span><br><span class="line">    dt.setData(<span class="string">'data'</span>, <span class="string">'Hello world'</span>);</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+<p>这里，<code>dataTransfer</code>对象作为Event对象的一个属性可被访问，通过<code>setData</code>方法，为要传递的数据提供键值。</p>
+<p>接下来，由于浏览器默认是拒绝拖放操作的，需要阻止这个默认事件，这是需要利用<code>dragover</code>事件，希望可以拖放哪个元素中，就在这个元素上注册<code>dragover</code>事件并阻止默认行为：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dest.addEventListener(<span class="string">'dragover'</span>, <span class="function"><span class="keyword">function</span><span class="params">(e)</span> </span>&#123;</span><br><span class="line">    e.preventDefault();</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+<p>最后写拖放后的操作，我们这里利用的是<code>drop</code>事件，并使用<code>dataTransfer.getData</code>方法通过键，获取要传递的数据：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dest.addEventListener(<span class="string">'drop'</span>, <span class="function"><span class="keyword">function</span><span class="params">(e)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> dt = e.dataTransfer;</span><br><span class="line">    dest.textContent = dt.getData(<span class="string">'data'</span>);</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="拖放文件上传的实现">拖放文件上传的实现</h2><p>我们需要一个server端来帮我们完成上传的后台逻辑，这里我用了node.js，并使用了<code>formidable</code>模块来处理上传请求，再使用<code>node-static</code>模块来处理静态文件请求。详尽的server端实现这边就略过了，有兴趣的可以直接参考github上的代码。</p>
+<p>首先介绍下拖放文件和拖放DOM元素的不同之处，就是传递的数据是不需要我们来设置的，我们可以直接访问<code>dataTransfer.files</code>属性来得到被拖放的文件，这边的文件是允许多个的。</p>
+<p>这边有两个点需要说明下：</p>
+<p>第一点是，异步文件上传，我使用了XMLHttpRequest 2.0，IE10及以上的兼容性，<code>xhr.send()</code>方法可以接受File、Blob、FormData等数据类型了，这里我利用的是FormData，直接将文件append到FormData中去，当使用<code>xhr.send(data)</code>时，<code>Content-Type</code>会自动被置为<code>multipart/form-data</code>并设置boundary，比较方便。当然不用FormData，直接send一个File对象也是可以的，不过这样的话，就需要手动将<code>Content-Type</code>头部设置为<code>multipart/form-data</code>，并且最麻烦的是需要生成一个boundary，并将文件内容分片，过程相对繁琐一些。</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var formData = <span class="keyword">new</span> FormData();</span><br><span class="line">formData.<span class="keyword">append</span>(<span class="string">'file'</span>, <span class="keyword">file</span>, <span class="keyword">file</span>.name);</span><br></pre></td></tr></table></figure>
+<p>第二点是，在这里我使用的是每个文件一个请求的方式进行上传的，但是可以在一个FormData中append多个文件，并通过一个请求进行上传，不过我还不清楚怎么跟踪每个文件的上传进度并返回给客户端，这点还需要研究和提高。</p>
+<p>好了，来看实现吧，这里不需要dragstart事件来设置传递的数据了，直接在drop事件里获取dataTransfer.files即可，不过这里有一点是，文件被拖放到浏览器内的默认行为是试着打开它，不能直接打开，就下载（其实就相当于复制到下载文件夹下），所以我们需要在drop事件里阻止这个默认行为，其实如果一个页面有拖放功能，为了防止误操作，可以在<code>document.ondrop</code>里阻止全局的拖放默认行为：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">dest.addEventListener(<span class="string">'drop'</span>, <span class="function"><span class="keyword">function</span><span class="params">(e)</span> </span>&#123;</span><br><span class="line">    e.preventDefault();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> dt = e.dataTransfer;</span><br><span class="line">    [].<span class="keyword">forEach</span>.call(dt.files, <span class="function"><span class="keyword">function</span><span class="params">(file)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">        <span class="keyword">var</span> formData = <span class="keyword">new</span> FormData();</span><br><span class="line">        formData.append(<span class="string">'file'</span>, file, file.name);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 省略dom操作</span></span><br><span class="line"></span><br><span class="line">        xhr.open(<span class="string">'POST'</span>, <span class="string">'/upload'</span>); <span class="comment">// async default</span></span><br><span class="line">        xhr.upload.onprogress = <span class="function"><span class="keyword">function</span><span class="params">(e)</span> </span>&#123;</span><br><span class="line">            <span class="comment">// 更新进度条</span></span><br><span class="line">        &#125;;</span><br><span class="line">        xhr.onload = <span class="function"><span class="keyword">function</span><span class="params">(e)</span> </span>&#123;</span><br><span class="line">            <span class="comment">// 上传完成</span></span><br><span class="line">        &#125;;</span><br><span class="line">        xhr.onerror = <span class="function"><span class="keyword">function</span><span class="params">(e)</span> </span>&#123;</span><br><span class="line">            <span class="comment">// 错误处理</span></span><br><span class="line">        &#125;;</span><br><span class="line">        xhr.send(formData);</span><br><span class="line">&#125;, <span class="keyword">false</span>);</span><br></pre></td></tr></table></figure>
+<p>这个就是大致的结构，说下其中遇到过的一个小问题，是关于dragenter和dragleave的。我希望文件被移入时，box的边框可以高亮，移出后移除高亮，但是我这个box是有子元素的，那么问题就来了，当拖放到子元素上的时候，会触发box的dragleave一次和dragenter一次（这次是其子元素冒泡上来的），这样的话导致我移入子元素时，边框也同时被移除高亮了，这不是我想要的。</p>
+<p>解决方法如下，设置一个计数器，在dragenter时自增1，在dragleave时自减1，在dragleave中，如果这个计数器自减后为0了，那么这时可以移除高亮。这个主要是因为移入子元素时，先触发的是冒泡上来的dragenter，然后再试dragleave，那么在子元素上的时候计数器不会为0，在真正移出box后，计数器才会是0，这样问题就解决了。</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> counter = <span class="number">0</span>;</span><br><span class="line">dest.addEventListener(<span class="string">'dragenter'</span>, <span class="function"><span class="keyword">function</span><span class="params">(e)</span> </span>&#123;</span><br><span class="line">    counter++;</span><br><span class="line">    dest.classList.add(<span class="string">'active'</span>);</span><br><span class="line">&#125;);</span><br><span class="line">dest.addEventListener(<span class="string">'dragleave'</span>, <span class="function"><span class="keyword">function</span><span class="params">(e)</span> </span>&#123;</span><br><span class="line">    counter--;</span><br><span class="line">    <span class="keyword">if</span>(!counter) dest.classList.remove(<span class="string">'active'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>好了，这个拖放文件上传相关的内容就是这样总结分享完了，可以在github上看到完整的<a href="https://github.com/leozdgao/dndUpload" target="_blank" rel="external">项目代码</a>。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/HTML5/">HTML5</a>
+  </div>
+
+        
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+  
+<section id="comment">
+  <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="2015/04/10/拖放文件上传功能总结/" data-title="拖放文件上传功能总结" data-url="http://leozdgao.github.io/2015/04/10/拖放文件上传功能总结/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"leozdgao"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0] 
+       || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+  <!-- 多说公共JS代码 end -->
+
+</section>
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//baidu.com/baidu" method="get" accept-charset="utf-8">
+    <input type="search" name="word" results="0" placeholder="搜索">
+    <input type="hidden" name="si" value="site:leozdgao.github.io">
+    <input name=tn type=hidden value="bds">
+	<input name=cl type=hidden value="3">
+	<input name=ct type=hidden value="2097152">
+	<input name=s type=hidden value="on">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/HTML-CSS/">HTML/CSS</a><small>1</small></li>
+  
+    <li><a href="/categories/HTML5/">HTML5</a><small>1</small></li>
+  
+    <li><a href="/categories/jslibs/">JS类库探索</a><small>2</small></li>
+  
+    <li><a href="/categories/jsbasic/">Javascript基础</a><small>4</small></li>
+  
+    <li><a href="/categories/os/">操作系统基础</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li class="categories"><a href="/tags/ES6/">ES6</a><small>1</small></li>
+  
+    <li class="categories"><a href="/tags/css/">css</a><small>1</small></li>
+  
+    <li class="categories"><a href="/tags/git/">git</a><small>1</small></li>
+  
+    <li class="categories"><a href="/tags/javascript/">javascript</a><small>4</small></li>
+  
+    <li class="categories"><a href="/tags/linux/">linux</a><small>1</small></li>
+  
+    <li class="categories"><a href="/tags/react-js/">react.js</a><small>2</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 Leo Gao
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e1381102438d38c83d913131ba0400b0";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</body>
+</html>

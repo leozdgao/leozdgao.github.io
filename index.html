@@ -53,6 +53,95 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2015-04-10T14:46:13.000Z"><a href="/2015/04/10/拖放文件上传功能总结/">2015-04-10</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/04/10/拖放文件上传功能总结/">拖放文件上传功能总结</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>学习了下HTML5的拖放API，并做了一个拖放文件上传的Demo，server端使用了node.js，<a href="https://github.com/leozdgao/dndUpload">github地址</a></p>
+<h2 id="拖放API">拖放API</h2><p>在HTML5中，可以让DOM中的某个元素具有可拖放的属性，或者可以将浏览器外的文件拖放到浏览器中，并利用File API做一些后续的处理。先介绍下HTML5的拖放API。</p>
+<p>要让DOM中的元素可拖放，需要设置该元素的<code>draggable</code>属性，并赋值为true，就像这样：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"demo"</span> draggable=<span class="string">"true"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>然后介绍下拖放相关的事件，这是我们主要用来实现拖放逻辑的东西。</p>
+<table>
+<thead>
+<tr>
+<th>事件</th>
+<th>产生事件的对象</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dragstart</td>
+<td>被拖放的元素</td>
+<td>开始拖放操作</td>
+</tr>
+<tr>
+<td>drag</td>
+<td>被拖放的元素</td>
+<td>在拖放的过程中</td>
+</tr>
+<tr>
+<td>dragend</td>
+<td>被拖放的元素</td>
+<td>拖放操作结束</td>
+</tr>
+<tr>
+<td>dragenter</td>
+<td>拖放过程中鼠标经过的元素</td>
+<td>被拖放的元素进入该元素</td>
+</tr>
+<tr>
+<td>dragover</td>
+<td>拖放过程中鼠标经过的元素</td>
+<td>被拖放的元素在该元素中移动</td>
+</tr>
+<tr>
+<td>dragleave</td>
+<td>拖放过程中鼠标经过的元素</td>
+<td>被拖放的元素离开该元素</td>
+</tr>
+<tr>
+<td>drop</td>
+<td>拖放的目标元素</td>
+<td>拖放元素被放到了该元素上</td>
+</tr>
+</tbody>
+</table>
+<p>拖放操作说到底是一种数据交换的操作，即将被拖放元素上的数据传递到拖放目标上去，那么我就需要<code>dataTransfer</code>对象来做这个数据传递的工作。</p>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/04/10/拖放文件上传功能总结/#more" class="more-link">更多</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+  
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2015-04-09T15:18:05.000Z"><a href="/2015/04/09/FormData对象/">2015-04-09</a></time>
       
       
@@ -452,6 +541,8 @@
   <ul class="entry">
   
     <li><a href="/categories/HTML-CSS/">HTML/CSS</a><small>1</small></li>
+  
+    <li><a href="/categories/HTML5/">HTML5</a><small>1</small></li>
   
     <li><a href="/categories/jslibs/">JS类库探索</a><small>2</small></li>
   

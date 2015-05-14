@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不积跬步无以至千里]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://leozdgao.github.io/"/>
-  <updated>2015-05-14T12:25:03.755Z</updated>
+  <updated>2015-05-14T12:27:15.994Z</updated>
   <id>http://leozdgao.github.io/</id>
   
   <author>
@@ -19,13 +19,30 @@
     <link href="http://leozdgao.github.io/2015/05/14/BOM%E4%B8%AD%E8%AE%A1%E7%AE%97%E5%85%83%E7%B4%A0%E7%9B%B8%E5%85%B3%E5%B0%BA%E5%AF%B8%E6%88%96%E5%81%8F%E7%A7%BB%E9%87%8F%E7%9A%84%E6%96%B9%E5%BC%8F%E6%B1%87%E6%80%BB/"/>
     <id>http://leozdgao.github.io/2015/05/14/BOM中计算元素相关尺寸或偏移量的方式汇总/</id>
     <published>2015-05-14T09:49:17.000Z</published>
-    <updated>2015-05-14T12:25:03.755Z</updated>
+    <updated>2015-05-14T12:27:15.994Z</updated>
     <content type="html"><![CDATA[<h2 id="元素尺寸">元素尺寸</h2><p>获取元素的尺寸（Dimension），该尺寸为该元素border-box的大小<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var <span class="built_in">rect</span> = element.getBoundingClientRect();  <span class="comment">// return ClientRect object</span></span><br><span class="line">var <span class="variable">height</span> = <span class="built_in">rect</span>.bottom - <span class="built_in">rect</span>.top;</span><br><span class="line">var <span class="variable">width</span> = <span class="built_in">rect</span>.right - <span class="built_in">rect</span>.left;</span><br></pre></td></tr></table></figure></p>
-<p>| 属性 | 说明 |</p>
-<p>|——————|——————————————————————————-|</p>
-<p>| clientHeight / clientWidth | 用户可见高度 / 宽度（元素的padding-box高度 / 宽度 - 滚动条宽度）|</p>
-<p>| scrollHeight / scrollWidth | 元素的内容高度 / 宽度（包括元素的溢出部分）+padding |</p>
-<p>| offsetHeight / offsetWidth | 元素的border-box高度 / 宽度（包括元素的padding+border+滚动条+正文高度 / 宽度）|</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>clientHeight / clientWidth</td>
+<td>用户可见高度 / 宽度（元素的padding-box高度 / 宽度 - 滚动条宽度）</td>
+</tr>
+<tr>
+<td>scrollHeight / scrollWidth</td>
+<td>元素的内容高度 / 宽度（包括元素的溢出部分）+padding</td>
+</tr>
+<tr>
+<td>offsetHeight / offsetWidth</td>
+<td>元素的border-box高度 / 宽度（包括元素的padding+border+滚动条+正文高度 / 宽度）</td>
+</tr>
+</tbody>
+</table>
 <a id="more"></a>
 <p>其中<code>scrollWidth</code>或者<code>scrollHeight</code>由于各浏览器滚动条实现的差异，可能会出现返回值不同的情况</p>
 <p>Chrome及IE7下（不限于）</p>
@@ -33,11 +50,28 @@
 <p>Firefox及IE8+（不限于）</p>
 <p><img src="http://7sbm5t.com1.z0.glb.clouddn.com/cssdimension1.png" alt="1"></p>
 <p><strong>jQuery中获取元素尺寸的方法</strong></p>
-<p>| 方法 | 说明 |</p>
-<p>|——————|——————————————————————————-|</p>
-<p>| innerWidth() / innerHeight() | 获取元素padding-box的尺寸 |</p>
-<p>| width() / height() | 根据元素的box-sizing的设置返回相应box的尺寸 |</p>
-<p>| outerWidth(includeMargin) / outerHeight(includeMargin) | includeMargin为true时则返回margin-box的尺寸，includeMargin为false则返回border-box的尺寸，includeMargin默认值为false|</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>innerWidth() / innerHeight()</td>
+<td>获取元素padding-box的尺寸</td>
+</tr>
+<tr>
+<td>width() / height()</td>
+<td>根据元素的box-sizing的设置返回相应box的尺寸</td>
+</tr>
+<tr>
+<td>outerWidth(includeMargin) / outerHeight(includeMargin)</td>
+<td>includeMargin为true时则返回margin-box的尺寸，includeMargin为false则返回border-box的尺寸，includeMargin默认值为false</td>
+</tr>
+</tbody>
+</table>
 <p><strong>获取window的视口（viewport）大小</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// generic js</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getViewportDimension</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> quirksMode = <span class="built_in">document</span>.compatMode == <span class="string">'BackCompat'</span>;</span><br><span class="line">  <span class="keyword">var</span> rect = quirksMode ? <span class="built_in">document</span>.body : <span class="built_in">document</span>.documentElement; </span><br><span class="line">      </span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    width: rect.clientWidth,</span><br><span class="line">    height: rect.clientHeight</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// in jQuery</span></span><br><span class="line">$(<span class="string">'body'</span>).innerWidth();</span><br></pre></td></tr></table></figure></p>
 <p>标准模式下： <code>document.documentElement</code>表示window视口大小，<code>document.body</code>获取的是body元素的大小<br>怪异模式下： <code>document.documentElement</code>获取的值为0，<code>document.body</code>获取的window视口大小</p>
 <p><code>document.documentElement.clientWidth</code>获取的值<strong>不包括滚动条宽度</strong><br><code>window.innerWidth</code>，<code>window.innerHeight</code>支持大多数主流浏览器以及IE9+，它们获取的值<strong>包括了滚动条宽度</strong></p>
@@ -46,28 +80,85 @@
 <p>判断滚动条宽度：（OSX下滚动条宽度为0）<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">style</span>&gt;</span><span class="css"></span><br><span class="line"><span class="class">.scrollbar-measure</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">overflow</span>:<span class="value"> scroll</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">top</span>:<span class="value"> -<span class="number">9999px</span></span></span>;</span><br><span class="line"><span class="rule">&#125;</span></span></span><br><span class="line"></span><span class="tag">&lt;/<span class="title">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript"></span><br><span class="line"><span class="keyword">var</span> temp = <span class="built_in">document</span>.createElement(<span class="string">'div'</span>), length;</span><br><span class="line">temp.className = <span class="string">'scrollbar-measure'</span>;</span><br><span class="line"><span class="built_in">document</span>.body.appendChild(temp);</span><br><span class="line">length = temp.offsetWidth - temp.clientWidth;</span><br><span class="line"><span class="built_in">document</span>.body.removeChild(temp);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(length);</span><br><span class="line"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>检查滚动条是否划到底部：</p>
 <figure class="highlight fix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">element.scrollHeight - element.scrollTop =</span>=<span class="string"> element.clientHeight;</span></span><br></pre></td></tr></table></figure>
-<h2 id="元素偏移量相关">元素偏移量相关</h2><p>| 属性 | 说明 |</p>
-<p>|——————|——————————————————————————-|</p>
-<p>| clientTop（get） | 元素的border-top-width |</p>
-<p>| clientLeft（get） | 元素的border-left-width，如果text-direction为rtl，则还需要算上出现的垂直滚动条的宽度 |</p>
-<p>| scrollTop（get / set） | 元素正文上方被卷去的（scrolled）高度 |</p>
-<p>| scrollLeft（get / set） | 元素正文左边被卷去的（scrolled）高度 |</p>
-<p>| offsetTop（get） | 元素border-box的上边缘到其父元素margin-box的上边缘的宽度 |</p>
-<p>| offsetLeft（get） | 元素border-box的左边缘到其父元素margin-box的左边缘的宽度 |</p>
+<h2 id="元素偏移量相关">元素偏移量相关</h2><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>clientTop（get）</td>
+<td>元素的border-top-width</td>
+</tr>
+<tr>
+<td>clientLeft（get）</td>
+<td>元素的border-left-width，如果text-direction为rtl，则还需要算上出现的垂直滚动条的宽度</td>
+</tr>
+<tr>
+<td>scrollTop（get / set）</td>
+<td>元素正文上方被卷去的（scrolled）高度</td>
+</tr>
+<tr>
+<td>scrollLeft（get / set）</td>
+<td>元素正文左边被卷去的（scrolled）高度</td>
+</tr>
+<tr>
+<td>offsetTop（get）</td>
+<td>元素border-box的上边缘到其父元素margin-box的上边缘的宽度</td>
+</tr>
+<tr>
+<td>offsetLeft（get）</td>
+<td>元素border-box的左边缘到其父元素margin-box的左边缘的宽度</td>
+</tr>
+</tbody>
+</table>
 <p><code>element.offsetParent</code>返回的是离element最近的containing element或者说是element的父元素，如果element或其中一个上级元素的样式为<code>display:none</code>，则该属性返回<code>null</code></p>
-<p>| 属性 | 说明 |</p>
-<p>|——————|——————————————————|</p>
-<p>| window.scrollX（pageXOffset ） | 整个文档被水平滚动了的宽度 |</p>
-<p>| window.scrollY（pageYOffset） | 整个文档被垂直滚动了的宽度 |</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>window.scrollX（pageXOffset ）</td>
+<td>整个文档被水平滚动了的宽度</td>
+</tr>
+<tr>
+<td>window.scrollY（pageYOffset）</td>
+<td>整个文档被垂直滚动了的宽度</td>
+</tr>
+</tbody>
+</table>
 <p>为保证兼容性，应该尽可能使用<code>pageXOffset</code>或<code>pageYOffset</code>，不过在IE9以下版本并不支持该属性：<br><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="reserved">var</span> supportPageOffset = <span class="built_in">window</span>.pageXOffset !== <span class="literal">undefined</span>;</span><br><span class="line"><span class="reserved">var</span> quirksMode = <span class="built_in">document</span>.compatMode == <span class="string">'BackCompat'</span>;</span><br><span class="line"><span class="reserved">var</span> rect = quirksMode ? <span class="built_in">document</span>.body : <span class="built_in">document</span>.documentElement;</span><br><span class="line"></span><br><span class="line"><span class="reserved">var</span> scrolledWidth = supportPageOffset ? <span class="built_in">window</span>.pageXOffset : rect.scrollLeft;</span><br><span class="line"><span class="reserved">var</span> scrolledHeight = supportPageOffset ? <span class="built_in">window</span>.pageYOffset : rect.scrollTop;</span><br></pre></td></tr></table></figure></p>
 ]]></content>
     <summary type="html">
     <![CDATA[<h2 id="元素尺寸">元素尺寸</h2><p>获取元素的尺寸（Dimension），该尺寸为该元素border-box的大小<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var <span class="built_in">rect</span> = element.getBoundingClientRect();  <span class="comment">// return ClientRect object</span></span><br><span class="line">var <span class="variable">height</span> = <span class="built_in">rect</span>.bottom - <span class="built_in">rect</span>.top;</span><br><span class="line">var <span class="variable">width</span> = <span class="built_in">rect</span>.right - <span class="built_in">rect</span>.left;</span><br></pre></td></tr></table></figure></p>
-<p>| 属性 | 说明 |</p>
-<p>|——————|——————————————————————————-|</p>
-<p>| clientHeight / clientWidth | 用户可见高度 / 宽度（元素的padding-box高度 / 宽度 - 滚动条宽度）|</p>
-<p>| scrollHeight / scrollWidth | 元素的内容高度 / 宽度（包括元素的溢出部分）+padding |</p>
-<p>| offsetHeight / offsetWidth | 元素的border-box高度 / 宽度（包括元素的padding+border+滚动条+正文高度 / 宽度）|</p>]]>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>clientHeight / clientWidth</td>
+<td>用户可见高度 / 宽度（元素的padding-box高度 / 宽度 - 滚动条宽度）</td>
+</tr>
+<tr>
+<td>scrollHeight / scrollWidth</td>
+<td>元素的内容高度 / 宽度（包括元素的溢出部分）+padding</td>
+</tr>
+<tr>
+<td>offsetHeight / offsetWidth</td>
+<td>元素的border-box高度 / 宽度（包括元素的padding+border+滚动条+正文高度 / 宽度）</td>
+</tr>
+</tbody>
+</table>]]>
     
     </summary>
     

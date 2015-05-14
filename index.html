@@ -64,11 +64,28 @@
     <div class="entry">
       
         <h2 id="元素尺寸">元素尺寸</h2><p>获取元素的尺寸（Dimension），该尺寸为该元素border-box的大小<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var <span class="built_in">rect</span> = element.getBoundingClientRect();  <span class="comment">// return ClientRect object</span></span><br><span class="line">var <span class="variable">height</span> = <span class="built_in">rect</span>.bottom - <span class="built_in">rect</span>.top;</span><br><span class="line">var <span class="variable">width</span> = <span class="built_in">rect</span>.right - <span class="built_in">rect</span>.left;</span><br></pre></td></tr></table></figure></p>
-<p>| 属性 | 说明 |</p>
-<p>|——————|——————————————————————————-|</p>
-<p>| clientHeight / clientWidth | 用户可见高度 / 宽度（元素的padding-box高度 / 宽度 - 滚动条宽度）|</p>
-<p>| scrollHeight / scrollWidth | 元素的内容高度 / 宽度（包括元素的溢出部分）+padding |</p>
-<p>| offsetHeight / offsetWidth | 元素的border-box高度 / 宽度（包括元素的padding+border+滚动条+正文高度 / 宽度）|</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>clientHeight / clientWidth</td>
+<td>用户可见高度 / 宽度（元素的padding-box高度 / 宽度 - 滚动条宽度）</td>
+</tr>
+<tr>
+<td>scrollHeight / scrollWidth</td>
+<td>元素的内容高度 / 宽度（包括元素的溢出部分）+padding</td>
+</tr>
+<tr>
+<td>offsetHeight / offsetWidth</td>
+<td>元素的border-box高度 / 宽度（包括元素的padding+border+滚动条+正文高度 / 宽度）</td>
+</tr>
+</tbody>
+</table>
       
     </div>
     <footer>

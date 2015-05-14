@@ -1,0 +1,245 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>BOM中计算元素相关尺寸或偏移量的方式汇总 | Leo.Gao</title>
+  <meta name="author" content="Leo Gao">
+  
+  <meta name="description" content="元素尺寸获取元素的尺寸（Dimension），该尺寸为该元素border-box的大小123var rect = element.getBoundingClientRect();  // return ClientRect objectvar height = rect.bottom - rect.top;var width = rect.right - rect.left;
+| 属性 | 说明 |
+|——————|——————————————————————————-|
+| clientHeight / clientWidth | 用户可见高度 / 宽度（元素的padding-box高度 / 宽度 - 滚动条宽度）|
+| scrollHeight / scrollWidth | 元素的内容高度 / 宽度（包括元素的溢出部分）+padding |
+| offsetHeight / offsetWidth | 元素的border-box高度 / 宽度（包括元素的padding+border+滚动条+正文高度 / 宽度）|">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="BOM中计算元素相关尺寸或偏移量的方式汇总"/>
+  <meta property="og:site_name" content="Leo.Gao"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+  <meta name="baidu-site-verification" content="KFPqVnQyRU" />
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Leo.Gao" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Leo.Gao</a></h1>
+  <h2><a href="/">不积跬步无以至千里</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">主页</a></li>
+    
+      <li><a href="/archives">文章列表</a></li>
+    
+      <li><a href="/about">关于作者</a></li>
+    
+      <li><a href="/atom.xml">RSS</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-05-14T09:49:17.000Z"><a href="/2015/05/14/BOM中计算元素相关尺寸或偏移量的方式汇总/">2015-05-14</a></time>
+      
+      
+  
+    <h1 class="title">BOM中计算元素相关尺寸或偏移量的方式汇总</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h2 id="元素尺寸">元素尺寸</h2><p>获取元素的尺寸（Dimension），该尺寸为该元素border-box的大小<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var <span class="built_in">rect</span> = element.getBoundingClientRect();  <span class="comment">// return ClientRect object</span></span><br><span class="line">var <span class="variable">height</span> = <span class="built_in">rect</span>.bottom - <span class="built_in">rect</span>.top;</span><br><span class="line">var <span class="variable">width</span> = <span class="built_in">rect</span>.right - <span class="built_in">rect</span>.left;</span><br></pre></td></tr></table></figure></p>
+<p>| 属性 | 说明 |</p>
+<p>|——————|——————————————————————————-|</p>
+<p>| clientHeight / clientWidth | 用户可见高度 / 宽度（元素的padding-box高度 / 宽度 - 滚动条宽度）|</p>
+<p>| scrollHeight / scrollWidth | 元素的内容高度 / 宽度（包括元素的溢出部分）+padding |</p>
+<p>| offsetHeight / offsetWidth | 元素的border-box高度 / 宽度（包括元素的padding+border+滚动条+正文高度 / 宽度）|</p>
+<a id="more"></a>
+<p>其中<code>scrollWidth</code>或者<code>scrollHeight</code>由于各浏览器滚动条实现的差异，可能会出现返回值不同的情况</p>
+<p>Chrome及IE7下（不限于）</p>
+<p><img src="http://7sbm5t.com1.z0.glb.clouddn.com/cssdimension0.png" alt="0"></p>
+<p>Firefox及IE8+（不限于）</p>
+<p><img src="http://7sbm5t.com1.z0.glb.clouddn.com/cssdimension1.png" alt="1"></p>
+<p><strong>jQuery中获取元素尺寸的方法</strong></p>
+<p>| 方法 | 说明 |</p>
+<p>|——————|——————————————————————————-|</p>
+<p>| innerWidth() / innerHeight() | 获取元素padding-box的尺寸 |</p>
+<p>| width() / height() | 根据元素的box-sizing的设置返回相应box的尺寸 |</p>
+<p>| outerWidth(includeMargin) / outerHeight(includeMargin) | includeMargin为true时则返回margin-box的尺寸，includeMargin为false则返回border-box的尺寸，includeMargin默认值为false|</p>
+<p><strong>获取window的视口（viewport）大小</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// generic js</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getViewportDimension</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> quirksMode = <span class="built_in">document</span>.compatMode == <span class="string">'BackCompat'</span>;</span><br><span class="line">  <span class="keyword">var</span> rect = quirksMode ? <span class="built_in">document</span>.body : <span class="built_in">document</span>.documentElement; </span><br><span class="line">      </span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    width: rect.clientWidth,</span><br><span class="line">    height: rect.clientHeight</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// in jQuery</span></span><br><span class="line">$(<span class="string">'body'</span>).innerWidth();</span><br></pre></td></tr></table></figure></p>
+<p>标准模式下： <code>document.documentElement</code>表示window视口大小，<code>document.body</code>获取的是body元素的大小<br>怪异模式下： <code>document.documentElement</code>获取的值为0，<code>document.body</code>获取的window视口大小</p>
+<p><code>document.documentElement.clientWidth</code>获取的值<strong>不包括滚动条宽度</strong><br><code>window.innerWidth</code>，<code>window.innerHeight</code>支持大多数主流浏览器以及IE9+，它们获取的值<strong>包括了滚动条宽度</strong></p>
+<h2 id="滚动条相关">滚动条相关</h2><p>滚动条出现在元素的content-box外，包括在元素padding-box内，这意味着如果滚动条出现，元素的content-box被减小，padding-box大小不变</p>
+<p>判断是否出现滚动条：<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> hasVerticalScroll = element.scrollHeight &gt; element.clientHeight;</span><br><span class="line"><span class="keyword">var</span> hasHorizontalScroll = element.scrollWidth &gt; element.clientWidth;</span><br></pre></td></tr></table></figure></p>
+<p>判断滚动条宽度：（OSX下滚动条宽度为0）<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">style</span>&gt;</span><span class="css"></span><br><span class="line"><span class="class">.scrollbar-measure</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">overflow</span>:<span class="value"> scroll</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">top</span>:<span class="value"> -<span class="number">9999px</span></span></span>;</span><br><span class="line"><span class="rule">&#125;</span></span></span><br><span class="line"></span><span class="tag">&lt;/<span class="title">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript"></span><br><span class="line"><span class="keyword">var</span> temp = <span class="built_in">document</span>.createElement(<span class="string">'div'</span>), length;</span><br><span class="line">temp.className = <span class="string">'scrollbar-measure'</span>;</span><br><span class="line"><span class="built_in">document</span>.body.appendChild(temp);</span><br><span class="line">length = temp.offsetWidth - temp.clientWidth;</span><br><span class="line"><span class="built_in">document</span>.body.removeChild(temp);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(length);</span><br><span class="line"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>检查滚动条是否划到底部：</p>
+<figure class="highlight fix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">element.scrollHeight - element.scrollTop =</span>=<span class="string"> element.clientHeight;</span></span><br></pre></td></tr></table></figure>
+<h2 id="元素偏移量相关">元素偏移量相关</h2><p>| 属性 | 说明 |</p>
+<p>|——————|——————————————————————————-|</p>
+<p>| clientTop（get） | 元素的border-top-width |</p>
+<p>| clientLeft（get） | 元素的border-left-width，如果text-direction为rtl，则还需要算上出现的垂直滚动条的宽度 |</p>
+<p>| scrollTop（get / set） | 元素正文上方被卷去的（scrolled）高度 |</p>
+<p>| scrollLeft（get / set） | 元素正文左边被卷去的（scrolled）高度 |</p>
+<p>| offsetTop（get） | 元素border-box的上边缘到其父元素margin-box的上边缘的宽度 |</p>
+<p>| offsetLeft（get） | 元素border-box的左边缘到其父元素margin-box的左边缘的宽度 |</p>
+<p><code>element.offsetParent</code>返回的是离element最近的containing element或者说是element的父元素，如果element或其中一个上级元素的样式为<code>display:none</code>，则该属性返回<code>null</code></p>
+<p>| 属性 | 说明 |</p>
+<p>|——————|——————————————————|</p>
+<p>| window.scrollX（pageXOffset ） | 整个文档被水平滚动了的宽度 |</p>
+<p>| window.scrollY（pageYOffset） | 整个文档被垂直滚动了的宽度 |</p>
+<p>为保证兼容性，应该尽可能使用<code>pageXOffset</code>或<code>pageYOffset</code>，不过在IE9以下版本并不支持该属性：<br><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="reserved">var</span> supportPageOffset = <span class="built_in">window</span>.pageXOffset !== <span class="literal">undefined</span>;</span><br><span class="line"><span class="reserved">var</span> quirksMode = <span class="built_in">document</span>.compatMode == <span class="string">'BackCompat'</span>;</span><br><span class="line"><span class="reserved">var</span> rect = quirksMode ? <span class="built_in">document</span>.body : <span class="built_in">document</span>.documentElement;</span><br><span class="line"></span><br><span class="line"><span class="reserved">var</span> scrolledWidth = supportPageOffset ? <span class="built_in">window</span>.pageXOffset : rect.scrollLeft;</span><br><span class="line"><span class="reserved">var</span> scrolledHeight = supportPageOffset ? <span class="built_in">window</span>.pageYOffset : rect.scrollTop;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/BOM/">BOM</a>
+  </div>
+
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+  
+<section id="comment">
+  <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="2015/05/14/BOM中计算元素相关尺寸或偏移量的方式汇总/" data-title="BOM中计算元素相关尺寸或偏移量的方式汇总" data-url="http://leozdgao.github.io/2015/05/14/BOM中计算元素相关尺寸或偏移量的方式汇总/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"leozdgao"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0] 
+       || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+  <!-- 多说公共JS代码 end -->
+
+</section>
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//baidu.com/baidu" method="get" accept-charset="utf-8">
+    <input type="search" name="word" results="0" placeholder="搜索">
+    <input type="hidden" name="si" value="site:leozdgao.github.io">
+    <input name=tn type=hidden value="bds">
+	<input name=cl type=hidden value="3">
+	<input name=ct type=hidden value="2097152">
+	<input name=s type=hidden value="on">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/HTML-CSS/">HTML/CSS</a><small>1</small></li>
+  
+    <li><a href="/categories/HTML5/">HTML5</a><small>1</small></li>
+  
+    <li><a href="/categories/jslibs/">JS类库探索</a><small>2</small></li>
+  
+    <li><a href="/categories/jsbasic/">Javascript基础</a><small>4</small></li>
+  
+    <li><a href="/categories/os/">操作系统基础</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li class="categories"><a href="/tags/BOM/">BOM</a><small>1</small></li>
+  
+    <li class="categories"><a href="/tags/ES6/">ES6</a><small>1</small></li>
+  
+    <li class="categories"><a href="/tags/css/">css</a><small>1</small></li>
+  
+    <li class="categories"><a href="/tags/git/">git</a><small>1</small></li>
+  
+    <li class="categories"><a href="/tags/javascript/">javascript</a><small>4</small></li>
+  
+    <li class="categories"><a href="/tags/linux/">linux</a><small>1</small></li>
+  
+    <li class="categories"><a href="/tags/react-js/">react.js</a><small>2</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 Leo Gao
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e1381102438d38c83d913131ba0400b0";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</body>
+</html>

@@ -53,6 +53,49 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2015-05-14T09:49:17.000Z"><a href="/2015/05/14/BOM中计算元素相关尺寸或偏移量的方式汇总/">2015-05-14</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/05/14/BOM中计算元素相关尺寸或偏移量的方式汇总/">BOM中计算元素相关尺寸或偏移量的方式汇总</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h2 id="元素尺寸">元素尺寸</h2><p>获取元素的尺寸（Dimension），该尺寸为该元素border-box的大小<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var <span class="built_in">rect</span> = element.getBoundingClientRect();  <span class="comment">// return ClientRect object</span></span><br><span class="line">var <span class="variable">height</span> = <span class="built_in">rect</span>.bottom - <span class="built_in">rect</span>.top;</span><br><span class="line">var <span class="variable">width</span> = <span class="built_in">rect</span>.right - <span class="built_in">rect</span>.left;</span><br></pre></td></tr></table></figure></p>
+<p>| 属性 | 说明 |</p>
+<p>|——————|——————————————————————————-|</p>
+<p>| clientHeight / clientWidth | 用户可见高度 / 宽度（元素的padding-box高度 / 宽度 - 滚动条宽度）|</p>
+<p>| scrollHeight / scrollWidth | 元素的内容高度 / 宽度（包括元素的溢出部分）+padding |</p>
+<p>| offsetHeight / offsetWidth | 元素的border-box高度 / 宽度（包括元素的padding+border+滚动条+正文高度 / 宽度）|</p>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/05/14/BOM中计算元素相关尺寸或偏移量的方式汇总/#more" class="more-link">更多</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+  
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2015-04-10T14:46:13.000Z"><a href="/2015/04/10/拖放文件上传功能总结/">2015-04-10</a></time>
       
       
@@ -474,52 +517,11 @@
 
 
 
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2015-02-19T03:20:49.000Z"><a href="/2015/02/19/利用React创建评论区（Comment-Box）组件/">2015-02-19</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2015/02/19/利用React创建评论区（Comment-Box）组件/">利用React创建评论区（Comment Box）组件</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>本文是在阅读学习了官方的<a href="http://facebook.github.io/react/docs/tutorial.html">React Tutorial</a>之后的整理，实例<a href="http://7sbm5t.com1.z0.glb.clouddn.com/react0_ex.html">链接</a>。</p>
-<h2 id="开始使用React">开始使用React</h2><p>首先从官方获取React.js的最新版本（<a href="http://facebook.github.io/react/downloads.html">v0.12.2</a>），或者下载官方的<a href="http://facebook.github.io/react/downloads/react-0.12.2.zip">Starter Kit</a>，并在我们的html中引入它们：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">title</span>&gt;</span>React Test Page<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"../build/react.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"../build/JSXTransformer.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="JSX语法">JSX语法</h2><p>我们可以在React组件的代码中发现xml标签似乎直接写进了javascript里：</p>
-<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">React.render(</span><br><span class="line">    &lt;CommentBox /&gt;,</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">'content'</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-<p>这种写法被称作JSX，是React的一个可选功能，将xml标签直接写在javascript中看上去比调用javascript方法要更加直观些。要正常使用这个功能，需要在你的页面中引入<code>JSXTransformer.js</code>文件，或者使用<code>npm</code>安装<code>react-tools</code>，将包含JSX语法的源文件编译成常规的javascript文件，比较推荐的是后者，因为使用后者让页面可以直接使用编译后的javascript文件而不需要在加载页面时进行JSX编译。</p>
-<p>JSX中的类HTML标签并不是真正的HTML元素，也不是一段HTML字符串，而是实例化了的React组件，关于JSX语法的更多内容，可以看这篇文章。</p>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2015/02/19/利用React创建评论区（Comment-Box）组件/#more" class="more-link">更多</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-  
-
-
-
 
 <nav id="pagination">
   
+  
+    <a href="/page/2/" class="alignright next">下一页</a>
   
   <div class="clearfix"></div>
 </nav></div></div>
@@ -558,6 +560,8 @@
 <div class="widget tag">
   <h3 class="title">标签</h3>
   <ul class="entry">
+  
+    <li class="categories"><a href="/tags/BOM/">BOM</a><small>1</small></li>
   
     <li class="categories"><a href="/tags/ES6/">ES6</a><small>1</small></li>
   

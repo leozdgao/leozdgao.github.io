@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不积跬步无以至千里]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://leozdgao.github.io/"/>
-  <updated>2015-05-22T15:53:34.545Z</updated>
+  <updated>2015-05-23T03:02:13.667Z</updated>
   <id>http://leozdgao.github.io/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://leozdgao.github.io/2015/05/22/vertical-align%E5%B1%9E%E6%80%A7%E4%B8%8E%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD/"/>
     <id>http://leozdgao.github.io/2015/05/22/vertical-align属性与垂直居中/</id>
     <published>2015-05-22T15:52:49.000Z</published>
-    <updated>2015-05-22T15:53:34.545Z</updated>
+    <updated>2015-05-23T03:02:13.667Z</updated>
     <content type="html"><![CDATA[<p>让元素居中对齐是非常常见的需求，首先是水平居中，要实现水平居中行内元素只需要在其父元素上设置<code>text-align: center</code>即可，对于块级元素来说让它的<code>margin-left: auto</code>和<code>margin-right: auto</code>即可（width不可为auto），那么垂直居中呢？找下css属性发现了<code>vertical-align</code>，感觉就是它了，设置个<code>vertical-align: middle</code>，怎么没有达到预期效果？下面来详细介绍下<code>vertical-align</code>这个属性以及实现垂直居中的若干方法。</p>
 <h2 id="vertical-align属性是干什么的">vertical-align属性是干什么的</h2><p>根据<a href="http://www.w3.org/TR/CSS2/visudet.html#propdef-vertical-align" target="_blank" rel="external">W3C Spec</a>中对<code>vertical-align</code>属性的定义：</p>
 <blockquote>
@@ -126,9 +126,9 @@
     
     </summary>
     
-      <category term="HTML/CSS" scheme="http://leozdgao.github.io/tags/HTML-CSS/"/>
+      <category term="css" scheme="http://leozdgao.github.io/tags/css/"/>
     
-      <category term="css" scheme="http://leozdgao.github.io/categories/css/"/>
+      <category term="HTML/CSS" scheme="http://leozdgao.github.io/categories/HTML-CSS/"/>
     
   </entry>
   

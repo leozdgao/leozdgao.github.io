@@ -53,6 +53,49 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2015-06-08T12:29:34.000Z"><a href="/2015/06/08/【译】解构ReactJS的Flux/">2015-06-08</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/06/08/【译】解构ReactJS的Flux/">【译】解构ReactJS的Flux</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h2 id="用ReactJS时不要使用MVC">用ReactJS时不要使用MVC</h2><p>我将通过列出一些单向数据流的例子来将ReactJS官方实现的<a href="https://github.com/facebook/flux">Flux</a>和我写的库<a href="https://github.com/spoike/refluxjs">Reflux</a>作比较。</p>
+<p>Facebook的ReactJS开发小组似乎并不待见MVC框架。将MVC模式和ReactJS结合使用了一段时间后，我似乎发现了争议从何而来了。你会遇到一个问题：你应该如何处理数据？ReactJS并不在乎太多关于数据是如何传入的或者贯穿整个Web应用去处理数据。这个几乎是一个架构层面的问题，并不是ReactJS所能涵盖的。于是Facebook中的优秀开发者提出了一个函数式的方法，他们称其为：<strong>Flux</strong>。</p>
+<p><strong>Flux</strong>的基本思想是可以在Web应用中拥有一个更加函数式的方法来处理数据。<strong>Flux</strong>介绍了Actions和Data Stores的概念来处理整个应用的事件和数据。数据流大致是这个样子的：</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Action <span class="subst">-&gt; </span><span class="built_in">Data</span> Store <span class="subst">-&gt; </span>Component</span><br></pre></td></tr></table></figure>
+<p>数据的突变必须是在调用Actions时发生的，Data Stores需要监听actions并且改变store中的数据。这让数据结构保持扁平，并让数据的改变操作始终发生在Stores中，这防止了让Components自己处理数据所带来的副作用。</p>
+<p>通过使用单向数据流，跟踪数据的改变将更加容易，因为它完全依赖于actions是如何发布的，继而影响整个应用。Components自身仅通过执行调用action来改变应用数据，这样避免了维护上的麻烦。</p>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/06/08/【译】解构ReactJS的Flux/#more" class="more-link">更多</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+  
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2015-05-22T15:52:49.000Z"><a href="/2015/05/22/vertical-align属性与垂直居中/">2015-05-22</a></time>
       
       
@@ -513,45 +556,6 @@
 
 
 
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2015-02-28T03:13:19.000Z"><a href="/2015/02/28/Git-Flow简介/">2015-02-28</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2015/02/28/Git-Flow简介/">Git Flow简介</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>摘抄自：<a href="http://nvie.com/posts/a-successful-git-branching-model/">原文</a>，<a href="http://www.juvenxu.com/2010/11/28/a-successful-git-branching-model/">译文</a></p>
-<p><img src="http://7sbm5t.com1.z0.glb.clouddn.com/gitflow_0.png" alt="git flow"></p>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2015/02/28/Git-Flow简介/#more" class="more-link">更多</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-  
-
-
-
 
 <nav id="pagination">
   
@@ -581,7 +585,7 @@
   
     <li><a href="/categories/HTML5/">HTML5</a><small>1</small></li>
   
-    <li><a href="/categories/jslibs/">JS类库探索</a><small>2</small></li>
+    <li><a href="/categories/jslibs/">JS类库探索</a><small>3</small></li>
   
     <li><a href="/categories/jsbasic/">Javascript基础</a><small>4</small></li>
   
@@ -608,7 +612,7 @@
   
     <li class="categories"><a href="/tags/linux/">linux</a><small>1</small></li>
   
-    <li class="categories"><a href="/tags/react-js/">react.js</a><small>2</small></li>
+    <li class="categories"><a href="/tags/react-js/">react.js</a><small>3</small></li>
   
   </ul>
 </div>

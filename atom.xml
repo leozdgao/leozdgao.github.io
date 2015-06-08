@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不积跬步无以至千里]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://leozdgao.github.io/"/>
-  <updated>2015-05-23T03:02:13.667Z</updated>
+  <updated>2015-06-08T12:30:32.773Z</updated>
   <id>http://leozdgao.github.io/</id>
   
   <author>
@@ -13,6 +13,64 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[【译】解构ReactJS的Flux]]></title>
+    <link href="http://leozdgao.github.io/2015/06/08/%E3%80%90%E8%AF%91%E3%80%91%E8%A7%A3%E6%9E%84ReactJS%E7%9A%84Flux/"/>
+    <id>http://leozdgao.github.io/2015/06/08/【译】解构ReactJS的Flux/</id>
+    <published>2015-06-08T12:29:34.000Z</published>
+    <updated>2015-06-08T12:30:32.773Z</updated>
+    <content type="html"><![CDATA[<h2 id="用ReactJS时不要使用MVC">用ReactJS时不要使用MVC</h2><p>我将通过列出一些单向数据流的例子来将ReactJS官方实现的<a href="https://github.com/facebook/flux" target="_blank" rel="external">Flux</a>和我写的库<a href="https://github.com/spoike/refluxjs" target="_blank" rel="external">Reflux</a>作比较。</p>
+<p>Facebook的ReactJS开发小组似乎并不待见MVC框架。将MVC模式和ReactJS结合使用了一段时间后，我似乎发现了争议从何而来了。你会遇到一个问题：你应该如何处理数据？ReactJS并不在乎太多关于数据是如何传入的或者贯穿整个Web应用去处理数据。这个几乎是一个架构层面的问题，并不是ReactJS所能涵盖的。于是Facebook中的优秀开发者提出了一个函数式的方法，他们称其为：<strong>Flux</strong>。</p>
+<p><strong>Flux</strong>的基本思想是可以在Web应用中拥有一个更加函数式的方法来处理数据。<strong>Flux</strong>介绍了Actions和Data Stores的概念来处理整个应用的事件和数据。数据流大致是这个样子的：</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Action <span class="subst">-&gt; </span><span class="built_in">Data</span> Store <span class="subst">-&gt; </span>Component</span><br></pre></td></tr></table></figure>
+<p>数据的突变必须是在调用Actions时发生的，Data Stores需要监听actions并且改变store中的数据。这让数据结构保持扁平，并让数据的改变操作始终发生在Stores中，这防止了让Components自己处理数据所带来的副作用。</p>
+<p>通过使用单向数据流，跟踪数据的改变将更加容易，因为它完全依赖于actions是如何发布的，继而影响整个应用。Components自身仅通过执行调用action来改变应用数据，这样避免了维护上的麻烦。</p>
+<a id="more"></a>
+<h2 id="Todo_Example_vs_Reflux">Todo Example vs Reflux</h2><p>这里有一个供参考的例子，是官方的<a href="https://github.com/facebook/flux/tree/master/examples/flux-todomvc/" target="_blank" rel="external">Todo-mvc</a>。我将基于这个例子来做我的解构。</p>
+<p>Facebook喜欢将<strong>Flux</strong>说成是通过函数式编程来创建应用的一种方式，不过我发现了一些过去命令式编程的趋势并且可以它可以被改进得更加简单并且更加具有函数式的实现。</p>
+<h4 id="Dispatcher的古怪">Dispatcher的古怪</h4><p>TODO的实现涉及到了一个Dispatcher，它打包了所有的actions。接下来，Data Stores需要这样：</p>
+<ul>
+<li>注册自己去监听action的事件，<strong>所有的actions</strong></li>
+<li>为了区分actions之间的区别，Stores需要比较它们要监听的action的名字（静态字符串）</li>
+</ul>
+<p>后面那一点让我感觉困惑，因为它有一点破坏了JavaScript可以做到的函数式编程之美。我很抵触去比较类型，不论是通过字符串还是用<code>instanceof</code>，因为它摒弃了多态性，仿佛是在维护一堆蠕虫。</p>
+<p>在<strong>Reflux</strong>中，我决定将Dispatcher合并进Actions中，去掉了其单例的实现。所以当你在使用actions的时候，你的应用仅需要做两做事：</p>
+<ul>
+<li>创建actions</li>
+<li>通过回调函数来监听action的调用</li>
+</ul>
+<p>Actions是通过<code>Reflux.createAction</code>来创建的，传递一个回调函数给action的<code>listen</code>方法，于是它就可以被任何Data Store监听。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Creating action</span></span><br><span class="line"><span class="keyword">var</span> toggleGem = Reflux.createAction();</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Listening to action</span></span><br><span class="line"><span class="keyword">var</span> isGemActivated = <span class="literal">false</span>;</span><br><span class="line"> </span><br><span class="line">toggleGem.listen(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123; </span><br><span class="line">  isGemActivated = !isGemActivated;</span><br><span class="line">  <span class="keyword">var</span> strActivated = isGemActivated ?</span><br><span class="line">    <span class="string">'activated'</span> :</span><br><span class="line">    <span class="string">'deactivated'</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'Gem is '</span> + strActivated);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>在<strong>Reflux</strong>中的Actions是带有event emitters的函数。如果你想了解它的一个简单的实现，可以参考<a href="https://gist.github.com/spoike/ba561727a3f133b942dc" target="_blank" rel="external">这里</a>。</p>
+<p>在你的应用中修改数据只需要调用action：</p>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">toggleGem<span class="comment">()</span>;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// The callback that listens to the action will output</span></span><br><span class="line"><span class="comment">// "Gem is activated"</span></span><br><span class="line"> </span><br><span class="line">toggleGem<span class="comment">()</span>;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Will output "Gem is deactivated"</span></span><br></pre></td></tr></table></figure>
+<p>让actions成为一个函数，而不是维护一堆静态字符串：</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var <span class="variable">Actions =</span> &#123;&#125;;</span><br><span class="line"> </span><br><span class="line">Actions.<span class="variable">toggleGem =</span> createAction(); </span><br><span class="line">Actions.<span class="variable">polishGem =</span> createAction(); </span><br><span class="line">// <span class="constant">and</span> so on...</span><br></pre></td></tr></table></figure>
+<p>Data Stores也可以这样类似的实现，Reflux提供了一个方便的<code>createStore</code>函数。那些涉足ReactJS组件开发的开发者会把它认为是和<code>React.createClass</code>一样可以工作：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Creates a DataStore</span></span><br><span class="line"><span class="keyword">var</span> gemStore = Reflux.createStore(&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// Initial setup</span></span><br><span class="line">    init: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.isGemActivated = <span class="literal">false</span>;</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// Register statusUpdate action</span></span><br><span class="line">        <span class="keyword">this</span>.listenTo(toggleGem, <span class="keyword">this</span>.handleToggleGem);</span><br><span class="line">    &#125;,</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// Callback</span></span><br><span class="line">    handleToggleGem: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.isGemActivated = !<span class="keyword">this</span>.isGemActivated;</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// Pass on to listeners through</span></span><br><span class="line">        <span class="comment">// the DataStore.trigger function</span></span><br><span class="line">        <span class="keyword">this</span>.trigger(<span class="keyword">this</span>.isGemActivated);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>在一个store实例上有两个方便的方法：<code>listenTo</code>用于action的注册，<code>trigger</code>用于触发DataStore的change事件。</p>
+<p>ReactJS组件可以通过监听这些Data Stores的方式来使用它们：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Gem = React.createClass(&#123; </span><br><span class="line">    componentDidMount: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// the listen function returns a</span></span><br><span class="line">        <span class="comment">// unsubscription convenience functor</span></span><br><span class="line">        <span class="keyword">this</span>.unsubscribe =</span><br><span class="line">            gemStore.listen(<span class="keyword">this</span>.onGemChange);</span><br><span class="line">    &#125;,</span><br><span class="line"> </span><br><span class="line">    componentWillUnmount: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.unsubscribe();</span><br><span class="line">    &#125;,</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// The listening callback</span></span><br><span class="line">    onGemChange: <span class="function"><span class="keyword">function</span><span class="params">(gemStatus)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.setState(&#123;gemStatus: gemStatus&#125;);</span><br><span class="line">    &#125;,</span><br><span class="line"> </span><br><span class="line">    render: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> gemStatusStr = <span class="keyword">this</span>.state.gemStatus ?</span><br><span class="line">            <span class="string">"activated"</span> :</span><br><span class="line">            <span class="string">"deactivated"</span>;   </span><br><span class="line">        <span class="keyword">return</span> (React.DOM.h1(<span class="literal">null</span>,</span><br><span class="line">            <span class="string">'Gem is '</span> + gemStatusStr));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="waitFor到底在等什么？">waitFor到底在等什么？</h4><p>另一个让我困惑的是TodoList例子的代码中包含了一个<code>waitFor</code>，函数式的特性被公然破坏了。情况是这样的：一个Data Store需要等待其他Data Store在特定的action被执行后完成它们的数据处理，这似乎违背了单向数据流的原则。</p>
+<p>不如让Data Store同样是可以被监听的。在<strong>Reflux</strong>中，你可以让一个Data Store直接监听另一个Data Store的change事件来处理上述情况。</p>
+<h2 id="结论">结论</h2><p>在你的ReactJS项目中试试用<strong>Reflux</strong>，它使得设置Flux架构更加简单。bower（<code>bower install reflux</code>）或者npm（<code>npm install reflux</code>）来都可以来获取到这个库。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="用ReactJS时不要使用MVC">用ReactJS时不要使用MVC</h2><p>我将通过列出一些单向数据流的例子来将ReactJS官方实现的<a href="https://github.com/facebook/flux">Flux</a>和我写的库<a href="https://github.com/spoike/refluxjs">Reflux</a>作比较。</p>
+<p>Facebook的ReactJS开发小组似乎并不待见MVC框架。将MVC模式和ReactJS结合使用了一段时间后，我似乎发现了争议从何而来了。你会遇到一个问题：你应该如何处理数据？ReactJS并不在乎太多关于数据是如何传入的或者贯穿整个Web应用去处理数据。这个几乎是一个架构层面的问题，并不是ReactJS所能涵盖的。于是Facebook中的优秀开发者提出了一个函数式的方法，他们称其为：<strong>Flux</strong>。</p>
+<p><strong>Flux</strong>的基本思想是可以在Web应用中拥有一个更加函数式的方法来处理数据。<strong>Flux</strong>介绍了Actions和Data Stores的概念来处理整个应用的事件和数据。数据流大致是这个样子的：</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Action <span class="subst">-&gt; </span><span class="built_in">Data</span> Store <span class="subst">-&gt; </span>Component</span><br></pre></td></tr></table></figure>
+<p>数据的突变必须是在调用Actions时发生的，Data Stores需要监听actions并且改变store中的数据。这让数据结构保持扁平，并让数据的改变操作始终发生在Stores中，这防止了让Components自己处理数据所带来的副作用。</p>
+<p>通过使用单向数据流，跟踪数据的改变将更加容易，因为它完全依赖于actions是如何发布的，继而影响整个应用。Components自身仅通过执行调用action来改变应用数据，这样避免了维护上的麻烦。</p>]]>
+    
+    </summary>
+    
+      <category term="react.js" scheme="http://leozdgao.github.io/tags/react-js/"/>
+    
+      <category term="JS类库探索" scheme="http://leozdgao.github.io/categories/jslibs/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[vertical-align属性与垂直居中]]></title>
